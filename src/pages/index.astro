@@ -1,33 +1,25 @@
 ---
 // Placeholder until the home page is built (docs/spec.md, section 3).
 import EtchMark from '../assets/etch-mark.svg';
+import Base from '../layouts/Base.astro';
 import { loadMedia } from '../lib/media';
-import '../styles/forge-family.css';
-import '../styles/site.css';
 
 // Validates the media manifest at build time until the home page renders it.
 loadMedia();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<title>Etch</title>
-	</head>
-	<body>
-		<main>
-			<h1>
-				<EtchMark width={32} height={32} aria-hidden="true" style="color: var(--forge-accent)" /> Etch
-			</h1>
-			<p>
-				A free VS Code extension that previews Europa Universalis IV interface mods. This site is
-				being built; Etch is on <a href="https://github.com/happy-dwarf-team/etch">GitHub</a>.
-			</p>
-			<p>
-				Etch is an unofficial community project, not affiliated with or endorsed by Paradox
-				Interactive.
-			</p>
-		</main>
-	</body>
-</html>
+<Base title="Preview Europa Universalis IV interface mods in VS Code">
+	<main>
+		<h1>
+			<EtchMark width={32} height={32} aria-hidden="true" style="color: var(--forge-accent)" /> Etch
+		</h1>
+		<p>
+			A free VS Code extension that previews Europa Universalis IV interface mods. This site is
+			being built; Etch is on <a href="https://github.com/happy-dwarf-team/etch">GitHub</a>.
+		</p>
+		<p>
+			Etch is an unofficial community project, not affiliated with or endorsed by Paradox
+			Interactive.
+		</p>
+	</main>
+</Base>
