@@ -1,0 +1,31 @@
+/*
+ * This site's own styles on top of forge-family.css. Values and contrast ratios are in
+ * DESIGN.md ("Site accent: verdigris").
+ */
+:root {
+	/* Site accent: verdigris, the patina of acid-etched copper. */
+	--forge-accent: #4fc9a8;
+	--forge-accent-strong: #7fe0c5;
+	--forge-accent-soft: #11332b;
+	--forge-on-accent: #16171a;
+}
+
+body {
+	margin: 0;
+	background: var(--forge-bg);
+	color: var(--forge-text);
+	font-family: var(--forge-font-sans);
+	font-size: 1rem;
+	line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+	font-family: var(--forge-font-mono);
+	letter-spacing: -0.02em;
+}
+
+a {
+	color: var(--forge-accent-strong);
+}
