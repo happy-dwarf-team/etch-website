@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"etch": "0.2.0",
+	"loops": {
+		"hero": {
+			"width": 1920,
+			"height": 1080,
+			"duration": 9.366,
+			"poster": "hero.png",
+			"sources": [
+				{
+					"src": "https://media.happydwarf.dev/etch/v0.2.0/hero.fd518ffc.webm",
+					"type": "video/webm; codecs=\"vp9\"",
+					"bytes": 310826
+				},
+				{
+					"src": "https://media.happydwarf.dev/etch/v0.2.0/hero.d074d9d7.mp4",
+					"type": "video/mp4; codecs=\"avc1.640028\"",
+					"bytes": 272748
+				}
+			]
+		}
+	},
+	"stills": {
+		"preview": "preview.png",
+		"pin": "pin.png",
+		"outline": "outline.png",
+		"problems": "problems.png",
+		"resolution": "resolution.png",
+		"playset": "playset.png"
+	}
+}

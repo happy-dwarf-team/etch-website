@@ -67,7 +67,7 @@ export const FEATURES: Feature[] = [
 			"Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit.",
 		captionHtml:
 			'A misspelled sprite name is reported in Problems while the rest of the window still draws.',
-		alt: 'VS Code with a squiggle under a sprite name, one Etch error in the Problems panel, and the dialog drawn without that widget.',
+		alt: 'VS Code with a squiggle under a sprite name, one Etch warning in the Problems panel, and the dialog drawn without that widget.',
 	},
 	{
 		scene: 'resolution',
