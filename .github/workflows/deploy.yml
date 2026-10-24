@@ -52,6 +52,12 @@ jobs:
       - name: Check accessibility
         run: npm run check:a11y
 
+      # HEAD to every source in src/data/media.json: 200, its media type and its byte count.
+      # Catches a typo, a missing object and a takedown without a manifest change; passes
+      # while there is no manifest yet (docs/spec.md, section 5.3).
+      - name: Check media manifest
+        run: npm run check:media
+
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         if: github.event_name != 'pull_request'
         with:
