@@ -295,8 +295,10 @@ spec section 5.
   `og:image:alt`: "Etch, interface mod preview for VS Code". **No game art** (not even a
   screenshot: a preview image travels without the disclaimer), no version, no status.
 - `favicon.svg`, `favicon.ico` (32 × 32) and `apple-touch-icon.png` (180 × 180, opaque) in
-  `public/`, rendered by one script from `etch`'s `packages/extension/media/icon.svg` recoloured
-  to verdigris, on the favicon tile. No web manifest.
+  `public/`, rendered by one script (`scripts/icons.mjs`) from `etch`'s
+  `packages/extension/media/icon.svg` recoloured to verdigris, on the favicon tile. The script
+  reads the glyph from `src/assets/etch-mark.svg` (DESIGN.md, "Mark"), which `og-image.mjs`
+  uses too. No web manifest.
 
 ### 6.3 Structured data
 
