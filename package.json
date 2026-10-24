@@ -10,6 +10,7 @@
     "check": "astro check",
     "check:links": "node scripts/check-links.mjs",
     "check:a11y": "node scripts/check-a11y.mjs",
+    "check:media": "node scripts/check-media.mjs",
     "astro": "astro"
   },
   "dependencies": {

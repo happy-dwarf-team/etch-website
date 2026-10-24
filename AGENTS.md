@@ -12,8 +12,9 @@
 - Content is English. Say nothing beyond Etch's README and v1 specification, state the source
   of every measurement and mark unverified claims. Do not imply affiliation with Paradox
   Interactive. No EU4 or Paradox logos or key art, and no game files in this repository.
-- Check `npm run check`, `npm run build`, `npm run check:links` and `npm run check:a11y`
-  before finishing a change; CI runs all four.
+- Check `npm run check`, `npm run build`, `npm run check:links`, `npm run check:a11y` and
+  `npm run check:media` before finishing a change; CI runs all five. `src/data/media.json` is
+  written by `pnpm media publish` in `etch`, never by hand.
 - The agent owns the pull request flow: it works on a branch with Conventional Commits,
   pushes it and opens the PR as a draft. Once ready (green CI, build checked, no blocking
   review findings, not put on hold by the user) it marks the PR ready and squash-merges
