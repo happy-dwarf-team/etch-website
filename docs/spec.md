@@ -126,7 +126,7 @@ README.
 | 1 | Preview as you type | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms (measured on the maintainer's machine, etch#39). | `preview` | Edit the `.gui` and the window redraws from the unsaved buffer; the widget at the cursor stays outlined. | VS Code with an unsaved etch_demo.gui on the left and Etch's preview on the right: a widened game dialog with one button outlined. |
 | 2 | The window under the cursor | The preview shows the top-level window that holds the cursor. **Pin** keeps it on one window while you edit other files. | `pin` | Pinned to the dialog while a `.gfx` file is edited: the preview keeps the window and shows the new button sprite. | VS Code with etch_demo.gfx open and Pin pressed in Etch's preview toolbar; the dialog's button shows a different sprite. |
 | 3 | Widget outline and jump to source | The Widget Outline lists the window's widgets. Click a widget in the preview to reveal its source; hover to see its path and rect. | `outline` | The Widget Outline lists the window's widgets; clicking one in the preview selects its source, hovering shows its path and rect. | VS Code with the Widget Outline in the sidebar, a widget selected in the editor, and a dashed hover box with a tooltip in Etch's preview. |
-| 4 | Diagnostics in Problems | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit. | `problems` | A misspelled sprite name is reported in Problems while the rest of the window still draws. | VS Code with a squiggle under a sprite name, one Etch error in the Problems panel, and the dialog drawn without that widget. |
+| 4 | Diagnostics in Problems | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit. | `problems` | A misspelled sprite name is reported in Problems while the rest of the window still draws. | VS Code with a squiggle under a sprite name, one Etch warning in the Problems panel, and the dialog drawn without that widget. |
 | 5 | Any resolution | The game's `settings.txt`, the monitor's, a corpus resolution from 1280×720 to 3440×1440 or any width × height. `if_resolution` blocks follow it. | `resolution` | Pick the preview resolution: the game's settings, the monitor's, a corpus resolution or any width × height; `if_resolution` blocks follow it. | VS Code with Etch's resolution picker open over an `if_resolution` block, listing default, native and the corpus resolutions. |
 | 6 | Your playset, the game's own art | Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere. | `playset` | The demo mod holds only text files; Etch draws its localised title, colours and icons with the game's own fonts and textures. | VS Code's Explorer showing a mod of .gui, .gfx, .yml and descriptor files, an unsaved localisation edit, and the retitled dialog in the preview. |
 
@@ -420,7 +420,7 @@ From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
 | `preview` | still | A frame of the hero run after step 3: unsaved `.gui`, widened dialog, button outlined. |
 | `pin` | still | `etch_demo.gfx` active with an unsaved change of the button sprite's `texturefile` to another base-game button; **Pin** pressed in the preview toolbar, which names the dialog; the preview shows the dialog with the new button art. |
 | `outline` | still | Sidebar with the Widget Outline, one widget selected; that widget's kind keyword selected in the editor, as after a click in the preview; the dashed hover box and tooltip with path and rect in the preview. |
-| `problems` | still | Bottom panel on Problems with one Etch "missing sprite" error from a misspelled sprite name; the squiggle in the editor; the preview draws the window without that widget (the scene declares `problems`). |
+| `problems` | still | Bottom panel on Problems with one Etch "missing sprite" warning from a misspelled sprite name; the squiggle in the editor; the preview draws the window without that widget (the scene declares `problems`). |
 | `resolution` | still | The quick pick of **Etch: Choose the Preview Resolution** open (default, native, the corpus resolutions, custom) with 1280×720 highlighted; the dialog's `if_resolution` block visible. |
 | `playset` | still | Explorer with the demo mod's tree (descriptor, `.gui`, `.gfx`, `.yml`); the `.yml` active with an unsaved change of the dialog's title; the preview shows the new title in the game's font, and a `§` colour and a `£` icon in the body. |
 
@@ -544,13 +544,11 @@ E6 also answers the hub's open check 1 (CORS on a cache hit filled without `Orig
 
 ## 11. Not verified
 
-- Real encode sizes of these scenes (#15 measured a calmer 15 s clip), the poster as LCP, and
-  sharpness of stills at actual size.
+- The poster as LCP and sharpness of stills at actual size. (Encode sizes were measured on the
+  first media refresh, Etch 0.2.0: the hero loop is 9.4 s, 311 KB WebM and 273 KB MP4.)
 - That the Widget Outline and editor stay readable at 1280 CSS px with the sidebar open (the
   editor drops to about 35 characters), and that the arrow-key cursor move and the hover tooltip
   look as described in a recording.
 - Headless or locked-screen capture, Windows display scaling other than 100 %.
-- `IfNoneMatch` through `@aws-sdk/client-s3` against R2 and the `HEAD` check's headers through
-  `media.happydwarf.dev` are untested until the bucket exists.
 - All copy is a draft; verdigris contrast is computed, not measured in a browser.
 - Our reading of the Paradox User Agreement has not been confirmed by Paradox or a lawyer.
