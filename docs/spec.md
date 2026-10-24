@@ -193,7 +193,7 @@ From [#8](https://github.com/happy-dwarf-team/.github/issues/8),
 - **Text description** in the `figcaption`, tied to the video with `aria-describedby`
   (WCAG 1.2.1, video-only content); no captions track. Draft, from #19:
 
-  > **Demo loop, 10 s, silent.** In VS Code, `etch_demo.gui` is open beside Etch's preview of a
+  > **Demo loop, 9 s, silent.** In VS Code, `etch_demo.gui` is open beside Etch's preview of a
   > game dialog. One keystroke widens the dialog's background and the frame redraws at once; the
   > cursor moves to a button, the outline follows it, and a second keystroke moves the button
   > into the new space. Two undos return the window to where it started.

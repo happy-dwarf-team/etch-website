@@ -17,7 +17,7 @@ export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam)', 'No telemetry'];
 
 export const LOOP = {
-	lead: 'Demo loop, 10 s, silent.',
+	lead: 'Demo loop, 9 s, silent.',
 	descriptionHtml:
 		"In VS Code, <code>etch_demo.gui</code> is open beside Etch's preview of a game dialog. One keystroke widens the dialog's background and the frame redraws at once; the cursor moves to a button, the outline follows it, and a second keystroke moves the button into the new space. Two undos return the window to where it started.",
 	posterAlt:
