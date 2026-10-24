@@ -1,0 +1,204 @@
+---
+// The lightbox (docs/spec.md, section 4.2; DESIGN.md, "Lightbox"): a native <dialog> with the
+// enlarged still, Previous / Next and the arrow keys, "n of 6", the caption and the "Actual
+// size" toggle. Esc or Close returns focus to the still that opened it. It reads each still's
+// sources, alt and caption from the feature tour's Enlarge buttons.
+interface Props {
+	count: number;
+}
+
+const { count } = Astro.props;
+---
+
+<dialog class="lightbox" aria-labelledby="lightbox-caption" data-lightbox>
+	<div class="view" tabindex="-1">
+		<img alt="" decoding="async" />
+	</div>
+	<div class="bar">
+		<p id="lightbox-caption">
+			<span class="count">1 of {count}</span>
+			<span class="caption"></span>
+		</p>
+		<div class="controls">
+			<button type="button" class="media-control" data-action="actual" aria-pressed="false">
+				Actual size
+			</button>
+			<button type="button" class="media-control" data-action="previous">
+				<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+					<path fill="none" stroke="currentColor" stroke-width="1.8" d="M10 3 5 8l5 5"></path>
+				</svg>
+				Previous
+			</button>
+			<button type="button" class="media-control" data-action="next">
+				Next
+				<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+					<path fill="none" stroke="currentColor" stroke-width="1.8" d="m6 3 5 5-5 5"></path>
+				</svg>
+			</button>
+			<button type="button" class="media-control" data-action="close">Close</button>
+		</div>
+	</div>
+</dialog>
+
+<style>
+	.lightbox {
+		width: min(100rem, 100vw - 1.5rem);
+		max-width: none;
+		max-height: calc(100dvh - 1.5rem);
+		padding: 0;
+		overflow: hidden;
+		border: 1px solid var(--forge-border);
+		border-radius: var(--forge-radius);
+		background: var(--forge-bg);
+		color: var(--forge-text);
+	}
+
+	.lightbox[open] {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.lightbox::backdrop {
+		background: rgb(0 0 0 / 0.82);
+	}
+
+	.view {
+		display: grid;
+		place-items: center;
+		flex: 1 1 auto;
+		min-height: 0;
+		overflow: hidden;
+		background: #111214;
+	}
+
+	.view img {
+		width: auto;
+		max-width: 100%;
+		max-height: calc(100dvh - 1.5rem - 7.5rem);
+		object-fit: contain;
+	}
+
+	/* Actual size: the still's native pixels, scrolled in both directions. */
+	.view.actual {
+		display: block;
+		overflow: auto;
+		overscroll-behavior: contain;
+	}
+
+	.view.actual img {
+		max-width: none;
+		max-height: none;
+	}
+
+	.bar {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 1rem;
+		padding: 0.625rem;
+		border-top: 1px solid var(--forge-border);
+	}
+
+	.bar p {
+		flex: 1 1 18rem;
+		margin-left: 0.375rem;
+		font-size: 0.9rem;
+	}
+
+	.count {
+		margin-right: 0.5rem;
+		color: var(--forge-accent-strong);
+		font-family: var(--forge-font-mono);
+		font-size: 0.85em;
+		white-space: nowrap;
+	}
+
+	.controls {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+	}
+
+	.controls [aria-pressed='true'] {
+		border-color: var(--forge-accent);
+		background: var(--forge-accent-soft);
+		color: var(--forge-accent-strong);
+	}
+</style>
+
+<script>
+	// The lightbox controller (DESIGN.md, "Client JavaScript").
+	const dialog = document.querySelector<HTMLDialogElement>('[data-lightbox]');
+	const openers = [...document.querySelectorAll<HTMLButtonElement>('[data-lightbox-index]')];
+
+	if (dialog && openers.length) {
+		const view = dialog.querySelector<HTMLElement>('.view')!;
+		const image = view.querySelector('img')!;
+		const count = dialog.querySelector('.count')!;
+		const caption = dialog.querySelector('.caption')!;
+		const actual = dialog.querySelector<HTMLButtonElement>('[data-action="actual"]')!;
+		let index = 0;
+		let opener: HTMLButtonElement | null = null;
+
+		const show = (i: number) => {
+			index = (i + openers.length) % openers.length;
+			const { srcset = '', src = '', full = '', alt = '' } = openers[index].dataset;
+			const native = actual.getAttribute('aria-pressed') === 'true';
+			image.srcset = native ? '' : srcset;
+			image.sizes = native ? '' : '100vw';
+			image.src = native ? full : src;
+			image.alt = alt;
+			count.textContent = `${index + 1} of ${openers.length}`;
+			caption.innerHTML = document.getElementById(
+				openers[index].getAttribute('aria-describedby') ?? '',
+			)!.innerHTML;
+			view.scrollTo(0, 0);
+		};
+
+		// The close event also covers Esc; focusing here as well does not wait for it.
+		const close = () => {
+			dialog.close();
+			opener?.focus();
+		};
+
+		const setActual = (on: boolean) => {
+			actual.setAttribute('aria-pressed', String(on));
+			view.classList.toggle('actual', on);
+			// The actual-size view scrolls, so it takes focus for the keyboard.
+			view.tabIndex = on ? 0 : -1;
+			show(index);
+		};
+
+		for (const button of openers) {
+			button.addEventListener('click', () => {
+				opener = button;
+				setActual(false);
+				show(Number(button.dataset.lightboxIndex));
+				dialog.showModal();
+				dialog.querySelector<HTMLButtonElement>('[data-action="close"]')!.focus();
+			});
+		}
+
+		dialog.addEventListener('click', (event) => {
+			const target = event.target as HTMLElement;
+			// A click on the backdrop lands on the dialog itself.
+			if (target === dialog) return close();
+			const action = target.closest<HTMLElement>('[data-action]')?.dataset.action;
+			if (action === 'previous') show(index - 1);
+			else if (action === 'next') show(index + 1);
+			else if (action === 'actual') setActual(actual.getAttribute('aria-pressed') !== 'true');
+			else if (action === 'close') close();
+		});
+
+		dialog.addEventListener('keydown', (event) => {
+			// In the actual-size view the arrow keys scroll the image instead.
+			if (event.target === view && view.classList.contains('actual')) return;
+			if (event.key === 'ArrowLeft') show(index - 1);
+			else if (event.key === 'ArrowRight') show(index + 1);
+			else return;
+			event.preventDefault();
+		});
+
+		dialog.addEventListener('close', () => opener?.focus());
+	}
+</script>

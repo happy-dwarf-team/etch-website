@@ -1,0 +1,106 @@
+---
+// The footer on every page, 404 included (docs/spec.md, section 7): the family marker, Etch's
+// links and the three-line disclaimer, since the site shows EU4 interface art.
+import glyph from '../assets/happy-dwarf-glyph.svg?raw';
+import { REPO_URL } from '../lib/content';
+
+const links = [
+	{ href: REPO_URL, label: 'Source' },
+	{ href: `${REPO_URL}/blob/main/CHANGELOG.md`, label: 'Changelog' },
+	{ href: `${REPO_URL}/issues`, label: 'Issues' },
+	{ href: `${REPO_URL}/blob/main/LICENSE`, label: 'MIT' },
+];
+---
+
+<footer class="site-footer">
+	<div class="wrap">
+		<a class="family" href="https://happydwarf.dev/">
+			<span class="glyph" aria-hidden="true" set:html={glyph} />
+			A Happy Dwarf project
+		</a>
+		<ul class="links">
+			{
+				links.map(({ href, label }) => (
+					<li>
+						<a href={href}>{label}</a>
+					</li>
+				))
+			}
+		</ul>
+		<p class="disclaimer">
+			Etch is an unofficial community project, not affiliated with or endorsed by Paradox
+			Interactive. Europa Universalis and Paradox Interactive are trademarks or registered
+			trademarks of Paradox Interactive AB. Game interface art in screenshots and recordings is ©
+			Paradox Interactive AB, rendered from a local copy of the game; Etch does not include or
+			distribute game files.
+		</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		margin-top: 4rem;
+		border-top: 1px solid var(--forge-border);
+	}
+
+	.wrap {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.75rem 2rem;
+		padding-block: 2rem calc(2.5rem + env(safe-area-inset-bottom, 0px));
+		color: var(--forge-text-muted);
+		font-size: 0.875rem;
+	}
+
+	.family {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.6rem;
+		min-height: 44px;
+		color: var(--forge-text);
+		text-decoration: none;
+	}
+
+	.family:hover {
+		text-decoration: underline;
+	}
+
+	/* The team mark keeps the organization's forge orange (hub DESIGN.md, "Marks"). */
+	.glyph {
+		display: inline-flex;
+		color: #f5922a;
+	}
+
+	.glyph :global(svg) {
+		width: 1.5rem;
+		height: 1.5rem;
+	}
+
+	.links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 1.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.links a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		color: var(--forge-text-muted);
+	}
+
+	.links a:hover {
+		color: var(--forge-text);
+	}
+
+	.disclaimer {
+		flex-basis: 100%;
+		max-width: 52rem;
+		font-size: 0.8125rem;
+	}
+</style>

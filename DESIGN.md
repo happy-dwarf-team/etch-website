@@ -85,6 +85,8 @@ A 16:9 `figure` with the video, the Pause/Play button and the text description i
   can play, with a text label for screen readers.
 - The `figcaption` carries the bold lead "Demo loop, 10 s, silent." and the description; it is
   tied to the video with `aria-describedby`.
+- Without JavaScript the button stays hidden and the poster stays; the same holds for the
+  Copy button, which leaves the command to be selected by hand.
 
 ### Screenshot figure
 

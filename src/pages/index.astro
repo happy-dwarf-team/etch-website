@@ -1,25 +1,210 @@
 ---
-// Placeholder until the home page is built (docs/spec.md, section 3).
-import EtchMark from '../assets/etch-mark.svg';
+// The home page (docs/spec.md, section 3.1): split hero with the demo loop, install band,
+// feature tour with the "does not do yet" box, roadmap. Header and footer come from Base.
+import { getImage } from 'astro:assets';
+import CopyCommand from '../components/CopyCommand.astro';
+import DemoLoop from '../components/DemoLoop.astro';
+import FeatureTour from '../components/FeatureTour.astro';
+import Roadmap from '../components/Roadmap.astro';
 import Base from '../layouts/Base.astro';
+import {
+	INSTALL_COMMAND,
+	LIMITS,
+	MARKETPLACE_URL,
+	OPEN_VSX_URL,
+	README_URL,
+	REQUIREMENTS,
+	V1_SPEC_URL,
+} from '../lib/content';
 import { loadMedia } from '../lib/media';
+import { getLatestVersion } from '../lib/release';
 
-// Validates the media manifest at build time until the home page renders it.
-loadMedia();
+// Undefined until the first media refresh: the loop and the stills render unavailable.
+const media = loadMedia();
+const hero = media?.loops.hero;
+// The poster is the LCP image: one same-origin WebP, preloaded in the head.
+const poster = hero && (await getImage({ src: hero.poster, width: 1280, format: 'webp' }));
+const version = await getLatestVersion();
 ---
 
 <Base title="Preview Europa Universalis IV interface mods in VS Code">
-	<main>
-		<h1>
-			<EtchMark width={32} height={32} aria-hidden="true" style="color: var(--forge-accent)" /> Etch
-		</h1>
-		<p>
-			A free VS Code extension that previews Europa Universalis IV interface mods. This site is
-			being built; Etch is on <a href="https://github.com/happy-dwarf-team/etch">GitHub</a>.
+	{
+		poster && (
+			<link slot="head" rel="preload" as="image" href={poster.src} fetchpriority="high" />
+		)
+	}
+
+	<section class="hero wrap">
+		<div class="hero-text">
+			<p class="eyebrow">EU4 interface mods · VS Code</p>
+			<h1>Edit the <code>.gui</code>. Watch the window.</h1>
+			<p class="lead">
+				Etch draws the interface window under your cursor from the unsaved editor
+				buffer, with the game's own textures, fonts and localisation.
+			</p>
+			<div class="buttons">
+				<a class="button primary" href={MARKETPLACE_URL}>Install from VS Code Marketplace</a>
+				<a class="button" href={OPEN_VSX_URL}>Open VSX</a>
+			</div>
+			<ul class="requirements" aria-label="Requirements">
+				{REQUIREMENTS.map((r) => <li>{r}</li>)}
+			</ul>
+		</div>
+		<DemoLoop loop={hero} poster={poster} />
+	</section>
+
+	<section class="install" id="install" aria-labelledby="install-title">
+		<div class="wrap">
+			<div>
+				<h2 id="install-title">Install in one line</h2>
+				<p class="muted">
+					Then open a <code>.gui</code> and run <strong>Etch: Open Preview</strong>. The full guide
+					is in the <a href={README_URL}>extension README</a>.
+				</p>
+			</div>
+			<CopyCommand command={INSTALL_COMMAND} />
+		</div>
+	</section>
+
+	<section class="section wrap" id="features" aria-labelledby="features-title">
+		<p class="eyebrow">Features</p>
+		<h2 id="features-title">What the offline preview does</h2>
+		<FeatureTour stills={media?.stills} />
+		<div class="limits">
+			<h3>{version ? `What ${version} does not do yet` : 'What Etch does not do yet'}</h3>
+			<ul>
+				{LIMITS.map((l) => <li>{l}</li>)}
+			</ul>
+		</div>
+	</section>
+
+	<section class="section wrap roadmap" id="roadmap" aria-labelledby="roadmap-title">
+		<p class="eyebrow">Roadmap</p>
+		<h2 id="roadmap-title">Preview now, 1.0.0 later</h2>
+		<p class="muted">
+			Etch is a preview release. The plan for 1.0.0 is the <a href={V1_SPEC_URL}>v1 specification</a>;
+			version numbers are indicative.
 		</p>
-		<p>
-			Etch is an unofficial community project, not affiliated with or endorsed by Paradox
-			Interactive.
-		</p>
-	</main>
+		<Roadmap />
+	</section>
 </Base>
+
+<style>
+	h1 {
+		margin-bottom: 0.75rem;
+		font-size: clamp(1.75rem, 3.2vw + 0.9rem, 3.1rem);
+	}
+
+	h1 code {
+		padding: 0 0.2em;
+		border: 0;
+		background: var(--forge-accent-soft);
+		color: var(--forge-accent-strong);
+		font-size: 0.9em;
+	}
+
+	h2 {
+		margin-bottom: 0.75rem;
+		font-size: clamp(1.4rem, 1.8vw + 0.8rem, 2rem);
+	}
+
+	.hero {
+		display: grid;
+		gap: 1.5rem;
+		align-items: center;
+		padding-block: 1.5rem 3rem;
+	}
+
+	/* Text 5/12 and the loop 7/12 from 980 px; stacked, text first, below that. */
+	@media (min-width: 980px) {
+		.hero {
+			grid-template-columns: 5fr 7fr;
+			gap: 3rem;
+			padding-block: 4.5rem 5rem;
+		}
+	}
+
+	.lead {
+		margin-bottom: 1.25rem;
+		color: var(--forge-text-muted);
+		font-size: 1.05rem;
+	}
+
+	@media (min-width: 980px) {
+		.lead {
+			font-size: 1.1rem;
+		}
+	}
+
+	.buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.625rem;
+	}
+
+	.requirements {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.25rem 1.1rem;
+		margin: 1rem 0 0;
+		padding: 0;
+		color: var(--forge-text-muted);
+		font: 500 0.82rem/1.5 var(--forge-font-mono);
+		list-style: none;
+	}
+
+	.requirements li::before {
+		content: '· ';
+		color: var(--forge-accent);
+	}
+
+	.install {
+		border-block: 1px solid var(--forge-border);
+		background: var(--forge-surface);
+	}
+
+	.install .wrap {
+		display: grid;
+		gap: 1rem;
+		align-items: center;
+		padding-block: 2rem;
+	}
+
+	@media (min-width: 860px) {
+		.install .wrap {
+			grid-template-columns: minmax(0, 1fr) minmax(0, auto);
+			gap: 2.5rem;
+		}
+	}
+
+	.install h2 {
+		margin-bottom: 0.25rem;
+		font-size: 1.2rem;
+	}
+
+	.section {
+		padding-block: clamp(3rem, 7vw, 5.5rem) 0;
+	}
+
+	.limits {
+		margin-top: 3rem;
+		padding: 1.25rem 1.5rem;
+		border-left: 3px solid var(--forge-accent);
+		border-radius: 0 var(--forge-radius) var(--forge-radius) 0;
+		background: var(--forge-surface);
+	}
+
+	.limits h3 {
+		margin-bottom: 0.5rem;
+		font-size: 1.05rem;
+	}
+
+	.limits ul {
+		margin: 0;
+		padding-left: 1.1em;
+	}
+
+	.roadmap {
+		max-width: 52rem;
+	}
+</style>

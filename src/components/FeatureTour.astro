@@ -1,0 +1,181 @@
+---
+// The feature tour (docs/spec.md, section 3.2; DESIGN.md, "Screenshot figure"): six numbered
+// rows, each a short text beside its still, sides alternating from 860 px. Each still sits in
+// a button with a visible Enlarge chip that opens the lightbox; without the media manifest the
+// figures show their unavailable state and there is nothing to enlarge.
+import { getImage, Picture } from 'astro:assets';
+import EtchMark from '../assets/etch-mark.svg';
+import { FEATURES } from '../lib/content';
+import type { Media } from '../lib/media';
+import Lightbox from './Lightbox.astro';
+
+interface Props {
+	stills?: Media['stills'];
+}
+
+const { stills } = Astro.props;
+
+// The lightbox's fit-to-screen sources; "Actual size" shows the original 2560 × 1440 PNG.
+const lightboxSources = await Promise.all(
+	FEATURES.map(async ({ scene }) => {
+		const still = stills?.[scene];
+		if (!still) return undefined;
+		const fit = await getImage({ src: still, widths: [1280, 1920, 2560], format: 'webp' });
+		return { srcset: fit.srcSet.attribute, src: fit.src, full: still.src };
+	}),
+);
+---
+
+<ol class="tour">
+	{
+		FEATURES.map((feature, i) => {
+			const still = stills?.[feature.scene];
+			const sources = lightboxSources[i];
+			const number = String(i + 1).padStart(2, '0');
+			return (
+				<li class="row">
+					<div class="text">
+						<p class="eyebrow" aria-hidden="true">
+							{number}
+						</p>
+						<h3>{feature.title}</h3>
+						<p class="muted" set:html={feature.textHtml} />
+					</div>
+					<figure class="still">
+						{still && sources ? (
+							<button
+								type="button"
+								class="enlarge"
+								data-lightbox-index={i}
+								data-srcset={sources.srcset}
+								data-src={sources.src}
+								data-full={sources.full}
+								data-alt={feature.alt}
+								aria-label={`Enlarge screenshot: ${feature.title}`}
+								aria-describedby={`still-${feature.scene}-caption`}
+							>
+								<span class="media-box">
+									<Picture
+										src={still}
+										alt={feature.alt}
+										formats={['avif']}
+										fallbackFormat="webp"
+										widths={[640, 960, 1300, 1920]}
+										sizes="(min-width: 1200px) 650px, (min-width: 860px) 55vw, calc(100vw - 32px)"
+										loading="lazy"
+										decoding="async"
+									/>
+								</span>
+								<span class="media-control chip" aria-hidden="true">
+									<svg viewBox="0 0 16 16" focusable="false">
+										<circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+										<path d="M10.3 10.3 14 14M5 7h4M7 5v4" stroke="currentColor" stroke-width="1.8" />
+									</svg>
+									Enlarge
+								</span>
+							</button>
+						) : (
+							<div class="media-box">
+								<div class="media-unavailable">
+									<EtchMark aria-hidden="true" focusable="false" />
+									<p>Screenshot not published yet</p>
+								</div>
+							</div>
+						)}
+						<figcaption id={`still-${feature.scene}-caption`} set:html={feature.captionHtml} />
+					</figure>
+				</li>
+			);
+		})
+	}
+</ol>
+{stills && <Lightbox count={FEATURES.length} />}
+
+<style>
+	.tour {
+		display: grid;
+		gap: clamp(2.5rem, 6vw, 4.5rem);
+		margin: 2rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.row {
+		display: grid;
+		gap: 1.25rem;
+		align-items: center;
+	}
+
+	@media (min-width: 860px) {
+		.row {
+			grid-template-columns: 1fr 1.4fr;
+			gap: 2.5rem;
+		}
+
+		/* The still keeps the wider column on either side. */
+		.row:nth-child(even) {
+			grid-template-columns: 1.4fr 1fr;
+		}
+
+		.row:nth-child(even) > .text {
+			order: 2;
+		}
+	}
+
+	h3 {
+		margin-bottom: 0.5rem;
+		font-size: 1.35rem;
+	}
+
+	.text :global(.source) {
+		font-size: 0.9em;
+	}
+
+	.enlarge {
+		position: relative;
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: 0;
+		border-radius: var(--forge-radius);
+		background: none;
+		color: inherit;
+		text-align: inherit;
+		cursor: zoom-in;
+	}
+
+	.enlarge .media-box {
+		display: block;
+		transition: border-color 180ms var(--forge-ease);
+	}
+
+	/* A display: block button does not stretch the image inside it (DESIGN.md). */
+	.enlarge :global(img) {
+		width: 100%;
+	}
+
+	.enlarge:hover .media-box {
+		border-color: var(--forge-accent);
+	}
+
+	.enlarge:focus-visible {
+		outline-offset: 3px;
+	}
+
+	.chip {
+		position: absolute;
+		right: 0.625rem;
+		bottom: 0.625rem;
+		pointer-events: none;
+	}
+
+	.enlarge:hover .chip {
+		border-color: var(--forge-accent);
+	}
+
+	figcaption {
+		margin-top: 0.5rem;
+		color: var(--forge-text-muted);
+		font-size: 0.875rem;
+	}
+</style>

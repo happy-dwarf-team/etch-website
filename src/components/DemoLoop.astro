@@ -1,0 +1,191 @@
+---
+// The hero's demo loop (docs/spec.md, section 4.1; DESIGN.md, "Demo loop"): a 16:9 figure
+// with the silent video, the Pause/Play button and the text description. The controller
+// below plays it only when it may; without the media manifest the figure shows its
+// unavailable state. The poster's preload link is in index.astro's head.
+import type { GetImageResult } from 'astro';
+import EtchMark from '../assets/etch-mark.svg';
+import { LOOP } from '../lib/content';
+import type { Loop } from '../lib/media';
+
+interface Props {
+	loop?: Loop;
+	/** The poster as rendered by getImage(), the same URL the head preloads. */
+	poster?: GetImageResult;
+}
+
+const { loop, poster } = Astro.props;
+---
+
+<figure class="demo-loop" data-demo-loop data-state={loop ? 'poster' : 'unavailable'}>
+	<div class="media-box">
+		{
+			loop && poster ? (
+				<video
+					muted
+					loop
+					playsinline
+					preload="none"
+					poster={poster.src}
+					width={loop.width}
+					height={loop.height}
+					aria-label={LOOP.posterAlt}
+					aria-describedby="demo-loop-description"
+				>
+					{loop.sources.map(({ src, type }) => (
+						<source src={src} type={type} />
+					))}
+				</video>
+			) : (
+				<div class="media-unavailable">
+					<EtchMark aria-hidden="true" focusable="false" />
+					<p>Demo loop not published yet</p>
+				</div>
+			)
+		}
+		{
+			loop && (
+				<button type="button" class="media-control toggle" hidden>
+					<svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+						<path fill="currentColor" d="M4 2.5v11l9-5.5z" />
+					</svg>
+					<svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+						<path fill="currentColor" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z" />
+					</svg>
+					<span class="label">Play</span>
+					<span class="sr-only"> the demo loop</span>
+				</button>
+			)
+		}
+	</div>
+	<figcaption id="demo-loop-description">
+		<strong>{LOOP.lead}</strong>{' '}
+		<Fragment set:html={LOOP.descriptionHtml} />
+	</figcaption>
+</figure>
+
+<style>
+	.media-box {
+		box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.8);
+	}
+
+	.toggle {
+		position: absolute;
+		right: 0.625rem;
+		bottom: 0.625rem;
+	}
+
+	.toggle[hidden] {
+		display: none;
+	}
+
+	.icon-pause,
+	[data-playing] .icon-play {
+		display: none;
+	}
+
+	[data-playing] .icon-pause {
+		display: block;
+	}
+
+	figcaption {
+		margin-top: 0.625rem;
+		color: var(--forge-text-muted);
+		font-size: 0.9rem;
+	}
+
+	figcaption strong {
+		color: var(--forge-text);
+		font-weight: 600;
+	}
+</style>
+
+<script>
+	// The loop controller (DESIGN.md, "Client JavaScript"). It plays the loop only with no
+	// reduced-motion preference, without Save-Data and while at least half of it is in view in
+	// a visible tab; it pauses otherwise and resumes on return. Reduced motion and Save-Data
+	// leave the poster and a Play button. A refused play() stays on the poster; a source that
+	// fails to load leaves the poster and the description (the unavailable state).
+	type State = 'poster' | 'loading' | 'playing' | 'paused' | 'offscreen' | 'unavailable';
+
+	for (const figure of document.querySelectorAll<HTMLElement>('[data-demo-loop]')) {
+		const video = figure.querySelector('video');
+		const button = figure.querySelector<HTMLButtonElement>('.toggle');
+		if (!video || !button) continue;
+		const label = button.querySelector('.label')!;
+		const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+		const saveData = () =>
+			(navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData ===
+			true;
+
+		video.muted = true;
+		let inView = false;
+		// What the visitor asked for with the button; null until they press it.
+		let wants: 'play' | 'pause' | null = null;
+		let started = false;
+
+		const setState = (state: State) => {
+			figure.dataset.state = state;
+			const playing = state === 'playing' || state === 'loading';
+			figure.toggleAttribute('data-playing', playing);
+			label.textContent = playing ? 'Pause' : 'Play';
+			button.hidden = state === 'unavailable';
+		};
+
+		const play = () => {
+			if (figure.dataset.state === 'unavailable') return;
+			setState(video.readyState >= 3 ? 'playing' : 'loading');
+			video.play().then(
+				() => {
+					started = true;
+					setState('playing');
+				},
+				(error: DOMException) => {
+					// NotAllowedError: the browser refused playback; AbortError: pause() came first.
+					if (error.name === 'NotAllowedError') setState(started ? 'paused' : 'poster');
+					else if (error.name !== 'AbortError') setState('unavailable');
+				},
+			);
+		};
+
+		const pause = (state: State) => {
+			video.pause();
+			if (figure.dataset.state !== 'unavailable') setState(started ? state : 'poster');
+		};
+
+		const decide = () => {
+			if (figure.dataset.state === 'unavailable') return;
+			const mayAutoplay = !reducedMotion.matches && !saveData();
+			if (wants === 'pause' || (wants === null && !mayAutoplay)) pause('paused');
+			else if (!inView || document.hidden) pause('offscreen');
+			else if (video.paused) play();
+		};
+
+		button.addEventListener('click', () => {
+			if (figure.dataset.playing !== undefined) {
+				wants = 'pause';
+				pause('paused');
+			} else {
+				wants = 'play';
+				play();
+			}
+		});
+
+		// The last source's error means none could be played.
+		const sources = video.querySelectorAll('source');
+		sources[sources.length - 1]?.addEventListener('error', () => setState('unavailable'));
+		video.addEventListener('error', () => setState('unavailable'));
+
+		new IntersectionObserver(
+			([entry]) => {
+				inView = entry.intersectionRatio >= 0.5;
+				decide();
+			},
+			{ threshold: [0, 0.5, 1] },
+		).observe(figure.querySelector('.media-box')!);
+		document.addEventListener('visibilitychange', decide);
+		reducedMotion.addEventListener('change', decide);
+
+		setState('poster');
+	}
+</script>
