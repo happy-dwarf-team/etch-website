@@ -1,0 +1,86 @@
+---
+// The copy-command box (DESIGN.md, "Copy-command box"): the install command in mono with a
+// Copy button. The button appears only with JavaScript; it reads "Copied" for about 1.5 s,
+// and if the clipboard is refused it selects the command instead.
+interface Props {
+	command: string;
+}
+
+const { command } = Astro.props;
+---
+
+<div class="command" data-copy-command>
+	<code>{command}</code>
+	<button type="button" class="copy" hidden>Copy</button>
+	<span class="sr-only" role="status"></span>
+</div>
+
+<style>
+	.command {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		min-width: 0;
+		padding: 0.375rem 0.375rem 0.375rem 0.875rem;
+		border: 1px solid var(--forge-border);
+		border-radius: 0.6rem;
+		background: var(--forge-bg);
+	}
+
+	code {
+		flex: 1;
+		min-width: 0;
+		padding: 0.5rem 0;
+		overflow-x: auto;
+		border: 0;
+		background: none;
+		font-size: 0.875rem;
+		white-space: nowrap;
+		scrollbar-width: thin;
+	}
+
+	.copy {
+		flex: none;
+		min-width: 4.75rem;
+		min-height: 44px;
+		padding: 0 0.9rem;
+		border: 1px solid var(--forge-border);
+		border-radius: 0.45rem;
+		background: var(--forge-surface-raised);
+		color: var(--forge-text);
+		font-size: 0.875rem;
+		font-weight: 600;
+		cursor: pointer;
+		transition: border-color 160ms var(--forge-ease);
+	}
+
+	.copy:hover {
+		border-color: var(--forge-accent);
+	}
+</style>
+
+<script>
+	// The copy button (DESIGN.md, "Client JavaScript").
+	for (const box of document.querySelectorAll<HTMLElement>('[data-copy-command]')) {
+		const code = box.querySelector('code')!;
+		const button = box.querySelector<HTMLButtonElement>('.copy')!;
+		const status = box.querySelector('[role="status"]')!;
+		let timer: number | undefined;
+		button.hidden = false;
+		button.addEventListener('click', async () => {
+			try {
+				await navigator.clipboard.writeText(code.textContent ?? '');
+				button.textContent = 'Copied';
+				status.textContent = 'Command copied';
+				clearTimeout(timer);
+				timer = window.setTimeout(() => {
+					button.textContent = 'Copy';
+					status.textContent = '';
+				}, 1500);
+			} catch {
+				getSelection()?.selectAllChildren(code);
+				status.textContent = 'Command selected; copy it with Ctrl+C';
+			}
+		});
+	}
+</script>

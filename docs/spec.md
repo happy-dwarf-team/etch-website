@@ -108,7 +108,7 @@ Differences from the hub:
 3. **Install band**, one line: `code --install-extension happy-dwarf-team.etch` with a **Copy**
    button, "open a `.gui` and run **Etch: Open Preview**", and a link to the extension README.
 4. **Features (M1) as a tour:** six numbered rows, each a short text beside its own screenshot
-   (section 3.2), then a box **"What 0.1.0 does not do yet"** (section 3.3).
+   (section 3.2), then a box **"What 0.2.0 does not do yet"** (section 3.3).
 5. **Roadmap:** a vertical timeline (section 3.5).
 6. **Footer** (section 7).
 
@@ -132,9 +132,11 @@ README.
 
 Each still's Enlarge button is labelled "Enlarge screenshot: " plus the feature's title.
 
-### 3.3 "What 0.1.0 does not do yet"
+### 3.3 "What 0.2.0 does not do yet"
 
-Drafts, following the extension README:
+The version in the title is the latest `etch` release, from the same build-time fetch as the
+badge; without it the title reads "What Etch does not do yet". Drafts, following the extension
+README:
 
 - A layout preview: content the game's code fills in (lists, flags, values) is not shown.
 - Preview only: you edit in VS Code's own text editor, not in the preview.
