@@ -289,8 +289,9 @@ spec section 5.
 ### 6.2 Social preview image and favicons
 
 - `public/og.png` (1200 × 630), static and committed, rendered by `scripts/og-image.mjs` with
-  `sharp`: `#16171a` background, the Etch mark in verdigris `#4fc9a8` on its tile, "ETCH" in
-  mono, two lines "Interface mod preview / for VS Code" in `--forge-text-muted`,
+  `sharp`: `#16171a` background, the Etch mark in verdigris `#4fc9a8` on a tile shaped like the
+  favicon tile but in `--forge-surface` `#1f2024` (a `#16171a` tile would not show on the
+  background), "ETCH" in mono, two lines "Interface mod preview / for VS Code" in `--forge-text-muted`,
   `etch.happydwarf.dev` in verdigris, an 8 px verdigris bar along the bottom.
   `og:image:alt`: "Etch, interface mod preview for VS Code". **No game art** (not even a
   screenshot: a preview image travels without the disclaimer), no version, no status.
