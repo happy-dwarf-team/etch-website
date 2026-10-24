@@ -481,8 +481,8 @@ From [#17](https://github.com/happy-dwarf-team/.github/issues/17) and
 
 ### 8.9 Media refresh
 
-- A **media refresh** is run by the Etch maintainer (today @s-tyda) on their Windows machine with
-  EU4 1.37.5, the only place with the game and the upload token. It is due after an Etch release
+- A **media refresh** is run by the Etch maintainer (today @s-tyda) on a Windows machine with
+  EU4 1.37.5 and that machine's own upload token (hub spec 7.4). It is due after an Etch release
   that changes what any scene shows, not after every release; the site keeps the last refreshed
   set, whose Etch version the manifest records.
 - The checklist is `etch/docs/media.md`. **Its first item:** compare the Paradox User
