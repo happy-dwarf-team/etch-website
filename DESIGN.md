@@ -12,6 +12,9 @@ and its `src/styles/forge-family.css`
 
 - `src/styles/forge-family.css` here is a **verbatim copy** with a header naming the source
   repository and commit. Do not edit it; change the source and copy it again.
+  It imports the fonts from `@fontsource-variable/ibm-plex-sans` and
+  `@fontsource-variable/jetbrains-mono`, both installed here. The site accent and the site's
+  own base styles live in `src/styles/site.css`.
 - Everything the family defines applies unchanged: neutrals, `--forge-radius`, `--forge-ease`,
   IBM Plex Sans and JetBrains Mono through Fontsource, motion rules, icon grammar, the
   accessibility checklist, the favicon tile.
@@ -39,6 +42,9 @@ current milestone.
 - Etch's mark is the extension's glyph (window plus etching stylus, `etch`'s
   `packages/extension/media/icon.svg`), **recoloured to verdigris**, with the "ETCH" wordmark in
   JetBrains Mono, uppercase.
+- `src/assets/etch-mark.svg` is that glyph without its tile, drawn in `currentColor` (the icon
+  grammar), with a comment naming the source commit; the page sets its colour to
+  `--forge-accent`. Favicons put it on the family's favicon tile.
 - The footer carries the **family marker**: the small team mark with "A Happy Dwarf project",
   linking to `https://happydwarf.dev/`.
 
