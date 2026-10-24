@@ -11,13 +11,13 @@ const mark = readFileSync(new URL('../src/assets/etch-mark.svg', import.meta.url
 	.replace(/<!--[\s\S]*?-->/g, '')
 	.replaceAll('currentColor', '#4fc9a8');
 
-// Colours are the --forge-* tokens and the site accent from DESIGN.md. The tile is the
-// favicon tile (#16171a, rx 6 on the 32 grid), the same colour as the background.
+// Colours are the --forge-* tokens and the site accent from DESIGN.md. The tile has the
+// favicon tile's shape (rx 6 on the 32 grid) in --forge-surface, so it shows on the background.
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
 	<rect width="1200" height="630" fill="#16171a"/>
 	<rect y="622" width="1200" height="8" fill="#4fc9a8"/>
 	<g transform="translate(96 206) scale(9)">
-		<rect width="32" height="32" rx="6" fill="#16171a"/>
+		<rect width="32" height="32" rx="6" fill="#1f2024"/>
 		${mark}
 	</g>
 	<g font-family="JetBrains Mono, Consolas, DejaVu Sans Mono, monospace">
