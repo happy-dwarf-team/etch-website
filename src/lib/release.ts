@@ -1,7 +1,7 @@
 // Reads the latest release of Etch from the GitHub API at build time, for `softwareVersion`
 // in the JSON-LD and the header's status badge (docs/spec.md, sections 3.1 and 6.3). A failure
 // never fails the build: the site goes without a version number, the log carries a warning
-// and the daily build corrects it.
+// and the next build corrects it.
 
 export const ETCH_REPO = 'happy-dwarf-team/etch';
 

@@ -65,7 +65,7 @@ User Agreement (sections 5–6, last update 2026-01-21), not legal advice.
 As the hub (hub spec section 2): Astro, static output, **no Starlight**, GitHub Pages through a
 workflow, Node.js 22+, Fontsource fonts, `url()` helper and `SITE_URL`/`SITE_BASE` with
 `trailingSlash: 'always'`, the `deploy` workflow (push to `main`, `pull_request`,
-`workflow_dispatch`, daily `schedule`, no `repository_dispatch`) and the `pr-title` workflow,
+`workflow_dispatch`, `repository_dispatch`, `schedule` every six hours) and the `pr-title` workflow,
 Pages source "GitHub Actions", the `main` ruleset (`build`, `conventional-title`) added after both
 workflows exist, `AGENTS.md`/`CLAUDE.md` and `SECURITY.md`.
 
@@ -80,6 +80,11 @@ Differences from the hub:
 - The build fetches the latest `happy-dwarf-team/etch` release from the GitHub API (section
   3.1 and 6.3). If it cannot be fetched, the build continues without a version number, with a
   warning.
+- **Rebuild after an Etch release:** once `etch`'s `release.yml` has attached the VSIX, its
+  `website.yml` sends a `project-release` `repository_dispatch` here (and to the hub, hub spec
+  4.5), so the badge shows the new version within minutes. It uses the organization secret
+  `WEBSITE_DISPATCH_TOKEN` (fine-grained, **Contents: write** on `etch-website`). The schedule
+  every six hours is the safety net for a missed dispatch.
 
 ## 3. Pages
 
@@ -269,7 +274,7 @@ Validated by a zod schema in the site's code; the build fails on error.
 The `build` job sends `HEAD` to every `src` in the manifest and requires **`200`**, a
 `Content-Type` equal to the source's `type` media type, and a `Content-Length` equal to `bytes`.
 This catches a typo, a missing object, and a takedown without a matching manifest change. The
-daily build runs it too. Without a manifest (section 4.3) there is nothing to check.
+scheduled build runs it too. Without a manifest (section 4.3) there is nothing to check.
 
 ## 6. Head, social preview and icons
 
