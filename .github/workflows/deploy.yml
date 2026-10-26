@@ -17,8 +17,10 @@ permissions:
   contents: read
 
 # A dispatch during a running build queues behind it instead of deploying in parallel.
+# Pull requests get their own group, so a pending pull request build never replaces a
+# pending deployment.
 concurrency:
-  group: pages
+  group: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.ref) || 'pages' }}
   cancel-in-progress: false
 
 jobs:
