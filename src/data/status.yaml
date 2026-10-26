@@ -10,6 +10,6 @@ extension:
     M0: done
     M1: done
     M2: done
-    M3: current
-    M4: next
+    M3: done
+    M4: current
     '1.0': next
