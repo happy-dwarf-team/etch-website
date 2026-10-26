@@ -3,13 +3,13 @@
 # release changes them. The version in the badge is not here; the build fetches it, and fails
 # while a milestone the latest release has reached is still `next` (src/lib/content.ts).
 extension:
-  # Shown while the extension is marked `preview` on the Marketplace.
-  status: Preview
+  # "Preview" while the extension was marked `preview` on the Marketplace; "Stable" since 1.0.0.
+  status: Stable
   # done, current (the milestone of the latest release) or next.
   milestones:
     M0: done
     M1: done
     M2: done
     M3: done
-    M4: current
-    '1.0': next
+    M4: done
+    '1.0': current
