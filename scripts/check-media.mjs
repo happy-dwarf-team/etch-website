@@ -28,7 +28,7 @@ for (const file of imageFiles(manifest)) {
 	if (!existsSync(new URL(file, assets))) problems.push(`src/assets/media/${file} is missing`);
 }
 
-// One retry on a network error or a 5xx, so a passing hiccup does not fail the daily build.
+// One retry on a network error or a 5xx, so a passing hiccup does not fail the scheduled build.
 async function head(src) {
 	for (let attempt = 1; ; attempt++) {
 		try {

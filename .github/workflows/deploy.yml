@@ -5,14 +5,18 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
-  # Picks up a new etch release and re-checks the media manifest's sources; there is no
-  # repository_dispatch from etch (docs/spec.md, section 2).
+  # Sent by happy-dwarf-team/etch (project-release) once a release has its files, so the
+  # badge shows the new version within minutes (docs/spec.md, section 2).
+  repository_dispatch:
+    types: [project-release]
+  # Safety net for a missed dispatch, and re-checks the media manifest's sources.
   schedule:
-    - cron: '17 4 * * *'
+    - cron: '17 */6 * * *'
 
 permissions:
   contents: read
 
+# A dispatch during a running build queues behind it instead of deploying in parallel.
 concurrency:
   group: pages
   cancel-in-progress: false
