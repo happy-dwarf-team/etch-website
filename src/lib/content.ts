@@ -12,6 +12,7 @@ export const MARKETPLACE_URL =
 export const OPEN_VSX_URL = 'https://open-vsx.org/extension/happy-dwarf-team/etch';
 export const README_URL = `${REPO_URL}/blob/main/packages/extension/README.md`;
 export const V1_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v1.md`;
+export const AFTER_V1_URL = `${REPO_URL}/blob/main/docs/spec/after-v1.md`;
 export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 
 export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam)', 'No telemetry'];
@@ -130,7 +131,7 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 		id: '1.0',
 		name: 'Release',
 		version: '1.0.0',
-		line: 'When the release criteria hold; the preview flag goes.',
+		line: 'The release criteria hold and the preview flag is gone.',
 	},
 ];
 

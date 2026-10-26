@@ -100,8 +100,9 @@ Differences from the hub:
    "Preview · 0.1.0"; anchors *Features · Install · Roadmap*; a GitHub link to `etch`.
    - The **version** in the badge is the latest `etch` release, fetched at build time (the same
      fetch as `softwareVersion` in section 6.3); without it the badge shows only the status.
-   - The **status** ("Preview" while the extension is marked `preview`) is hand-edited in the
-     site's data file `src/data/status.yaml` together with the roadmap states (section 3.5),
+   - The **status** ("Preview" while the extension was marked `preview`, "Stable" since
+     1.0.0) is hand-edited in the site's data file `src/data/status.yaml` together with the
+     roadmap states (section 3.5),
      changed by a PR when a release changes them. (Decided with @s-tyda while writing this spec;
      the map left the source open.) The build fails when a milestone whose version is at or
      below the latest release's (major and minor) is still `next`, so a release that the file
@@ -170,7 +171,8 @@ README:
 
 A vertical timeline **M0 → M1 → M2 → M3 → M4 → 1.0.0**, one line each from `etch`'s
 [v1 specification](https://github.com/happy-dwarf-team/etch/blob/main/docs/spec/v1.md) section
-11, with the note "version numbers are indicative" and a link to the v1 specification. Each
+11, with a link to the v1 specification (until 1.0.0 also the note "version numbers are
+indicative"; since 1.0.0 a link to its `after-v1.md`, what v1 left). Each
 milestone's state (done, current, next) comes from `src/data/status.yaml`.
 
 | Milestone | Version | Line (draft) |
@@ -180,7 +182,7 @@ milestone's state (done, current, next) comes from `src/data/status.yaml`.
 | M2 Precision corpus | 0.2.0 | Measured against the game, widget by widget, at six resolutions: vanilla and Proper 2K UI Enhanced. |
 | M3 Game host | 0.3.0 | A private copy of the running game draws the window itself. |
 | M4 Compare and scale | 0.4.0 | Diff view between the two backends; the Anbennar playset in both. |
-| 1.0 Release | 1.0.0 | When the release criteria hold; the preview flag goes. |
+| 1.0 Release | 1.0.0 | The release criteria hold and the preview flag is gone. |
 
 ### 3.6 `404`
 

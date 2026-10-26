@@ -8,6 +8,7 @@ import FeatureTour from '../components/FeatureTour.astro';
 import Roadmap from '../components/Roadmap.astro';
 import Base from '../layouts/Base.astro';
 import {
+	AFTER_V1_URL,
 	ANVIL_URL,
 	GAME_HOST,
 	INSTALL_COMMAND,
@@ -87,10 +88,10 @@ const version = await getLatestVersion();
 
 	<section class="section wrap roadmap" id="roadmap" aria-labelledby="roadmap-title">
 		<p class="eyebrow">Roadmap</p>
-		<h2 id="roadmap-title">Preview now, 1.0.0 later</h2>
+		<h2 id="roadmap-title">From preview to 1.0.0</h2>
 		<p class="muted">
-			Etch is a preview release. The plan for 1.0.0 is the <a href={V1_SPEC_URL}>v1 specification</a>;
-			version numbers are indicative.
+			Etch 1.0.0 is the whole of the <a href={V1_SPEC_URL}>v1 specification</a>, built in these
+			milestones; <a href={AFTER_V1_URL}>after v1</a> lists what is left.
 		</p>
 		<Roadmap />
 	</section>
