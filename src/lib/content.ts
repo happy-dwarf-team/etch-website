@@ -4,7 +4,7 @@
 // Strings marked `html` hold inline markup (`code`, links) and are rendered with set:html.
 import { getEntry } from 'astro:content';
 import type { MediaManifest } from './media-manifest';
-import { ETCH_REPO } from './release';
+import { ETCH_REPO, getLatestVersion } from './release';
 
 export const REPO_URL = `https://github.com/${ETCH_REPO}`;
 export const MARKETPLACE_URL =
@@ -106,7 +106,7 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 		id: 'M1',
 		name: 'Offline preview',
 		version: '0.1.0',
-		line: 'Released on the Marketplace and Open VSX, marked preview. Everything on this page.',
+		line: 'Released on the Marketplace and Open VSX, marked preview. Everything in the feature tour.',
 	},
 	{
 		id: 'M2',
@@ -124,7 +124,7 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 		id: 'M4',
 		name: 'Compare and scale',
 		version: '0.4.0',
-		line: 'Diff view between the two backends; Anbennar and Dwarven Knowledge.',
+		line: 'Diff view between the two backends; the Anbennar playset in both.',
 	},
 	{
 		id: '1.0',
@@ -134,13 +134,38 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 	},
 ];
 
+// "0.3.1" → 3: major and minor in one number, so 0.3.x and 0.3.0 compare equal.
+function minorOf(version: string): number {
+	const [major = 0, minor = 0] = version.split('.').map(Number);
+	return major * 1000 + minor;
+}
+
 // The extension's status and the roadmap with each milestone's state, from src/data/status.yaml.
+// With the latest release known, a milestone it has reached must not be `next` (section 3.1):
+// the build fails, so the file is updated in the pull request that fixes it.
 export async function getStatus() {
 	const entry = await getEntry('status', 'extension');
 	if (!entry) throw new Error('src/data/status.yaml has no `extension` entry');
 	const { status, milestones } = entry.data;
-	return {
-		status,
-		roadmap: MILESTONES.map((m) => ({ ...m, state: milestones[m.id] as MilestoneState })),
-	};
+	const roadmap = MILESTONES.map((m) => ({ ...m, state: milestones[m.id] as MilestoneState }));
+	const latest = await getLatestVersion();
+	if (latest) {
+		const stale = roadmap.filter(
+			(m) => m.version && m.state === 'next' && minorOf(m.version) <= minorOf(latest),
+		);
+		if (stale.length > 0) {
+			throw new Error(
+				`src/data/status.yaml: Etch ${latest} is released, but ${stale.map((m) => m.id).join(', ')} still says next; mark the latest release's milestone current and the ones before it done`,
+			);
+		}
+	}
+	return { status, roadmap };
 }
+
+// The game host note after the feature tour (section 3.2.1), following the extension README.
+export const GAME_HOST = {
+	title: 'The game host',
+	textHtml:
+		"Since 0.3.0, switch the preview's <strong>Backend</strong> to the game host and a private copy of the game draws the window itself. Etch creates the copy on first use, after one confirmation, and never writes to your game folder, profile or mods.",
+};
+export const ANVIL_URL = 'https://anvil.happydwarf.dev/';

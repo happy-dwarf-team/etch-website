@@ -103,7 +103,10 @@ Differences from the hub:
    - The **status** ("Preview" while the extension is marked `preview`) is hand-edited in the
      site's data file `src/data/status.yaml` together with the roadmap states (section 3.5),
      changed by a PR when a release changes them. (Decided with @s-tyda while writing this spec;
-     the map left the source open.)
+     the map left the source open.) The build fails when a milestone whose version is at or
+     below the latest release's (major and minor) is still `next`, so a release that the file
+     has not caught up with stops the build instead of shipping a stale roadmap; without the
+     fetched version there is no check.
 2. **Hero, split:** text beside the demo loop (section 4.1).
    - Text (drafts): eyebrow "EU4 interface mods · VS Code"; h1 "Edit the `.gui`. Watch the
      window."; one sentence on what Etch does; primary button **"Install from VS Code
@@ -113,7 +116,8 @@ Differences from the hub:
 3. **Install band**, one line: `code --install-extension happy-dwarf-team.etch` with a **Copy**
    button, "open a `.gui` and run **Etch: Open Preview**", and a link to the extension README.
 4. **Features (M1) as a tour:** six numbered rows, each a short text beside its own screenshot
-   (section 3.2), then a box **"What 0.2.0 does not do yet"** (section 3.3).
+   (section 3.2), then the **game host note** (section 3.2.1), then a box **"What 0.2.0 does
+   not do yet"** (section 3.3).
 5. **Roadmap:** a vertical timeline (section 3.5).
 6. **Footer** (section 7).
 
@@ -136,6 +140,15 @@ README.
 | 6 | Your playset, the game's own art | Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere. | `playset` | The demo mod holds only text files; Etch draws its localised title, colours and icons with the game's own fonts and textures. | VS Code's Explorer showing a mod of .gui, .gfx, .yml and descriptor files, an unsaved localisation edit, and the retitled dialog in the preview. |
 
 Each still's Enlarge button is labelled "Enlarge screenshot: " plus the feature's title.
+
+### 3.2.1 Game host note
+
+The game host (M3, 0.3.0) has no still yet, so it is a short text block after the tour, not a
+seventh row. Draft, following the extension README: heading "The game host", then "Since 0.3.0,
+switch the preview's Backend to the game host and a private copy of the game draws the window
+itself. Etch creates the copy on first use, after one confirmation, and never writes to your
+game folder, profile or mods." It ends with a visible link **"Built on Anvil"** to
+`https://anvil.happydwarf.dev/`, Anvil being the plugin loader the game host runs on.
 
 ### 3.3 "What 0.2.0 does not do yet"
 
@@ -163,10 +176,10 @@ milestone's state (done, current, next) comes from `src/data/status.yaml`.
 | Milestone | Version | Line (draft) |
 | --- | --- | --- |
 | M0 Foundation | — | Public repository, CI, release-please, packaged VSIX. |
-| M1 Offline preview | 0.1.0 | Released on the Marketplace and Open VSX, marked preview. Everything on this page. |
+| M1 Offline preview | 0.1.0 | Released on the Marketplace and Open VSX, marked preview. Everything in the feature tour. |
 | M2 Precision corpus | 0.2.0 | Measured against the game, widget by widget, at six resolutions: vanilla and Proper 2K UI Enhanced. |
 | M3 Game host | 0.3.0 | A private copy of the running game draws the window itself. |
-| M4 Compare and scale | 0.4.0 | Diff view between the two backends; Anbennar and Dwarven Knowledge. |
+| M4 Compare and scale | 0.4.0 | Diff view between the two backends; the Anbennar playset in both. |
 | 1.0 Release | 1.0.0 | When the release criteria hold; the preview flag goes. |
 
 ### 3.6 `404`
