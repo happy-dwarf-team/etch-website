@@ -8,6 +8,8 @@ import FeatureTour from '../components/FeatureTour.astro';
 import Roadmap from '../components/Roadmap.astro';
 import Base from '../layouts/Base.astro';
 import {
+	ANVIL_URL,
+	GAME_HOST,
 	INSTALL_COMMAND,
 	LIMITS,
 	MARKETPLACE_URL,
@@ -70,6 +72,11 @@ const version = await getLatestVersion();
 		<p class="eyebrow">Features</p>
 		<h2 id="features-title">What the offline preview does</h2>
 		<FeatureTour stills={media?.stills} />
+		<div class="game-host">
+			<h3>{GAME_HOST.title}</h3>
+			<p set:html={GAME_HOST.textHtml} />
+			<p><a href={ANVIL_URL}>Built on Anvil</a></p>
+		</div>
 		<div class="limits">
 			<h3>{version ? `What ${version} does not do yet` : 'What Etch does not do yet'}</h3>
 			<ul>
@@ -186,8 +193,30 @@ const version = await getLatestVersion();
 		padding-block: clamp(3rem, 7vw, 5.5rem) 0;
 	}
 
-	.limits {
+	.game-host {
+		max-width: 52rem;
 		margin-top: 3rem;
+	}
+
+	.game-host h3 {
+		margin-bottom: 0.5rem;
+		font-size: 1.2rem;
+	}
+
+	.game-host p {
+		margin-bottom: 0.5rem;
+		color: var(--forge-text-muted);
+	}
+
+	.game-host a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		font-weight: 600;
+	}
+
+	.limits {
+		margin-top: 2rem;
 		padding: 1.25rem 1.5rem;
 		border-left: 3px solid var(--forge-accent);
 		border-radius: 0 var(--forge-radius) var(--forge-radius) 0;

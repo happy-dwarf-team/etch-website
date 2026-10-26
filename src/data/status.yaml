@@ -1,6 +1,7 @@
 # The extension's status for the header badge and each roadmap milestone's state
 # (docs/spec.md, sections 3.1 and 3.5). Hand-edited: change it by a pull request when an Etch
-# release changes them. The version in the badge is not here; the build fetches it.
+# release changes them. The version in the badge is not here; the build fetches it, and fails
+# while a milestone the latest release has reached is still `next` (src/lib/content.ts).
 extension:
   # Shown while the extension is marked `preview` on the Marketplace.
   status: Preview
@@ -8,7 +9,7 @@ extension:
   milestones:
     M0: done
     M1: done
-    M2: current
-    M3: next
+    M2: done
+    M3: current
     M4: next
     '1.0': next

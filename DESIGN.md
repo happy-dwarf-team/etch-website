@@ -54,8 +54,8 @@ From [#13](https://github.com/happy-dwarf-team/.github/issues/13). Prototype for
 [`prototypes/etch-site/index.html`](https://github.com/happy-dwarf-team/.github/blob/prototype/etch-site/prototypes/etch-site/index.html)
 (`?variant=D` is the pick; its "video" is an animated SVG and its media are placeholders).
 
-- Section order of `/`: header → split hero → install band → feature tour with the "does not do
-  yet" box → roadmap → footer.
+- Section order of `/`: header → split hero → install band → feature tour with the game host
+  note and the "does not do yet" box → roadmap → footer.
 - **Hero:** text 5/12 and demo loop 7/12 from **980 px**; stacked, text first, below that. The
   loop still starts in the first screen on a 375 px phone.
 - **Feature tour:** six numbered rows, each a short text beside its own still, **sides
