@@ -113,7 +113,7 @@ about 1.5 s; if the clipboard API is refused, the command's text is selected ins
 
 ### Roadmap timeline
 
-A vertical list M0 → 1.0.0, one line per milestone, the state (done, current, next) shown by a
+A vertical list M0 → 2.0.0, one line per milestone, the state (done, current, next) shown by a
 marker and text, not colour alone; the current milestone uses the accent. A vertical timeline,
 not a horizontal track (it reads better on phones).
 
@@ -153,7 +153,8 @@ The family checklist, plus:
 
 ## Content rules
 
-- Say nothing beyond the extension README and the v1 specification.
+- Say nothing beyond the extension README and the v1 specification; the roadmap's 2.0 line
+  follows the v2 specification.
 - Measurements carry their source; limits are stated plainly; the roadmap says "version numbers
   are indicative".
 - No EU4 or Paradox logos or key art, and no game art in the Open Graph image or favicons.

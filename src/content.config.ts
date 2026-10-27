@@ -10,7 +10,15 @@ const status = defineCollection({
 	schema: z.strictObject({
 		status: z.string().min(1),
 		milestones: z
-			.strictObject({ M0: state, M1: state, M2: state, M3: state, M4: state, '1.0': state })
+			.strictObject({
+				M0: state,
+				M1: state,
+				M2: state,
+				M3: state,
+				M4: state,
+				'1.0': state,
+				'2.0': state,
+			})
 			.refine((m) => Object.values(m).filter((s) => s === 'current').length <= 1, {
 				message: 'at most one milestone is current',
 			}),

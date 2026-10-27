@@ -9,7 +9,8 @@
   `prefers-reduced-motion`.
 - Internal links in components go through `url()` from `src/lib/url.ts`. The site must work
   both at the custom domain and under `/etch-website/`.
-- Content is English. Say nothing beyond Etch's README and v1 specification, state the source
+- Content is English. Say nothing beyond Etch's README and v1 specification (the roadmap's
+  2.0 line follows the v2 specification), state the source
   of every measurement and mark unverified claims. Do not imply affiliation with Paradox
   Interactive. No EU4 or Paradox logos or key art, and no game files in this repository.
 - Check `npm run check`, `npm run build`, `npm run check:links`, `npm run check:a11y` and
