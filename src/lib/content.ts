@@ -13,6 +13,7 @@ export const OPEN_VSX_URL = 'https://open-vsx.org/extension/happy-dwarf-team/etc
 export const README_URL = `${REPO_URL}/blob/main/packages/extension/README.md`;
 export const V1_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v1.md`;
 export const AFTER_V1_URL = `${REPO_URL}/blob/main/docs/spec/after-v1.md`;
+export const V2_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v2.md`;
 export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 
 export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam)', 'No telemetry'];
@@ -97,10 +98,10 @@ export const LIMITS = [
 	'Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam.',
 ];
 
-export type MilestoneId = 'M0' | 'M1' | 'M2' | 'M3' | 'M4' | '1.0';
+export type MilestoneId = 'M0' | 'M1' | 'M2' | 'M3' | 'M4' | '1.0' | '2.0';
 export type MilestoneState = 'done' | 'current' | 'next';
 
-// One line each from etch's v1 specification, section 11 (section 3.5).
+// One line each from etch's v1 specification, section 11, then 2.0 (section 3.5).
 const MILESTONES: { id: MilestoneId; name: string; version?: string; line: string }[] = [
 	{ id: 'M0', name: 'Foundation', line: 'Public repository, CI, release-please, packaged VSIX.' },
 	{
@@ -132,6 +133,14 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 		name: 'Release',
 		version: '1.0.0',
 		line: 'The release criteria hold and the preview flag is gone.',
+	},
+	// From etch's v2 specification, its summary and section 13: one milestone for M5–M10, since
+	// v2 makes no store release before 2.0.0 (etch#156).
+	{
+		id: '2.0',
+		name: 'Live game and views',
+		version: '2.0.0',
+		line: "A live game reloads each saved file into the game's own window, with pick mode; the preview shows a view of the window from its profile, with sample data from saves and live snapshots. The game host and the diff view leave.",
 	},
 ];
 

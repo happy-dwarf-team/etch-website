@@ -18,6 +18,7 @@ import {
 	README_URL,
 	REQUIREMENTS,
 	V1_SPEC_URL,
+	V2_SPEC_URL,
 } from '../lib/content';
 import { loadMedia } from '../lib/media';
 import { getLatestVersion } from '../lib/release';
@@ -88,10 +89,11 @@ const version = await getLatestVersion();
 
 	<section class="section wrap roadmap" id="roadmap" aria-labelledby="roadmap-title">
 		<p class="eyebrow">Roadmap</p>
-		<h2 id="roadmap-title">From preview to 1.0.0</h2>
+		<h2 id="roadmap-title">From preview to 2.0.0</h2>
 		<p class="muted">
 			Etch 1.0.0 is the whole of the <a href={V1_SPEC_URL}>v1 specification</a>, built in these
-			milestones; <a href={AFTER_V1_URL}>after v1</a> lists what is left.
+			milestones; <a href={AFTER_V1_URL}>after v1</a> lists what is left. Etch 2.0.0 follows the
+			<a href={V2_SPEC_URL}>v2 specification</a> and is not released yet.
 		</p>
 		<Roadmap />
 	</section>

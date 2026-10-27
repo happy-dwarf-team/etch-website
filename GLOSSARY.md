@@ -26,8 +26,8 @@ The six numbered M1 feature rows, each a short text beside its own still.
 _Avoid_: gallery, feature grid
 
 **Roadmap**:
-The vertical timeline M0 → 1.0.0 from `etch`'s v1 specification; version numbers are
-indicative.
+The vertical timeline M0 → 1.0.0 from `etch`'s v1 specification, then 2.0.0 from its v2
+specification; version numbers are indicative.
 _Avoid_: timeline (for the content), plan
 
 ## Media

@@ -26,13 +26,14 @@ stays about the extension.
 
 - **What:** the website of Etch, the VS Code extension that previews Europa Universalis IV
   interface mods, at **`https://etch.happydwarf.dev/`**: a landing page with a demo loop, the
-  M1 features each with a screenshot, install, and the status and roadmap to v1.
+  M1 features each with a screenshot, install, and the status and roadmap to v1 and v2.
 - **Language:** English only.
 - **User documentation stays in the extension README** (linked from Install). Revisit only if
   user docs move to the site ([#13](https://github.com/happy-dwarf-team/.github/issues/13)).
 - **Not on the site:** a blog, newsletter, full user docs, a separate gallery, analytics,
   cookies, a consent banner.
-- **Content rules:** say nothing beyond what the extension README and the v1 specification say;
+- **Content rules:** say nothing beyond what the extension README and the v1 specification say
+  (and, for the roadmap's unreleased milestone, the v2 specification);
   measurements carry their source (e.g. "warm reload median 6–7 ms, p95 8–14 ms, maintainer's
   machine, etch#39"); limits stated plainly; the roadmap is marked indicative.
 
@@ -169,11 +170,20 @@ README:
 
 ### 3.5 Roadmap
 
-A vertical timeline **M0 → M1 → M2 → M3 → M4 → 1.0.0**, one line each from `etch`'s
+A vertical timeline **M0 → M1 → M2 → M3 → M4 → 1.0.0 → 2.0.0**, one line each from `etch`'s
 [v1 specification](https://github.com/happy-dwarf-team/etch/blob/main/docs/spec/v1.md) section
 11, with a link to the v1 specification (until 1.0.0 also the note "version numbers are
 indicative"; since 1.0.0 a link to its `after-v1.md`, what v1 left). Each
 milestone's state (done, current, next) comes from `src/data/status.yaml`.
+
+The **2.0** line comes from `etch`'s
+[v2 specification](https://github.com/happy-dwarf-team/etch/blob/main/docs/spec/v2.md) (its
+summary and section 13), added as `next` once that specification was done
+([etch#156](https://github.com/happy-dwarf-team/etch/issues/156)). It is one milestone, not
+M5–M10: v2 makes no store release before 2.0.0. The text above the timeline links to the v2
+specification and says 2.0.0 is not released, without claiming any of it is built. M3 and M4
+stay as history; the game host note and the feature tour change with the 2.0.0 release, not
+before (etch#156).
 
 | Milestone | Version | Line (draft) |
 | --- | --- | --- |
@@ -183,6 +193,7 @@ milestone's state (done, current, next) comes from `src/data/status.yaml`.
 | M3 Game host | 0.3.0 | A private copy of the running game draws the window itself. |
 | M4 Compare and scale | 0.4.0 | Diff view between the two backends; the Anbennar playset in both. |
 | 1.0 Release | 1.0.0 | The release criteria hold and the preview flag is gone. |
+| 2.0 Live game and views | 2.0.0 | A live game reloads each saved file into the game's own window, with pick mode; the preview shows a view of the window from its profile, with sample data from saves and live snapshots. The game host and the diff view leave. |
 
 ### 3.6 `404`
 
