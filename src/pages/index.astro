@@ -10,6 +10,7 @@ import Roadmap from '../components/Roadmap.astro';
 import Base from '../layouts/Base.astro';
 import {
 	AFTER_V2_URL,
+	ALSO_HTML,
 	ANVIL_URL,
 	ETCH_1X,
 	INSTALL_COMMAND,
@@ -79,6 +80,12 @@ const version = await getLatestVersion();
 		<h2 id="features-title">The offline preview and the live game</h2>
 		<p class="parts" set:html={PARTS_HTML} />
 		<FeatureTour stills={media?.stills} />
+		<div class="note">
+			<h3>Also in the preview</h3>
+			<ul class="live">
+				{ALSO_HTML.map((item) => <li set:html={item} />)}
+			</ul>
+		</div>
 		<div class="note" id="live-game">
 			<h3>{LIVE_GAME.title}</h3>
 			<ul class="live">
