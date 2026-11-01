@@ -21,11 +21,11 @@ export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam)', 'No telemetry'];
 
 export const LOOP = {
-	lead: 'Demo loop, 9 s, silent.',
+	lead: 'Demo loop, 8 s, silent.',
 	descriptionHtml:
-		"In VS Code, <code>etch_demo.gui</code> is open beside Etch's preview of a game dialog. One keystroke widens the dialog's background and the frame redraws at once; the cursor moves to a button, the outline follows it, and a second keystroke moves the button into the new space. Two undos return the window to where it started.",
+		"In VS Code, <code>provinceview.gui</code> is open beside Etch's preview of the province view, the buildings panel outlined. One keystroke changes the panel's x from 480 to 580 and the panel moves right at once. In <strong>View ▾</strong> the army builder's view is chosen and drawn beside the moved panel, then the own province's view again; one undo returns the window to where it started.",
 	posterAlt:
-		"VS Code with etch_demo.gui on the left and Etch's preview of a game dialog on the right.",
+		"VS Code with provinceview.gui on the left and Etch's preview of the province view on the right, its buildings panel outlined.",
 };
 
 export interface Feature {
@@ -43,26 +43,44 @@ export const FEATURES: Feature[] = [
 		title: 'Preview as you type',
 		textHtml: `The preview follows the unsaved editor buffer on every change, including the mod's <code>.gfx</code> and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms <span class="source">(measured on the maintainer's machine, <a href="${REPO_URL}/issues/39">etch#39</a>)</span>.`,
 		captionHtml:
-			'Edit the <code>.gui</code> and the window redraws from the unsaved buffer; the widget at the cursor stays outlined.',
-		alt: "VS Code with an unsaved etch_demo.gui on the left and Etch's preview on the right: a widened game dialog with one button outlined.",
+			'Move the buildings panel in an unsaved <code>provinceview.gui</code> and the province view redraws; the widget at the cursor stays outlined.',
+		alt: "VS Code with an unsaved provinceview.gui on the left, the buildings window's x changed to 580, and Etch's preview of the province view with the buildings panel moved right and outlined.",
 	},
 	{
-		scene: 'pin',
-		title: 'The window under the cursor',
+		scene: 'views',
+		title: 'Views of the window',
 		textHtml:
-			'The preview shows the top-level window that holds the cursor. <strong>Pin</strong> keeps it on one window while you edit other files.',
+			'A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. <strong>View ▾</strong> lists the views and every selector with where its value comes from; <strong>Save as view…</strong> writes your own into the mod.',
 		captionHtml:
-			'Pinned to the dialog while a <code>.gfx</code> file is edited: the preview keeps the window and shows the new button sprite.',
-		alt: "VS Code with etch_demo.gfx open and Pin pressed in Etch's preview toolbar; the dialog's button shows a different sprite.",
+			"<strong>View ▾</strong> on the province view: the army builder's view is chosen, and every selector shows where its value comes from.",
+		alt: "Etch's preview toolbar with the View menu open over the province view, listing six views with Build army chosen and the selectors below.",
+	},
+	{
+		scene: 'data',
+		title: 'Sample data',
+		textHtml:
+			"Texts the game's code fills (a province's name, its development, culture, religion) show sample data. <strong>Data ▾</strong> shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length.",
+		captionHtml:
+			'<strong>Data ▾</strong> with generated text set to long: the province view shows how long names and numbers fit.',
+		alt: "Etch's preview with the Data menu open, its layers listed and generated text set to long; the province view behind it shows long names overflowing their boxes.",
+	},
+	{
+		scene: 'zoom',
+		title: 'Zoom without a new layout',
+		textHtml:
+			'Zoom changes only how big the preview is shown, never the resolution the window is laid out at. <strong>Ctrl+mouse wheel</strong> zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp.',
+		captionHtml:
+			"The province view's header at 200 %, zoomed around the cursor with Ctrl+wheel; game pixels stay sharp.",
+		alt: "Etch's preview zoomed to 200 % on the province view's header, its zoom level reading 200 %, beside provinceview.gui.",
 	},
 	{
 		scene: 'outline',
 		title: 'Widget outline and jump to source',
 		textHtml:
-			"The Widget Outline lists the window's widgets. Click a widget in the preview to reveal its source; hover to see its path and rect.",
+			"The Widget Outline lists the window's widgets, a window's alternatives as radios and an eye on every other widget. Click a widget in the preview to reveal its source; hover to see its path and rect.",
 		captionHtml:
-			"The Widget Outline lists the window's widgets; clicking one in the preview selects its source, hovering shows its path and rect.",
-		alt: "VS Code with the Widget Outline in the sidebar, a widget selected in the editor, and a dashed hover box with a tooltip in Etch's preview.",
+			'A click on the buildings panel in the preview selects its definition in <code>provinceview.gui</code> and in the Widget Outline; the hover shows its path and rect.',
+		alt: "VS Code with the Widget Outline in the sidebar and buildings_window selected in it and in provinceview.gui, and in Etch's preview a dashed box around the buildings panel with a tooltip giving its path and rect.",
 	},
 	{
 		scene: 'problems',
@@ -70,27 +88,16 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			"Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit.",
 		captionHtml:
-			'A misspelled sprite name is reported in Problems while the rest of the window still draws.',
-		alt: 'VS Code with a squiggle under a sprite name, one Etch warning in the Problems panel, and the dialog drawn without that widget.',
+			'A misspelled sprite name in <code>provinceview.gui</code> is reported in Problems while the rest of the window still draws.',
+		alt: "VS Code with a misspelled sprite name in provinceview.gui, the Problems panel filtered to Etch's missing-sprite warning, and the province view drawn with the buildings panel's background missing.",
 	},
-	{
-		scene: 'resolution',
-		title: 'Any resolution',
-		textHtml:
-			"The game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. <code>if_resolution</code> blocks follow it.",
-		captionHtml:
-			"Pick the preview resolution: the game's settings, the monitor's, a corpus resolution or any width × height; <code>if_resolution</code> blocks follow it.",
-		alt: "VS Code with Etch's resolution picker open over an if_resolution block, listing default, native and the corpus resolutions.",
-	},
-	{
-		scene: 'playset',
-		title: "Your playset, the game's own art",
-		textHtml:
-			'Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere.',
-		captionHtml:
-			"The demo mod holds only text files; Etch draws its localised title, colours and icons with the game's own fonts and textures.",
-		alt: "VS Code's Explorer showing a mod of .gui, .gfx, .yml and descriptor files, an unsaved localisation edit, and the retitled dialog in the preview.",
-	},
+];
+
+// The preview's features without a still, after the tour (section 3.2).
+export const ALSO_HTML = [
+	'<strong>Pin</strong> keeps the preview on one window while you edit other files.',
+	"Any resolution: the game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. <code>if_resolution</code> blocks follow it.",
+	'Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere.',
 ];
 
 // Etch's two parts, before the feature tour (section 3.2), following the extension README.

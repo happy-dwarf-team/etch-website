@@ -48,6 +48,10 @@ User Agreement (sections 5–6, last update 2026-01-21), not legal advice.
 - Screenshots and silent loops show **Etch rendering EU4 interface art from a local copy of the
   game**, with Etch and the mod's layout as the subject. **Every frame shows the editor and
   Etch's preview together**, never bare game art. No game audio.
+- Since the 2.0.0 media refresh the scenes edit the province view as a mod overrides it: the
+  editor shows the text of the base game's `interface/provinceview.gui`, copied from the local
+  game into each capture's throwaway workspace and never stored (section 8.2). We read this like
+  the interface art: Etch and the mod's layout stay the subject.
 - Everything is free and non-commercial: no paywall, ads or sales.
 - **No EU4 or Paradox logos or key art** anywhere, Open Graph image and favicon included.
   "Europa Universalis IV" appears as plain descriptive text.
@@ -146,12 +150,22 @@ README.
 
 | # | Feature | Text (draft) | Still | Caption | Alt |
 |---|---|---|---|---|---|
-| 1 | Preview as you type | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms (measured on the maintainer's machine, etch#39). | `preview` | Edit the `.gui` and the window redraws from the unsaved buffer; the widget at the cursor stays outlined. | VS Code with an unsaved etch_demo.gui on the left and Etch's preview on the right: a widened game dialog with one button outlined. |
-| 2 | The window under the cursor | The preview shows the top-level window that holds the cursor. **Pin** keeps it on one window while you edit other files. | `pin` | Pinned to the dialog while a `.gfx` file is edited: the preview keeps the window and shows the new button sprite. | VS Code with etch_demo.gfx open and Pin pressed in Etch's preview toolbar; the dialog's button shows a different sprite. |
-| 3 | Widget outline and jump to source | The Widget Outline lists the window's widgets. Click a widget in the preview to reveal its source; hover to see its path and rect. | `outline` | The Widget Outline lists the window's widgets; clicking one in the preview selects its source, hovering shows its path and rect. | VS Code with the Widget Outline in the sidebar, a widget selected in the editor, and a dashed hover box with a tooltip in Etch's preview. |
-| 4 | Diagnostics in Problems | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit. | `problems` | A misspelled sprite name is reported in Problems while the rest of the window still draws. | VS Code with a squiggle under a sprite name, one Etch warning in the Problems panel, and the dialog drawn without that widget. |
-| 5 | Any resolution | The game's `settings.txt`, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. `if_resolution` blocks follow it. | `resolution` | Pick the preview resolution: the game's settings, the monitor's, a corpus resolution or any width × height; `if_resolution` blocks follow it. | VS Code with Etch's resolution picker open over an `if_resolution` block, listing default, native and the corpus resolutions. |
-| 6 | Your playset, the game's own art | Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere. | `playset` | The demo mod holds only text files; Etch draws its localised title, colours and icons with the game's own fonts and textures. | VS Code's Explorer showing a mod of .gui, .gfx, .yml and descriptor files, an unsaved localisation edit, and the retitled dialog in the preview. |
+| 1 | Preview as you type | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms (measured on the maintainer's machine, etch#39). | `preview` | Move the buildings panel in an unsaved `provinceview.gui` and the province view redraws; the widget at the cursor stays outlined. | VS Code with an unsaved provinceview.gui on the left, the buildings window's x changed to 580, and Etch's preview of the province view with the buildings panel moved right and outlined. |
+| 2 | Views of the window | A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. **View ▾** lists the views and every selector with where its value comes from; **Save as view…** writes your own into the mod. | `views` | View ▾ on the province view: the army builder's view is chosen, and every selector shows where its value comes from. | Etch's preview toolbar with the View menu open over the province view, listing six views with Build army chosen and the selectors below. |
+| 3 | Sample data | Texts the game's code fills (a province's name, its development, culture, religion) show sample data. **Data ▾** shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length. | `data` | Data ▾ with generated text set to long: the province view shows how long names and numbers fit. | Etch's preview with the Data menu open, its layers listed and generated text set to long; the province view behind it shows long names overflowing their boxes. |
+| 4 | Zoom without a new layout | Zoom changes only how big the preview is shown, never the resolution the window is laid out at. **Ctrl+mouse wheel** zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp. | `zoom` | The province view's header at 200 %, zoomed around the cursor with Ctrl+wheel; game pixels stay sharp. | Etch's preview zoomed to 200 % on the province view's header, its zoom level reading 200 %, beside provinceview.gui. |
+| 5 | Widget outline and jump to source | The Widget Outline lists the window's widgets, a window's alternatives as radios and an eye on every other widget. Click a widget in the preview to reveal its source; hover to see its path and rect. | `outline` | A click on the buildings panel in the preview selects its definition in `provinceview.gui` and in the Widget Outline; the hover shows its path and rect. | VS Code with the Widget Outline in the sidebar and buildings_window selected in it and in provinceview.gui, and in Etch's preview a dashed box around the buildings panel with a tooltip giving its path and rect. |
+| 6 | Diagnostics in Problems | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit. | `problems` | A misspelled sprite name in `provinceview.gui` is reported in Problems while the rest of the window still draws. | VS Code with a misspelled sprite name in provinceview.gui, the Problems panel filtered to Etch's missing-sprite warning, and the province view drawn with the buildings panel's background missing. |
+
+Then a short list **"Also in the preview"**, without stills (drafts, following the extension
+README): **Pin** keeps the preview on one window while you edit other files; any resolution (the
+game's `settings.txt`, the monitor's, a corpus resolution from 1280×720 to 3840×2160, 3840×2160 not
+yet measured against the game, or any width × height; `if_resolution` blocks follow it); Etch
+finds the game through Steam and draws with its textures, fonts and localisation, ships none of
+them and sends nothing anywhere.
+
+Until the 2.0.0 media refresh the rows were 0.x's: preview, pin, outline, problems, resolution
+and playset, on the demo mod's dialog.
 
 Each still's Enlarge button is labelled "Enlarge screenshot: " plus the feature's title.
 
@@ -261,13 +275,17 @@ From [#8](https://github.com/happy-dwarf-team/.github/issues/8),
 - **Text description** in the `figcaption`, tied to the video with `aria-describedby`
   (WCAG 1.2.1, video-only content); no captions track. Draft, from #19:
 
-  > **Demo loop, 9 s, silent.** In VS Code, `etch_demo.gui` is open beside Etch's preview of a
-  > game dialog. One keystroke widens the dialog's background and the frame redraws at once; the
-  > cursor moves to a button, the outline follows it, and a second keystroke moves the button
-  > into the new space. Two undos return the window to where it started.
+  > **Demo loop, 8 s, silent.** In VS Code, `provinceview.gui` is open beside Etch's preview of
+  > the province view, the buildings panel outlined. One keystroke changes the panel's x from 480
+  > to 580 and the panel moves right at once. In **View ▾** the army builder's view is chosen and
+  > drawn beside the moved panel, then the own province's view again; one undo returns the window
+  > to where it started.
 
-- **Poster `alt`:** "VS Code with etch_demo.gui on the left and Etch's preview of a game dialog
-  on the right." The poster is the loop's first frame, so starting playback does not jump.
+  (Until the 2.0.0 media refresh the loop widened the demo mod's dialog.)
+
+- **Poster `alt`:** "VS Code with provinceview.gui on the left and Etch's preview of the
+  province view on the right, its buildings panel outlined." The poster is the loop's first
+  frame, so starting playback does not jump.
 
 ### 4.2 Stills and lightbox
 
@@ -318,7 +336,7 @@ Validated by a zod schema in the site's code; the build fails on error.
       ]
     }
   },
-  "stills": { "preview": "preview.png", "pin": "pin.png", "outline": "outline.png", "problems": "problems.png", "resolution": "resolution.png", "playset": "playset.png" }
+  "stills": { "preview": "preview.png", "views": "views.png", "data": "data.png", "zoom": "zoom.png", "outline": "outline.png", "problems": "problems.png" }
 }
 ```
 
@@ -328,7 +346,8 @@ Validated by a zod schema in the site's code; the build fails on error.
 - The manifest carries **only facts about files**. Captions, alts, the loop's text description
   and the order of the features are editorial content and stay in the site's code (section 3.2,
   4.1).
-- **Scene ids** (`hero`, `preview`, `pin`, `outline`, `problems`, `resolution`, `playset`) are
+- **Scene ids** (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`; until
+  2.0.0 also `pin`, `resolution` and `playset` instead of `views`, `data` and `zoom`) are
   defined by the media script and are the same in bucket keys, file names and the manifest.
 - Every `poster` and still file must exist in `src/assets/media/`.
 
@@ -443,6 +462,14 @@ From [#16](https://github.com/happy-dwarf-team/.github/issues/16) and
   English only. #16 allows a few own textures later (and #21's fallback would need them).
 - Exact sprite and font names, the dialog's text and the numbers in the `.gui` are chosen when
   the mod is written, within these rules.
+- **The province view (since 2.0.0).** The maintainer asked for the media to show editing a
+  popular view; the province view is the window modders change most and the one v2 was judged
+  by. Each capture copies the base game's `interface/provinceview.gui` from the local game into
+  its throwaway copy of the demo mod, as Etch's **Override in my mod** would, and the scenes edit
+  that copy. It is never committed, uploaded or kept after the run. The playset stays the base
+  game and the demo mod (no DLC, no other mod), the preview at 1280×720, a corpus resolution,
+  with generated sample data and no save, so anyone with the base game can reproduce the media.
+  The dialog and panel stay in the demo mod; no 2.0 scene uses them.
 
 ### 8.3 Capture
 
@@ -484,13 +511,16 @@ From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
 
 | Scene id | Kind | What it shows |
 | --- | --- | --- |
-| `hero` | loop, ~10 s | `etch_demo.gui` beside the preview of the dialog, the widget at the cursor outlined. (1) Start state ~1.5 s. (2) The cursor is in the dialog background's `size`; **one keystroke** replaces one digit of the width (e.g. 380 → 580); the frame widens; hold ~2 s. (3) The cursor moves with the arrow keys into the option button's block and the outline follows; **one keystroke** changes its `position` x (e.g. 40 → 240); hold ~2 s. (4) **Ctrl+Z twice**, ~1 s apart: back to step 1, the unsaved dot disappears, so the loop closes without a cut. Poster: the first frame. |
-| `preview` | still | A frame of the hero run after step 3: unsaved `.gui`, widened dialog, button outlined. |
-| `pin` | still | `etch_demo.gfx` active with an unsaved change of the button sprite's `texturefile` to another base-game button; **Pin** pressed in the preview toolbar, which names the dialog; the preview shows the dialog with the new button art. |
-| `outline` | still | Sidebar with the Widget Outline, one widget selected; that widget's kind keyword selected in the editor, as after a click in the preview; the dashed hover box and tooltip with path and rect in the preview. |
-| `problems` | still | Bottom panel on Problems with one Etch "missing sprite" warning from a misspelled sprite name; the squiggle in the editor; the preview draws the window without that widget (the scene declares `problems`). |
-| `resolution` | still | The quick pick of **Etch: Choose the Preview Resolution** open (default, native, the corpus resolutions, custom) with 1280×720 highlighted; the dialog's `if_resolution` block visible. |
-| `playset` | still | Explorer with the demo mod's tree (descriptor, `.gui`, `.gfx`, `.yml`); the `.yml` active with an unsaved change of the dialog's title; the preview shows the new title in the game's font, and a `§` colour and a `£` icon in the body. |
+| `hero` | loop, ~8 s | `provinceview.gui` beside the preview of the province view (own province), the buildings window outlined. (1) Start state ~1.5 s: the first digit of the buildings window's x selected. (2) **One keystroke** changes it from 480 to 580; the panel moves right; hold ~2 s. (3) **View ▾** opens and **Build army** is chosen; the army builder is drawn beside the moved panel; hold ~2 s. (4) **Own province** again, the menu closes, then **Ctrl+Z**: back to step 1, the unsaved dot disappears, so the loop closes without a cut. Poster: the first frame. |
+| `preview` | still | A frame of the hero run after step 2: unsaved `.gui`, the buildings panel moved and outlined. |
+| `views` | still | **View ▾** open with **Build army** chosen, its selectors and their sources below; the preview draws the army builder. |
+| `data` | still | **Data ▾** open with its layers, generated text set to **long**; the province view shows long texts. |
+| `zoom` | still | The preview zoomed to 200 % with Ctrl+wheel around the province view's header; the zoom level reads 200 %. The scene declares the zoom, so the unscaled check does not apply. |
+| `outline` | still | Sidebar with the Widget Outline; a click in the preview on the buildings panel selects its definition in the editor and its row in the outline; the dashed hover box and tooltip with path and rect. |
+| `problems` | still | Bottom panel on Problems, filtered to the misspelled sprite (the base game's file has problems of its own); one Etch "missing sprite" warning, the squiggle in the editor; the preview draws the window without that sprite (the scene declares `problems`). |
+
+Until 2.0.0 the scenes were `hero`, `preview`, `pin`, `outline`, `problems`, `resolution` and
+`playset`, editing the demo mod's dialog.
 
 Each edit is one keystroke over one digit, so no intermediate value collapses the window.
 

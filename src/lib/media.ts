@@ -38,11 +38,11 @@ export function loadMedia(): Media | undefined {
 		loops: { hero: { ...hero, poster: image(hero.poster) } },
 		stills: {
 			preview: image(stills.preview),
-			pin: image(stills.pin),
+			views: image(stills.views),
+			data: image(stills.data),
+			zoom: image(stills.zoom),
 			outline: image(stills.outline),
 			problems: image(stills.problems),
-			resolution: image(stills.resolution),
-			playset: image(stills.playset),
 		},
 	};
 }

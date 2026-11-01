@@ -35,11 +35,11 @@ export const mediaManifestSchema = z
 		loops: z.strictObject({ hero: loop }),
 		stills: z.strictObject({
 			preview: imageFile,
-			pin: imageFile,
+			views: imageFile,
+			data: imageFile,
+			zoom: imageFile,
 			outline: imageFile,
 			problems: imageFile,
-			resolution: imageFile,
-			playset: imageFile,
 		}),
 	})
 	.superRefine((manifest, ctx) => {

@@ -65,8 +65,8 @@ learns media bucket keys from.
 _Avoid_: media index, media list
 
 **Scene**:
-One named shot (`hero`, `preview`, `pin`, `outline`, `problems`, `resolution`, `playset`) that
-the media script captures; its id appears in the bucket key, the file name and the manifest.
+One named shot (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`) that the
+media script captures; its id appears in the bucket key, the file name and the manifest.
 _Avoid_: shot, clip
 
 **Media refresh**:
@@ -75,7 +75,8 @@ posters, stills and the media manifest to this site.
 _Avoid_: media update, re-record
 
 **Demo mod**:
-The mod Etch's media show being edited; our own files, drawn with the game's art.
+The workspace of Etch's media: our own files, drawn with the game's art; since 2.0.0 the
+scenes edit its throwaway override of the base game's `provinceview.gui`.
 _Avoid_: sample mod, test mod, fixture
 
 **Takedown**:
