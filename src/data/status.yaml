@@ -12,6 +12,6 @@ extension:
     M2: done
     M3: done
     M4: done
-    '1.0': current
-    # Added as next once etch's v2 specification was done (etch#156).
-    '2.0': next
+    '1.0': done
+    # Added as next once etch's v2 specification was done (etch#156); current since 2.0.0.
+    '2.0': current
