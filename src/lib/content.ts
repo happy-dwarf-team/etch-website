@@ -12,8 +12,10 @@ export const MARKETPLACE_URL =
 export const OPEN_VSX_URL = 'https://open-vsx.org/extension/happy-dwarf-team/etch';
 export const README_URL = `${REPO_URL}/blob/main/packages/extension/README.md`;
 export const V1_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v1.md`;
-export const AFTER_V1_URL = `${REPO_URL}/blob/main/docs/spec/after-v1.md`;
 export const V2_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v2.md`;
+export const AFTER_V2_URL = `${REPO_URL}/blob/main/docs/spec/after-v2.md`;
+export const ETCH_1X_URL = `${README_URL}#etch-1x`;
+export const ADR_0005_URL = `${REPO_URL}/blob/main/docs/adr/0005-live-game-replaces-game-host.md`;
 export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 
 export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam)', 'No telemetry'];
@@ -75,7 +77,7 @@ export const FEATURES: Feature[] = [
 		scene: 'resolution',
 		title: 'Any resolution',
 		textHtml:
-			"The game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3440×1440 or any width × height. <code>if_resolution</code> blocks follow it.",
+			"The game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. <code>if_resolution</code> blocks follow it.",
 		captionHtml:
 			"Pick the preview resolution: the game's settings, the monitor's, a corpus resolution or any width × height; <code>if_resolution</code> blocks follow it.",
 		alt: "VS Code with Etch's resolution picker open over an if_resolution block, listing default, native and the corpus resolutions.",
@@ -91,11 +93,16 @@ export const FEATURES: Feature[] = [
 	},
 ];
 
-// What the released version does not do yet (section 3.3), following the extension README.
-export const LIMITS = [
-	"A layout preview: content the game's code fills in (lists, flags, values) is not shown.",
-	"Preview only: you edit in VS Code's own text editor, not in the preview.",
-	'Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam.',
+// Etch's two parts, before the feature tour (section 3.2), following the extension README.
+export const PARTS_HTML =
+	"Etch has two parts. The <strong>offline preview</strong> needs no running game: it draws the window under the cursor from the unsaved buffer, in one <strong>view</strong> of the window from its profile (the province view as an own or a foreign province, with one side panel and one sub-panel), with <strong>sample data</strong> where the game's code fills in texts: a live snapshot, a save, the game's and the mod's files, or generated text. The <strong>live game</strong> is the game itself, beside the editor.";
+
+// What the released version does not do (section 3.3), following the extension README.
+export const LIMITS_HTML = [
+	'Values the engine works out (income, modifiers) come from a live snapshot or are generated: Etch never computes one. Ironman and other binary saves are not readable.',
+	'Reloading does not work in ironman or multiplayer games, and a file nothing rebuilds (<code>countryview.gui</code>, <code>.gfx</code> files, fonts) asks for a planned restart.',
+	"You edit in VS Code's own text editor, not in the preview or the game.",
+	'Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam; the live game needs build 1.37.5 exactly.',
 ];
 
 export type MilestoneId = 'M0' | 'M1' | 'M2' | 'M3' | 'M4' | '1.0' | '2.0';
@@ -172,10 +179,33 @@ export async function getStatus() {
 	return { status, roadmap };
 }
 
-// The game host note after the feature tour (section 3.2.1), following the extension README.
-export const GAME_HOST = {
-	title: 'The game host',
-	textHtml:
-		"Since 0.3.0, switch the preview's <strong>Backend</strong> to the game host and a private copy of the game draws the window itself. Etch creates the copy on first use, after one confirmation, and never writes to your game folder, profile or mods.",
+// The live game after the feature tour (section 3.2.1), following the extension README.
+export const LIVE_GAME = {
+	title: 'The live game',
+	items: [
+		{
+			title: 'Reload on save',
+			textHtml:
+				"<strong>Etch: Start the Live Game</strong>, or the preview's <strong>Live game</strong> button, starts a private copy of the game with your mod's playset. You play it; each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds asks for a planned restart.",
+		},
+		{
+			title: 'Pick mode',
+			textHtml:
+				'<strong>Ctrl+Shift+E</strong> turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.',
+		},
+		{
+			title: 'Live snapshot',
+			textHtml:
+				'A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.',
+		},
+	],
+	noteHtml:
+		'Etch creates the private install on first use, after one confirmation. It never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>.',
+};
+
+// The note on staying on 1.x (section 3.2.2), following the extension README (etch#209).
+export const ETCH_1X = {
+	title: 'Staying on 1.x',
+	textHtml: `2.0.0 replaced 1.x's game host and its diff view with the live game (<a href="${ADR_0005_URL}">ADR 0005</a>). To keep them, install 1.0.x: in the Extensions view, <strong>Install Specific Version…</strong> on Etch, then 1.0.x, and turn off automatic updates for it. 1.0.x gets no fixes after 2.0.0 (<a href="${ETCH_1X_URL}">extension README</a>).`,
 };
 export const ANVIL_URL = 'https://anvil.happydwarf.dev/';

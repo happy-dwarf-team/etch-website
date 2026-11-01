@@ -1,6 +1,7 @@
 ---
 // The home page (docs/spec.md, section 3.1): split hero with the demo loop, install band,
-// feature tour with the "does not do yet" box, roadmap. Header and footer come from Base.
+// feature tour with the live game, the 1.x note and the "does not do" box, roadmap. Header and
+// footer come from Base.
 import { getImage } from 'astro:assets';
 import CopyCommand from '../components/CopyCommand.astro';
 import DemoLoop from '../components/DemoLoop.astro';
@@ -8,13 +9,15 @@ import FeatureTour from '../components/FeatureTour.astro';
 import Roadmap from '../components/Roadmap.astro';
 import Base from '../layouts/Base.astro';
 import {
-	AFTER_V1_URL,
+	AFTER_V2_URL,
 	ANVIL_URL,
-	GAME_HOST,
+	ETCH_1X,
 	INSTALL_COMMAND,
-	LIMITS,
+	LIMITS_HTML,
+	LIVE_GAME,
 	MARKETPLACE_URL,
 	OPEN_VSX_URL,
+	PARTS_HTML,
 	README_URL,
 	REQUIREMENTS,
 	V1_SPEC_URL,
@@ -44,7 +47,8 @@ const version = await getLatestVersion();
 			<h1>Edit the <code>.gui</code>. Watch the window.</h1>
 			<p class="lead">
 				Etch draws the interface window under your cursor from the unsaved editor
-				buffer, with the game's own textures, fonts and localisation.
+				buffer, with the game's own textures, fonts and localisation, and reloads each
+				saved file into the running game.
 			</p>
 			<div class="buttons">
 				<a class="button primary" href={MARKETPLACE_URL}>Install from VS Code Marketplace</a>
@@ -72,17 +76,31 @@ const version = await getLatestVersion();
 
 	<section class="section wrap" id="features" aria-labelledby="features-title">
 		<p class="eyebrow">Features</p>
-		<h2 id="features-title">What the offline preview does</h2>
+		<h2 id="features-title">The offline preview and the live game</h2>
+		<p class="parts" set:html={PARTS_HTML} />
 		<FeatureTour stills={media?.stills} />
-		<div class="game-host">
-			<h3>{GAME_HOST.title}</h3>
-			<p set:html={GAME_HOST.textHtml} />
+		<div class="note" id="live-game">
+			<h3>{LIVE_GAME.title}</h3>
+			<ul class="live">
+				{
+					LIVE_GAME.items.map((item) => (
+						<li>
+							<strong>{item.title}.</strong> <span set:html={item.textHtml} />
+						</li>
+					))
+				}
+			</ul>
+			<p set:html={LIVE_GAME.noteHtml} />
 			<p><a href={ANVIL_URL}>Built on Anvil</a></p>
 		</div>
+		<div class="note">
+			<h3>{ETCH_1X.title}</h3>
+			<p set:html={ETCH_1X.textHtml} />
+		</div>
 		<div class="limits">
-			<h3>{version ? `What ${version} does not do yet` : 'What Etch does not do yet'}</h3>
+			<h3>{version ? `What ${version} does not do` : 'What Etch does not do'}</h3>
 			<ul>
-				{LIMITS.map((l) => <li>{l}</li>)}
+				{LIMITS_HTML.map((l) => <li set:html={l} />)}
 			</ul>
 		</div>
 	</section>
@@ -92,8 +110,8 @@ const version = await getLatestVersion();
 		<h2 id="roadmap-title">From preview to 2.0.0</h2>
 		<p class="muted">
 			Etch 1.0.0 is the whole of the <a href={V1_SPEC_URL}>v1 specification</a>, built in these
-			milestones; <a href={AFTER_V1_URL}>after v1</a> lists what is left. Etch 2.0.0 follows the
-			<a href={V2_SPEC_URL}>v2 specification</a> and is not released yet.
+			milestones, and 2.0.0 the whole of the <a href={V2_SPEC_URL}>v2 specification</a>, frozen
+			with it; <a href={AFTER_V2_URL}>after v2</a> lists what is left.
 		</p>
 		<Roadmap />
 	</section>
@@ -196,22 +214,40 @@ const version = await getLatestVersion();
 		padding-block: clamp(3rem, 7vw, 5.5rem) 0;
 	}
 
-	.game-host {
+	.parts {
+		max-width: 52rem;
+		color: var(--forge-text-muted);
+	}
+
+	.note {
 		max-width: 52rem;
 		margin-top: 3rem;
 	}
 
-	.game-host h3 {
+	.note + .note {
+		margin-top: 2rem;
+	}
+
+	.note h3 {
 		margin-bottom: 0.5rem;
 		font-size: 1.2rem;
 	}
 
-	.game-host p {
+	.note p,
+	.note li {
 		margin-bottom: 0.5rem;
 		color: var(--forge-text-muted);
 	}
 
-	.game-host a {
+	.note :global(strong) {
+		color: var(--forge-text);
+	}
+
+	.live {
+		padding-left: 1.1em;
+	}
+
+	.note p > a:only-child {
 		display: inline-flex;
 		align-items: center;
 		min-height: 44px;

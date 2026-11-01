@@ -26,14 +26,16 @@ stays about the extension.
 
 - **What:** the website of Etch, the VS Code extension that previews Europa Universalis IV
   interface mods, at **`https://etch.happydwarf.dev/`**: a landing page with a demo loop, the
-  M1 features each with a screenshot, install, and the status and roadmap to v1 and v2.
+  preview's features each with a screenshot, the live game, install, and the status and roadmap
+  to v1 and v2.
 - **Language:** English only.
 - **User documentation stays in the extension README** (linked from Install). Revisit only if
   user docs move to the site ([#13](https://github.com/happy-dwarf-team/.github/issues/13)).
 - **Not on the site:** a blog, newsletter, full user docs, a separate gallery, analytics,
   cookies, a consent banner.
-- **Content rules:** say nothing beyond what the extension README and the v1 specification say
-  (and, for the roadmap's unreleased milestone, the v2 specification);
+- **Content rules:** say nothing beyond what the extension README and the v1 and v2
+  specifications say (since 2.0.0 the v2 specification describes the release; before it, only
+  the roadmap's unreleased milestone followed it);
   measurements carry their source (e.g. "warm reload median 6–7 ms, p95 8–14 ms, maintainer's
   machine, etch#39"); limits stated plainly; the roadmap is marked indicative.
 
@@ -111,21 +113,31 @@ Differences from the hub:
      fetched version there is no check.
 2. **Hero, split:** text beside the demo loop (section 4.1).
    - Text (drafts): eyebrow "EU4 interface mods · VS Code"; h1 "Edit the `.gui`. Watch the
-     window."; one sentence on what Etch does; primary button **"Install from VS Code
+     window."; one sentence on what Etch does, the preview and, since 2.0.0, the live game;
+     primary button **"Install from VS Code
      Marketplace"**, secondary **"Open VSX"**; requirements line *Windows x64 · VS Code 1.100+ ·
      EU4 1.37.5 (Steam) · No telemetry*.
    - On a 375 px phone the loop still starts in the first screen.
 3. **Install band**, one line: `code --install-extension happy-dwarf-team.etch` with a **Copy**
    button, "open a `.gui` and run **Etch: Open Preview**", and a link to the extension README.
-4. **Features (M1) as a tour:** six numbered rows, each a short text beside its own screenshot
-   (section 3.2), then the **game host note** (section 3.2.1), then a box **"What 0.2.0 does
-   not do yet"** (section 3.3).
+4. **Features as a tour:** a short introduction to 2.0's two parts, six numbered rows, each a
+   short text beside its own screenshot (section 3.2), then the **live game** (section 3.2.1),
+   the **Etch 1.x note** (section 3.2.2), then a box **"What 2.0.0 does not do"** (section
+   3.3).
 5. **Roadmap:** a vertical timeline (section 3.5).
 6. **Footer** (section 7).
 
 There is no separate screenshot gallery.
 
 ### 3.2 The six features
+
+Since 2.0.0 the tour opens with Etch's two parts, following the extension README and ADR 0005
+(draft): "Etch has two parts. The **offline preview** needs no running game: it draws the window
+under the cursor from the unsaved buffer, in one **view** of the window from its profile (the
+province view as an own or a foreign province, with one side panel and one sub-panel), with
+**sample data** where the game's code fills in texts: a live snapshot, a save, the game's and
+the mod's files, or generated text. The **live game** is the game itself, beside the editor."
+The rows follow.
 
 In this order, one still each ([#13](https://github.com/happy-dwarf-team/.github/issues/13),
 [#19](https://github.com/happy-dwarf-team/.github/issues/19)). Texts are drafts from the
@@ -138,29 +150,52 @@ README.
 | 2 | The window under the cursor | The preview shows the top-level window that holds the cursor. **Pin** keeps it on one window while you edit other files. | `pin` | Pinned to the dialog while a `.gfx` file is edited: the preview keeps the window and shows the new button sprite. | VS Code with etch_demo.gfx open and Pin pressed in Etch's preview toolbar; the dialog's button shows a different sprite. |
 | 3 | Widget outline and jump to source | The Widget Outline lists the window's widgets. Click a widget in the preview to reveal its source; hover to see its path and rect. | `outline` | The Widget Outline lists the window's widgets; clicking one in the preview selects its source, hovering shows its path and rect. | VS Code with the Widget Outline in the sidebar, a widget selected in the editor, and a dashed hover box with a tooltip in Etch's preview. |
 | 4 | Diagnostics in Problems | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit. | `problems` | A misspelled sprite name is reported in Problems while the rest of the window still draws. | VS Code with a squiggle under a sprite name, one Etch warning in the Problems panel, and the dialog drawn without that widget. |
-| 5 | Any resolution | The game's `settings.txt`, the monitor's, a corpus resolution from 1280×720 to 3440×1440 or any width × height. `if_resolution` blocks follow it. | `resolution` | Pick the preview resolution: the game's settings, the monitor's, a corpus resolution or any width × height; `if_resolution` blocks follow it. | VS Code with Etch's resolution picker open over an `if_resolution` block, listing default, native and the corpus resolutions. |
+| 5 | Any resolution | The game's `settings.txt`, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. `if_resolution` blocks follow it. | `resolution` | Pick the preview resolution: the game's settings, the monitor's, a corpus resolution or any width × height; `if_resolution` blocks follow it. | VS Code with Etch's resolution picker open over an `if_resolution` block, listing default, native and the corpus resolutions. |
 | 6 | Your playset, the game's own art | Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere. | `playset` | The demo mod holds only text files; Etch draws its localised title, colours and icons with the game's own fonts and textures. | VS Code's Explorer showing a mod of .gui, .gfx, .yml and descriptor files, an unsaved localisation edit, and the retitled dialog in the preview. |
 
 Each still's Enlarge button is labelled "Enlarge screenshot: " plus the feature's title.
 
-### 3.2.1 Game host note
+### 3.2.1 The live game
 
-The game host (M3, 0.3.0) has no still yet, so it is a short text block after the tour, not a
-seventh row. Draft, following the extension README: heading "The game host", then "Since 0.3.0,
-switch the preview's Backend to the game host and a private copy of the game draws the window
-itself. Etch creates the copy on first use, after one confirmation, and never writes to your
-game folder, profile or mods." It ends with a visible link **"Built on Anvil"** to
-`https://anvil.happydwarf.dev/`, Anvil being the plugin loader the game host runs on.
+Since 2.0.0 a text block on the live game follows the tour, replacing the game host note (M3),
+following the extension README (drafts): heading "The live game", then three items:
 
-### 3.3 "What 0.2.0 does not do yet"
+- **Reload on save:** "**Etch: Start the Live Game**, or the preview's **Live game** button,
+  starts a private copy of the game with your mod's playset. You play it; each file you save is
+  reloaded into the game's own window, with its real data. A file nothing rebuilds asks for a
+  planned restart."
+- **Pick mode:** "**Ctrl+Shift+E** turns on pick mode: the widget under the pointer is outlined
+  with its name, kind, size and file, and a click opens its definition at its line in VS Code,
+  without the game taking the click."
+- **Live snapshot:** "A pick also takes a live snapshot of the window: the texts, visibility and
+  states the game shows, which the preview uses as its upper data layer."
+
+Then: "Etch creates the private install on first use, after one confirmation. It never writes to
+your game folder, profile or mods, and never changes `eu4.exe`." It ends with a visible link
+**"Built on Anvil"** to `https://anvil.happydwarf.dev/`, Anvil being the plugin loader the live
+game runs on.
+
+### 3.2.2 Etch 1.x note
+
+A short note after the live game, following the extension README's "Etch 1.x" section
+(etch#209) and ADR 0005 (draft): heading "Staying on 1.x", then "2.0.0 replaced 1.x's game host
+and its diff view with the live game. To keep them, install 1.0.x: in the Extensions view,
+**Install Specific Version…** on Etch, then 1.0.x, and turn off automatic updates for it. 1.0.x
+gets no fixes after 2.0.0." It links that README section and ADR 0005.
+
+### 3.3 "What 2.0.0 does not do"
 
 The version in the title is the latest `etch` release, from the same build-time fetch as the
-badge; without it the title reads "What Etch does not do yet". Drafts, following the extension
-README:
+badge; without it the title reads "What Etch does not do". (Until 2.0.0 the title said "does not
+do yet".) Drafts, following the extension README:
 
-- A layout preview: content the game's code fills in (lists, flags, values) is not shown.
-- Preview only: you edit in VS Code's own text editor, not in the preview.
-- Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam.
+- Values the engine works out (income, modifiers) come from a live snapshot or are generated:
+  Etch never computes one. Ironman and other binary saves are not readable.
+- Reloading does not work in ironman or multiplayer games, and a file nothing rebuilds
+  (`countryview.gui`, `.gfx` files, fonts) asks for a planned restart.
+- You edit in VS Code's own text editor, not in the preview or the game.
+- Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam; the live game needs build 1.37.5
+  exactly.
 
 ### 3.4 Install
 
@@ -173,8 +208,9 @@ README:
 A vertical timeline **M0 → M1 → M2 → M3 → M4 → 1.0.0 → 2.0.0**, one line each from `etch`'s
 [v1 specification](https://github.com/happy-dwarf-team/etch/blob/main/docs/spec/v1.md) section
 11, with a link to the v1 specification (until 1.0.0 also the note "version numbers are
-indicative"; since 1.0.0 a link to its `after-v1.md`, what v1 left). Each
-milestone's state (done, current, next) comes from `src/data/status.yaml`.
+indicative"; since 1.0.0 a link to its `after-v1.md`, what v1 left, and since 2.0.0 to
+`after-v2.md`, which took that over). Each milestone's state (done, current, next) comes from
+`src/data/status.yaml`.
 
 The **2.0** line comes from `etch`'s
 [v2 specification](https://github.com/happy-dwarf-team/etch/blob/main/docs/spec/v2.md) (its
@@ -183,7 +219,8 @@ summary and section 13), added as `next` once that specification was done
 M5–M10: v2 makes no store release before 2.0.0. The text above the timeline links to the v2
 specification and says 2.0.0 is not released, without claiming any of it is built. M3 and M4
 stay as history; the game host note and the feature tour change with the 2.0.0 release, not
-before (etch#156).
+before (etch#156). Since 2.0.0 (released 2026-11-01) 2.0 is `current`, 1.0 is `done`, and the
+text says 2.0.0 is the whole of the v2 specification, frozen with it.
 
 | Milestone | Version | Line (draft) |
 | --- | --- | --- |

@@ -1,7 +1,7 @@
 # Etch website
 
-The website of Etch at `etch.happydwarf.dev`: a landing page with a demo loop, the M1 features,
-install and the roadmap. Terms about Etch itself are in
+The website of Etch at `etch.happydwarf.dev`: a landing page with a demo loop, the preview's
+features, the live game, install and the roadmap. Terms about Etch itself are in
 [`etch`'s GLOSSARY.md](https://github.com/happy-dwarf-team/etch/blob/main/GLOSSARY.md); terms
 shared by the team's sites are in
 [`happydwarf-website`'s GLOSSARY.md](https://github.com/happy-dwarf-team/happydwarf-website/blob/main/GLOSSARY.md).
@@ -22,12 +22,12 @@ The one-line section with the install command, its Copy button and the first ste
 _Avoid_: install section, quick start
 
 **Feature tour**:
-The six numbered M1 feature rows, each a short text beside its own still.
+The six numbered feature rows of the offline preview, each a short text beside its own still.
 _Avoid_: gallery, feature grid
 
 **Roadmap**:
 The vertical timeline M0 → 1.0.0 from `etch`'s v1 specification, then 2.0.0 from its v2
-specification; version numbers are indicative.
+specification.
 _Avoid_: timeline (for the content), plan
 
 ## Media
@@ -43,7 +43,7 @@ Save-Data.
 _Avoid_: thumbnail, cover
 
 **Still**:
-One screenshot of Etch at work, one per M1 feature, 2560 × 1440.
+One screenshot of Etch at work, one per feature of the tour, 2560 × 1440.
 _Avoid_: image, picture, shot
 
 **Lightbox**:
