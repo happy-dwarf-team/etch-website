@@ -435,7 +435,7 @@ DeveloperApplication, `operatingSystem` Windows, MIT `license`, `isAccessibleFor
 From [#13](https://github.com/happy-dwarf-team/.github/issues/13) and
 [#14](https://github.com/happy-dwarf-team/.github/issues/14). On every page, 404 included:
 
-- the **family marker**: the team mark with "A Happy Dwarf project", linking to
+- the **family marker**: the full team logo with "A Happy Dwarf project", linking to
   `https://happydwarf.dev/`;
 - links to Etch's Source (the `etch` repository), Changelog, Issues, and "MIT";
 - the **disclaimer** as its own paragraph in muted text, with all three lines (the site shows EU4
