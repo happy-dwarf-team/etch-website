@@ -1,8 +1,9 @@
 ---
-// The hero's demo loop (docs/spec.md, section 4.1; DESIGN.md, "Demo loop"): a 16:9 figure
-// with the silent video, the Pause/Play button and the text description. The controller
-// below plays it only when it may; without the media manifest the figure shows its
-// unavailable state. The poster's preload link is in index.astro's head.
+// A loop (docs/spec.md, section 4.1; DESIGN.md, "Demo loop"): a 16:9 figure with the silent
+// video, the Pause/Play button and the text description. The controller below plays it only
+// when it may; without the media manifest the figure shows its unavailable state. The hero's
+// loop is the default; each feature of the tour passes its own text and id. The hero poster's
+// preload link is in index.astro's head.
 import type { GetImageResult } from 'astro';
 import EtchMark from '../assets/etch-mark.svg';
 import { LOOP } from '../lib/content';
@@ -12,12 +13,22 @@ interface Props {
 	loop?: Loop;
 	/** The poster as rendered by getImage(), the same URL the head preloads. */
 	poster?: GetImageResult;
+	/** The loop's title (the lead adds its length), its text description and its poster's alt. */
+	text?: { title: string; descriptionHtml: string; posterAlt: string };
+	/** The figure's id; the description's is `<id>-description`. */
+	id?: string;
+	/** What the button plays, for screen readers. */
+	name?: string;
 }
 
-const { loop, poster } = Astro.props;
+const { loop, poster, text = LOOP, id = 'demo-loop', name = 'the demo loop' } = Astro.props;
+// "Pick mode, 12 s, silent." from the published loop's length (WCAG 1.2.1).
+const lead = loop
+	? `${text.title}, ${String(Math.round(loop.duration))} s, silent.`
+	: `${text.title}, silent.`;
 ---
 
-<figure class="demo-loop" data-demo-loop data-state={loop ? 'poster' : 'unavailable'}>
+<figure class="demo-loop" id={id} data-demo-loop data-state={loop ? 'poster' : 'unavailable'}>
 	<div class="media-box">
 		{
 			loop && poster ? (
@@ -29,8 +40,8 @@ const { loop, poster } = Astro.props;
 					poster={poster.src}
 					width={loop.width}
 					height={loop.height}
-					aria-label={LOOP.posterAlt}
-					aria-describedby="demo-loop-description"
+					aria-label={text.posterAlt}
+					aria-describedby={`${id}-description`}
 				>
 					{loop.sources.map(({ src, type }) => (
 						<source src={src} type={type} />
@@ -39,7 +50,7 @@ const { loop, poster } = Astro.props;
 			) : (
 				<div class="media-unavailable">
 					<EtchMark aria-hidden="true" focusable="false" />
-					<p>Demo loop not published yet</p>
+					<p>Loop not published yet</p>
 				</div>
 			)
 		}
@@ -53,14 +64,14 @@ const { loop, poster } = Astro.props;
 						<path fill="currentColor" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z" />
 					</svg>
 					<span class="label">Play</span>
-					<span class="sr-only"> the demo loop</span>
+					<span class="sr-only"> {name}</span>
 				</button>
 			)
 		}
 	</div>
-	<figcaption id="demo-loop-description">
-		<strong>{LOOP.lead}</strong>{' '}
-		<Fragment set:html={LOOP.descriptionHtml} />
+	<figcaption id={`${id}-description`}>
+		<strong>{lead}</strong>{' '}
+		<Fragment set:html={text.descriptionHtml} />
 	</figcaption>
 </figure>
 

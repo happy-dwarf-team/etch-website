@@ -1,9 +1,9 @@
-// The home page's editorial content: links, the six features with their stills' captions and
-// alts, the demo loop's description and the roadmap lines (docs/spec.md, sections 3 and 4).
+// The home page's editorial content: links, the features with their loops' text descriptions and
+// posters' alts, the demo loop's and the roadmap lines (docs/spec.md, sections 3 and 4).
 // The media manifest carries only facts about files; everything said about them is here.
 // Strings marked `html` hold inline markup (`code`, links) and are rendered with set:html.
 import { getEntry } from 'astro:content';
-import type { MediaManifest } from './media-manifest';
+import type { ClipId } from './media-manifest';
 import { ETCH_REPO, getLatestVersion } from './release';
 
 export const REPO_URL = `https://github.com/${ETCH_REPO}`;
@@ -20,80 +20,89 @@ export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 
 export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam)', 'No telemetry'];
 
+// The hero's demo loop (section 4.1): a trailer of three feature loops.
 export const LOOP = {
-	lead: 'Demo loop, 8 s, silent.',
+	title: 'Demo loop',
 	descriptionHtml:
-		"In VS Code, <code>provinceview.gui</code> is open beside Etch's preview of the province view, the buildings panel outlined. One keystroke changes the panel's x from 480 to 580 and the panel moves right at once. In <strong>View ▾</strong> the army builder's view is chosen and drawn beside the moved panel, then the own province's view again; one undo returns the window to where it started.",
+		"Three moments from the loops below. In VS Code, the buildings panel's x in an unsaved <code>provinceview.gui</code> is retyped digit by digit, and Etch's preview redraws the panel at every keystroke. Beside the live game, a save reloads the province view in the game and the panel moves. In the game, pick mode outlines each widget under the pointer with its name, kind, size and file, and a click opens its definition in VS Code.",
 	posterAlt:
-		"VS Code with provinceview.gui on the left and Etch's preview of the province view on the right, its buildings panel outlined.",
+		"VS Code with provinceview.gui on the left and Etch's preview of the province view on the right.",
 };
 
 export interface Feature {
-	scene: keyof MediaManifest['stills'];
+	clip: ClipId;
 	title: string;
 	textHtml: string;
-	captionHtml: string;
-	alt: string;
+	/** The loop's text description (WCAG 1.2.1), after its lead. */
+	descriptionHtml: string;
+	posterAlt: string;
 }
+
+// The poster of every offline loop: its first frame, the wide shot it also ends on.
+const WIDE_ALT =
+	"VS Code with provinceview.gui on the left and Etch's preview of the province view on the right.";
 
 // In the order of the feature tour (section 3.2).
 export const FEATURES: Feature[] = [
 	{
-		scene: 'preview',
+		clip: 'preview',
 		title: 'Preview as you type',
 		textHtml: `The preview follows the unsaved editor buffer on every change, including the mod's <code>.gfx</code> and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms <span class="source">(measured on the maintainer's machine, <a href="${REPO_URL}/issues/39">etch#39</a>)</span>.`,
-		captionHtml:
-			'Move the buildings panel in an unsaved <code>provinceview.gui</code> and the province view redraws; the widget at the cursor stays outlined.',
-		alt: "VS Code with an unsaved provinceview.gui on the left, the buildings window's x changed to 580, and Etch's preview of the province view with the buildings panel moved right and outlined.",
+		descriptionHtml:
+			"The view moves in on the preview, with the edited line in an inset. The buildings panel's x, 480, is retyped as 7, 72 and 720, unsaved, and the panel jumps to each position at once. An undo returns it.",
+		posterAlt:
+			"VS Code with provinceview.gui on the left, the buildings panel's x selected, and Etch's preview of the province view on the right.",
 	},
 	{
-		scene: 'views',
+		clip: 'views',
 		title: 'Views of the window',
 		textHtml:
 			'A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. <strong>View ▾</strong> lists the views and every selector with where its value comes from; <strong>Save as view…</strong> writes your own into the mod.',
-		captionHtml:
-			"<strong>View ▾</strong> on the province view: the army builder's view is chosen, and every selector shows where its value comes from.",
-		alt: "Etch's preview toolbar with the View menu open over the province view, listing six views with Build army chosen and the selectors below.",
+		descriptionHtml:
+			"The view moves in on the preview. In <strong>View ▾</strong> two other views of the province view are chosen in turn and the window is drawn in each, then the own province's view again.",
+		posterAlt: WIDE_ALT,
 	},
 	{
-		scene: 'data',
+		clip: 'data',
 		title: 'Sample data',
 		textHtml:
 			"Texts the game's code fills (a province's name, its development, culture, religion) show sample data. <strong>Data ▾</strong> shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length.",
-		captionHtml:
-			'<strong>Data ▾</strong> with generated text set to long: the province view shows how long names and numbers fit.',
-		alt: "Etch's preview with the Data menu open, its layers listed and generated text set to long; the province view behind it shows long names overflowing their boxes.",
+		descriptionHtml:
+			"In <strong>Data ▾</strong> generated text is set to long, and the view moves in on the province view's header, where long names and numbers fill their boxes; then the text is set back to typical.",
+		posterAlt: WIDE_ALT,
 	},
 	{
-		scene: 'zoom',
+		clip: 'zoom',
 		title: 'Zoom without a new layout',
 		textHtml:
 			'Zoom changes only how big the preview is shown, never the resolution the window is laid out at. <strong>Ctrl+mouse wheel</strong> zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp.',
-		captionHtml:
-			"The province view's header at 200 %, zoomed around the cursor with Ctrl+wheel; game pixels stay sharp.",
-		alt: "Etch's preview zoomed to 200 % on the province view's header, its zoom level reading 200 %, beside provinceview.gui.",
+		descriptionHtml:
+			"With the pointer on the province view's header, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp; a click on the zoom level fits it again.",
+		posterAlt: WIDE_ALT,
 	},
 	{
-		scene: 'outline',
+		clip: 'outline',
 		title: 'Widget outline and jump to source',
 		textHtml:
 			"The Widget Outline lists the window's widgets, a window's alternatives as radios and an eye on every other widget. Click a widget in the preview to reveal its source; hover to see its path and rect.",
-		captionHtml:
-			'A click on the buildings panel in the preview selects its definition in <code>provinceview.gui</code> and in the Widget Outline; the hover shows its path and rect.',
-		alt: "VS Code with the Widget Outline in the sidebar and buildings_window selected in it and in provinceview.gui, and in Etch's preview a dashed box around the buildings panel with a tooltip giving its path and rect.",
+		descriptionHtml:
+			"The Widget Outline is open in the sidebar. The pointer hovers three widgets in the preview, each outlined with a tooltip giving its path and rect; a click on a building selects its definition in <code>provinceview.gui</code> and in the outline. Go Back returns the cursor.",
+		posterAlt:
+			"VS Code with the Widget Outline in the sidebar, provinceview.gui and Etch's preview of the province view.",
 	},
 	{
-		scene: 'problems',
+		clip: 'problems',
 		title: 'Diagnostics in Problems',
 		textHtml:
 			"Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit.",
-		captionHtml:
-			'A misspelled sprite name in <code>provinceview.gui</code> is reported in Problems while the rest of the window still draws.',
-		alt: "VS Code with a misspelled sprite name in provinceview.gui, the Problems panel filtered to Etch's missing-sprite warning, and the province view drawn with the buildings panel's background missing.",
+		descriptionHtml:
+			"Two letters of a sprite name in <code>provinceview.gui</code> are swapped. Problems reports the missing sprite at once, and in the preview the buildings panel's background is gone while the rest of the window still draws. An undo fixes it.",
+		posterAlt:
+			"VS Code with provinceview.gui, the Problems panel below it, and Etch's preview of the province view.",
 	},
 ];
 
-// The preview's features without a still, after the tour (section 3.2).
+// The preview's features without a loop, after the tour (section 3.2).
 export const ALSO_HTML = [
 	'<strong>Pin</strong> keeps the preview on one window while you edit other files.',
 	"Any resolution: the game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. <code>if_resolution</code> blocks follow it.",
@@ -186,26 +195,39 @@ export async function getStatus() {
 	return { status, roadmap };
 }
 
-// The live game after the feature tour (section 3.2.1), following the extension README.
+// The live game after the feature tour (section 3.2.1), following the extension README: its
+// three features continue the tour's numbering, each with its loop.
 export const LIVE_GAME = {
 	title: 'The live game',
-	items: [
+	features: [
 		{
+			clip: 'reload',
 			title: 'Reload on save',
 			textHtml:
 				"<strong>Etch: Start the Live Game</strong>, or the preview's <strong>Live game</strong> button, starts a private copy of the game with your mod's playset. You play it; each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds asks for a planned restart.",
+			descriptionHtml:
+				"VS Code beside the live game, its province view open. One keystroke changes the buildings panel's x from 480 to 580 and a save reloads the window in the game: the panel moves right. An undo and a save move it back.",
+			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
 		},
 		{
+			clip: 'pick',
 			title: 'Pick mode',
 			textHtml:
 				'<strong>Ctrl+Shift+E</strong> turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.',
+			descriptionHtml:
+				'Ctrl+Shift+E in the game turns on pick mode, with VS Code in an inset. The pointer moves over the province view and each widget is outlined with its name, kind, size and file. A click on the buildings panel brings VS Code forward at the definition of the widget under the pointer.',
+			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
 		},
 		{
+			clip: 'snapshot',
 			title: 'Live snapshot',
 			textHtml:
 				'A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.',
+			descriptionHtml:
+				"Etch's preview of the province view shows sample data, with the live game in an inset. A pick in the game takes a live snapshot, and the preview redraws with the texts the game shows.",
+			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
 		},
-	],
+	] satisfies Feature[],
 	noteHtml:
 		'Etch creates the private install on first use, after one confirmation. It never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>.',
 };

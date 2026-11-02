@@ -1,5 +1,5 @@
 // Checks the media manifest (docs/spec.md, section 5.3): validates src/data/media.json
-// against its schema, requires every poster and still in src/assets/media/, and sends HEAD
+// against its schema, requires every poster in src/assets/media/, and sends HEAD
 // to every source, which must answer 200 with the source's media type and a Content-Length
 // equal to `bytes`. Without a manifest (before the first media refresh, section 4.3) there is
 // nothing to check. Needs network access and Node 22.18+, which runs the .ts schema as is:

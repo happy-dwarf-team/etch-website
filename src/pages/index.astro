@@ -13,6 +13,7 @@ import {
 	ALSO_HTML,
 	ANVIL_URL,
 	ETCH_1X,
+	FEATURES,
 	INSTALL_COMMAND,
 	LIMITS_HTML,
 	LIVE_GAME,
@@ -27,7 +28,7 @@ import {
 import { loadMedia } from '../lib/media';
 import { getLatestVersion } from '../lib/release';
 
-// Undefined until the first media refresh: the loop and the stills render unavailable.
+// Undefined until the first media refresh: every loop renders unavailable.
 const media = loadMedia();
 const hero = media?.loops.hero;
 // The poster is the LCP image: one same-origin WebP, preloaded in the head.
@@ -79,26 +80,20 @@ const version = await getLatestVersion();
 		<p class="eyebrow">Features</p>
 		<h2 id="features-title">The offline preview and the live game</h2>
 		<p class="parts" set:html={PARTS_HTML} />
-		<FeatureTour stills={media?.stills} />
+		<FeatureTour features={FEATURES} loops={media?.loops} />
 		<div class="note">
 			<h3>Also in the preview</h3>
 			<ul class="live">
 				{ALSO_HTML.map((item) => <li set:html={item} />)}
 			</ul>
 		</div>
-		<div class="note" id="live-game">
+		<div class="live-game" id="live-game">
 			<h3>{LIVE_GAME.title}</h3>
-			<ul class="live">
-				{
-					LIVE_GAME.items.map((item) => (
-						<li>
-							<strong>{item.title}.</strong> <span set:html={item.textHtml} />
-						</li>
-					))
-				}
-			</ul>
-			<p set:html={LIVE_GAME.noteHtml} />
-			<p><a href={ANVIL_URL}>Built on Anvil</a></p>
+			<FeatureTour features={LIVE_GAME.features} loops={media?.loops} start={FEATURES.length} />
+			<div class="note">
+				<p set:html={LIVE_GAME.noteHtml} />
+				<p><a href={ANVIL_URL}>Built on Anvil</a></p>
+			</div>
 		</div>
 		<div class="note">
 			<h3>{ETCH_1X.title}</h3>
@@ -252,6 +247,18 @@ const version = await getLatestVersion();
 
 	.live {
 		padding-left: 1.1em;
+	}
+
+	.live-game {
+		margin-top: clamp(3rem, 7vw, 5rem);
+	}
+
+	.live-game > h3 {
+		font-size: clamp(1.25rem, 1.4vw + 0.8rem, 1.6rem);
+	}
+
+	.live-game .note {
+		margin-top: 2rem;
 	}
 
 	.note p > a:only-child {

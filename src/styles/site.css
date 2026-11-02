@@ -165,7 +165,7 @@ button {
 	color: var(--forge-on-accent);
 }
 
-/* The 44 px controls on and around media (Pause/Play, Enlarge, lightbox). */
+/* The 44 px controls on media (Pause/Play). */
 .media-control {
 	display: inline-flex;
 	align-items: center;
