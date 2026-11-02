@@ -1,7 +1,7 @@
 ---
 // The footer on every page, 404 included (docs/spec.md, section 7): the family marker, Etch's
 // links and the three-line disclaimer, since the site shows EU4 interface art.
-import glyph from '../assets/happy-dwarf-glyph.svg?raw';
+import logo from '../assets/happy-dwarf.svg?url';
 import { REPO_URL } from '../lib/content';
 
 const links = [
@@ -15,7 +15,7 @@ const links = [
 <footer class="site-footer">
 	<div class="wrap">
 		<a class="family" href="https://happydwarf.dev/">
-			<span class="glyph" aria-hidden="true" set:html={glyph} />
+			<img class="logo" src={logo} alt="" width="40" height="40" />
 			A Happy Dwarf project
 		</a>
 		<ul class="links">
@@ -67,15 +67,9 @@ const links = [
 		text-decoration: underline;
 	}
 
-	/* The team mark keeps the organization's forge orange (hub DESIGN.md, "Marks"). */
-	.glyph {
-		display: inline-flex;
-		color: #f5922a;
-	}
-
-	.glyph :global(svg) {
-		width: 1.5rem;
-		height: 1.5rem;
+	.logo {
+		width: 2.5rem;
+		height: 2.5rem;
 	}
 
 	.links {

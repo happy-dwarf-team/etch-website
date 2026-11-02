@@ -45,8 +45,9 @@ current milestone.
 - `src/assets/etch-mark.svg` is that glyph without its tile, drawn in `currentColor` (the icon
   grammar), with a comment naming the source commit; the page sets its colour to
   `--forge-accent`. Favicons put it on the family's favicon tile.
-- The footer carries the **family marker**: the small team mark with "A Happy Dwarf project",
-  linking to `https://happydwarf.dev/`.
+- The footer carries the **family marker**: the full team logo (`src/assets/happy-dwarf.svg`,
+  40 px, copied from the hub with a comment naming the source commit) with "A Happy Dwarf
+  project", linking to `https://happydwarf.dev/`.
 
 ## Layout
 
