@@ -48,6 +48,11 @@ The loop's first frame as a still image; shown before playback, under reduced mo
 Save-Data.
 _Avoid_: thumbnail, cover
 
+**Loop viewer**:
+The dialog that shows a loop large, with the video's controls and its text description, opened
+by Enlarge or a click on the loop.
+_Avoid_: lightbox, modal, zoom view
+
 **Unavailable state**:
 How a loop renders when there is no media manifest yet or its load failed: the reserved box
 with the text description.

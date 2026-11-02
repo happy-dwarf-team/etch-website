@@ -68,7 +68,7 @@ From [#13](https://github.com/happy-dwarf-team/.github/issues/13). Prototype for
 
 ### Demo loop
 
-The hero's loop and every feature's. A 16:9 `figure` with the video, the Pause/Play button and the text description in its
+The hero's loop and every feature's. A 16:9 `figure` with the video, the Pause/Play and Enlarge buttons and the text description in its
 `figcaption`. The box is always reserved, so no state causes layout shift. States:
 
 | State          | Shows                                                                                                      |
@@ -87,8 +87,20 @@ The hero's loop and every feature's. A 16:9 `figure` with the video, the Pause/P
 - The `figcaption` carries the bold lead, the loop's title and length from the manifest
   ("Pick mode, 12 s, silent."), and the description; it is tied to the video with
   `aria-describedby`. Only the hero's poster is preloaded.
-- Without JavaScript the button stays hidden and the poster stays; the same holds for the
+- The **Enlarge** chip is a 44 px pill at the bottom left, with a magnifier icon, shown with the
+  Pause/Play button; it and a click on the video (`cursor: zoom-in`) open the loop viewer.
+- Without JavaScript the buttons stay hidden and the poster stays; the same holds for the
   Copy button, which leaves the command to be selected by hand.
+
+### Loop viewer
+
+One native `<dialog>` for every loop, filled when it opens:
+
+- the loop as large as the screen allows (up to 1600 px wide, 16:9), with the video's own
+  controls, and its text description beside a 44 px **Close** button;
+- it plays at once unless reduced motion or Save-Data is set; the small loop pauses meanwhile;
+- **Esc**, **Close** or a click on the backdrop closes it and returns the focus to the button or
+  video that opened it.
 
 ### Copy-command box
 
@@ -120,11 +132,11 @@ not a horizontal track (it reads better on phones).
 Limited to two small scripts, each working on top of server-rendered HTML:
 
 1. the **loop controller** (IntersectionObserver, visibility, reduced motion, Save-Data,
-   `NotAllowedError`, the Pause/Play button), for every loop on the page;
+   `NotAllowedError`, the Pause/Play and Enlarge buttons, the loop viewer), for every loop on
+   the page;
 2. the **copy button**.
 
-The lightbox went with the stills in the 2.0.0 media refresh: the loops' close-ups show the
-details it enlarged.
+The stills' lightbox went with them in the 2.0.0 media refresh; the loop viewer took its place.
 
 No analytics, no framework, no third-party scripts.
 
@@ -132,7 +144,8 @@ No analytics, no framework, no third-party scripts.
 
 The family checklist, plus:
 
-- 44 px media controls (Pause/Play).
+- 44 px media controls (Pause/Play, Enlarge, Close).
+- A keyboard-operable loop viewer that returns focus.
 - A text description for every loop (WCAG 1.2.1) and a visible pause control (WCAG 2.2.2).
 - Every poster has an `alt` from [docs/spec.md](docs/spec.md#32-the-six-features).
 

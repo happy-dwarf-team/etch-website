@@ -2,7 +2,7 @@
 
 - Static site: Astro without Starlight, deployed to GitHub Pages. Keep it minimal: no UI
   framework, no Tailwind, no analytics, no third-party scripts. Client-side JavaScript is
-  limited to the loop controller and the copy button.
+  limited to the loop controller (with its loop viewer) and the copy button.
 - What the site contains is in [docs/spec.md](docs/spec.md), design decisions in
   [DESIGN.md](DESIGN.md) and terms in [GLOSSARY.md](GLOSSARY.md). Change a rule there first,
   then in code. Keep text contrast at 4.5:1 or more, keep focus rings visible, and respect

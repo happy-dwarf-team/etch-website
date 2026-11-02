@@ -87,9 +87,9 @@ workflows exist, `AGENTS.md`/`CLAUDE.md` and `SECURITY.md`.
 
 Differences from the hub:
 
-- **Client-side JavaScript is limited to two things:** the loop controller and the copy button
-  ([#13](https://github.com/happy-dwarf-team/.github/issues/13); the lightbox went with the stills
-  in the 2.0.0 media refresh). No analytics, no framework.
+- **Client-side JavaScript is limited to two things:** the loop controller, with its loop
+  viewer, and the copy button ([#13](https://github.com/happy-dwarf-team/.github/issues/13); the
+  stills' lightbox went with them in the 2.0.0 media refresh). No analytics, no framework.
 - **The `build` job also checks the media manifest** (section 5.3) beside `check:links` and
   `check:a11y`.
 - The preview deployment is `https://happy-dwarf-team.github.io/etch-website/`.
@@ -303,11 +303,19 @@ The hero's demo loop and every feature's loop (sections 3.2 and 3.2.1) follow th
   preview of the province view on the right." Every poster is its loop's first frame, so starting
   playback does not jump.
 
-### 4.2 No stills
+### 4.2 The loop viewer
 
-Until the 2.0.0 media refresh every feature had a 2560 × 1440 still with a lightbox ("Enlarge",
-Previous/Next, "Actual size"). The feature loops replaced them, and the lightbox went with them:
-the loops' close-ups show what it enlarged.
+- **Every loop can be enlarged:** a visible **Enlarge** chip at its bottom left (not hover-only,
+  labelled for screen readers with what it shows), or a click on the video, opens one native
+  `<dialog>` with the same loop as large as the screen allows, the video's own controls (pause,
+  seek, full screen) and its text description.
+- In the viewer the loop follows the page's rules: it plays at once unless reduced motion or
+  Save-Data is set, which leave its poster and controls. The small loop pauses while the viewer
+  is open and goes on as before after it.
+- **Esc**, **Close** or a click outside the dialog closes it and returns the focus to what opened
+  it.
+- Until the 2.0.0 media refresh every feature had a 2560 × 1440 still with a lightbox ("Enlarge",
+  Previous/Next, "Actual size"); the loops and their viewer replaced them.
 
 ### 4.3 Before the first media refresh
 
