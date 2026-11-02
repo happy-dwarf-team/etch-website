@@ -1,8 +1,10 @@
 ---
-// The hero's demo loop (docs/spec.md, section 4.1; DESIGN.md, "Demo loop"): a 16:9 figure
-// with the silent video, the Pause/Play button and the text description. The controller
-// below plays it only when it may; without the media manifest the figure shows its
-// unavailable state. The poster's preload link is in index.astro's head.
+// A loop (docs/spec.md, section 4.1; DESIGN.md, "Demo loop"): a 16:9 figure with the silent
+// video, the Pause/Play and Enlarge buttons and the text description. The controller below plays
+// it only when it may, and Enlarge (or a click on the video) shows it large in the loop viewer
+// (LoopViewer.astro); without the media manifest the figure shows its unavailable state. The
+// hero's loop is the default; each feature of the tour passes its own text and id. The hero
+// poster's preload link is in index.astro's head.
 import type { GetImageResult } from 'astro';
 import EtchMark from '../assets/etch-mark.svg';
 import { LOOP } from '../lib/content';
@@ -12,12 +14,22 @@ interface Props {
 	loop?: Loop;
 	/** The poster as rendered by getImage(), the same URL the head preloads. */
 	poster?: GetImageResult;
+	/** The loop's title (the lead adds its length), its text description and its poster's alt. */
+	text?: { title: string; descriptionHtml: string; posterAlt: string };
+	/** The figure's id; the description's is `<id>-description`. */
+	id?: string;
+	/** What the button plays, for screen readers. */
+	name?: string;
 }
 
-const { loop, poster } = Astro.props;
+const { loop, poster, text = LOOP, id = 'demo-loop', name = 'the demo loop' } = Astro.props;
+// "Pick mode, 12 s, silent." from the published loop's length (WCAG 1.2.1).
+const lead = loop
+	? `${text.title}, ${String(Math.round(loop.duration))} s, silent.`
+	: `${text.title}, silent.`;
 ---
 
-<figure class="demo-loop" data-demo-loop data-state={loop ? 'poster' : 'unavailable'}>
+<figure class="demo-loop" id={id} data-demo-loop data-state={loop ? 'poster' : 'unavailable'}>
 	<div class="media-box">
 		{
 			loop && poster ? (
@@ -29,8 +41,8 @@ const { loop, poster } = Astro.props;
 					poster={poster.src}
 					width={loop.width}
 					height={loop.height}
-					aria-label={LOOP.posterAlt}
-					aria-describedby="demo-loop-description"
+					aria-label={text.posterAlt}
+					aria-describedby={`${id}-description`}
 				>
 					{loop.sources.map(({ src, type }) => (
 						<source src={src} type={type} />
@@ -39,7 +51,7 @@ const { loop, poster } = Astro.props;
 			) : (
 				<div class="media-unavailable">
 					<EtchMark aria-hidden="true" focusable="false" />
-					<p>Demo loop not published yet</p>
+					<p>Loop not published yet</p>
 				</div>
 			)
 		}
@@ -53,14 +65,25 @@ const { loop, poster } = Astro.props;
 						<path fill="currentColor" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z" />
 					</svg>
 					<span class="label">Play</span>
-					<span class="sr-only"> the demo loop</span>
+					<span class="sr-only"> {name}</span>
+				</button>
+			)
+		}
+		{
+			loop && (
+				<button type="button" class="media-control enlarge" hidden>
+					<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+						<circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+						<path d="M10.3 10.3 14 14M5 7h4M7 5v4" stroke="currentColor" stroke-width="1.8" />
+					</svg>
+					Enlarge<span class="sr-only"> {name}</span>
 				</button>
 			)
 		}
 	</div>
-	<figcaption id="demo-loop-description">
-		<strong>{LOOP.lead}</strong>{' '}
-		<Fragment set:html={LOOP.descriptionHtml} />
+	<figcaption id={`${id}-description`}>
+		<strong>{lead}</strong>{' '}
+		<Fragment set:html={text.descriptionHtml} />
 	</figcaption>
 </figure>
 
@@ -75,8 +98,19 @@ const { loop, poster } = Astro.props;
 		bottom: 0.625rem;
 	}
 
-	.toggle[hidden] {
+	.toggle[hidden],
+	.enlarge[hidden] {
 		display: none;
+	}
+
+	.enlarge {
+		position: absolute;
+		left: 0.625rem;
+		bottom: 0.625rem;
+	}
+
+	video {
+		cursor: zoom-in;
 	}
 
 	.icon-pause,
@@ -108,9 +142,41 @@ const { loop, poster } = Astro.props;
 	// fails to load leaves the poster and the description (the unavailable state).
 	type State = 'poster' | 'loading' | 'playing' | 'paused' | 'offscreen' | 'unavailable';
 
+	// The loop viewer (LoopViewer.astro): one dialog for every loop, filled when it opens.
+	const viewer = document.querySelector<HTMLDialogElement>('[data-loop-viewer]');
+	const big = viewer?.querySelector('video');
+	const bigCaption = viewer?.querySelector('[data-loop-viewer-caption]');
+	let afterViewer: (() => void) | undefined;
+	if (viewer && big) {
+		// Empties the viewer and gives the page back; once per opening, whatever closed it.
+		const finish = () => {
+			if (afterViewer === undefined) return;
+			big.pause();
+			big.replaceChildren();
+			big.removeAttribute('poster');
+			big.load();
+			const after = afterViewer;
+			afterViewer = undefined;
+			after();
+		};
+		const closeViewer = () => {
+			viewer.close();
+			finish();
+		};
+		viewer.querySelector('[data-close]')?.addEventListener('click', closeViewer);
+		// A click on the backdrop, outside the dialog's box, closes it too.
+		viewer.addEventListener('click', (event) => {
+			if (event.target === viewer) closeViewer();
+		});
+		// Esc closes the dialog itself; its close event does not reach every browser in time.
+		viewer.addEventListener('cancel', () => setTimeout(finish, 0));
+		viewer.addEventListener('close', finish);
+	}
+
 	for (const figure of document.querySelectorAll<HTMLElement>('[data-demo-loop]')) {
 		const video = figure.querySelector('video');
 		const button = figure.querySelector<HTMLButtonElement>('.toggle');
+		const enlarge = figure.querySelector<HTMLButtonElement>('.enlarge');
 		if (!video || !button) continue;
 		const label = button.querySelector('.label')!;
 		const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -160,6 +226,29 @@ const { loop, poster } = Astro.props;
 			else if (!inView || document.hidden) pause('offscreen');
 			else if (video.paused) play();
 		};
+
+		// Shows the loop large: the small one pauses, and plays on (as the rules allow) after.
+		const openViewer = () => {
+			if (!viewer || !big || !bigCaption || figure.dataset.state === 'unavailable') return;
+			big.replaceChildren(...[...video.querySelectorAll('source')].map((s) => s.cloneNode()));
+			big.poster = video.poster;
+			big.setAttribute('aria-label', video.getAttribute('aria-label') ?? '');
+			bigCaption.innerHTML = figure.querySelector('figcaption')?.innerHTML ?? '';
+			pause('paused');
+			// The focus goes back to this loop's Enlarge, whether it or the video opened the viewer.
+			afterViewer = () => {
+				enlarge?.focus({ preventScroll: true });
+				decide();
+			};
+			viewer.showModal();
+			big.load();
+			if (!reducedMotion.matches && !saveData()) void big.play().catch(() => undefined);
+		};
+		if (enlarge && viewer) {
+			enlarge.hidden = false;
+			enlarge.addEventListener('click', openViewer);
+			video.addEventListener('click', openViewer);
+		}
 
 		button.addEventListener('click', () => {
 			if (figure.dataset.playing !== undefined) {

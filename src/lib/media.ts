@@ -1,9 +1,9 @@
 // Loads the media manifest for the pages (docs/spec.md, sections 4.3 and 5). The manifest is
-// optional until the first media refresh: without it loadMedia() returns undefined and the
-// demo loop and the stills render their unavailable state. A manifest that fails the schema
-// or names a missing poster or still fails the build.
+// optional until the first media refresh: without it loadMedia() returns undefined and every
+// loop renders its unavailable state. A manifest that fails the schema or names a missing poster
+// fails the build.
 import type { ImageMetadata } from 'astro';
-import { parseMediaManifest, type MediaManifest } from './media-manifest';
+import { CLIP_IDS, parseMediaManifest, type ClipId, type MediaManifest } from './media-manifest';
 
 const manifests = import.meta.glob('/src/data/media.json', { eager: true, import: 'default' });
 const images = import.meta.glob<ImageMetadata>('/src/assets/media/*.png', {
@@ -15,8 +15,7 @@ export type Loop = Omit<MediaManifest['loops']['hero'], 'poster'> & { poster: Im
 export interface Media {
 	// The Etch version the set was captured for.
 	etch: string;
-	loops: Record<keyof MediaManifest['loops'], Loop>;
-	stills: Record<keyof MediaManifest['stills'], ImageMetadata>;
+	loops: Record<ClipId, Loop>;
 }
 
 function image(file: string): ImageMetadata {
@@ -31,18 +30,11 @@ export function loadMedia(): Media | undefined {
 	const json = manifests['/src/data/media.json'];
 	if (json === undefined) return undefined;
 	const manifest = parseMediaManifest(json);
-	const { hero } = manifest.loops;
-	const { stills } = manifest;
-	return {
-		etch: manifest.etch,
-		loops: { hero: { ...hero, poster: image(hero.poster) } },
-		stills: {
-			preview: image(stills.preview),
-			views: image(stills.views),
-			data: image(stills.data),
-			zoom: image(stills.zoom),
-			outline: image(stills.outline),
-			problems: image(stills.problems),
-		},
-	};
+	const loops = Object.fromEntries(
+		CLIP_IDS.map((id) => {
+			const loop = manifest.loops[id];
+			return [id, { ...loop, poster: image(loop.poster) }];
+		}),
+	) as Record<ClipId, Loop>;
+	return { etch: manifest.etch, loops };
 }

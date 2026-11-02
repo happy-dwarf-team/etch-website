@@ -22,7 +22,8 @@ The one-line section with the install command, its Copy button and the first ste
 _Avoid_: install section, quick start
 
 **Feature tour**:
-The six numbered feature rows of the offline preview, each a short text beside its own still.
+The numbered feature rows, each a short text beside its feature's loop: six of the offline
+preview, then three of the live game.
 _Avoid_: gallery, feature grid
 
 **Roadmap**:
@@ -33,30 +34,28 @@ _Avoid_: timeline (for the content), plan
 ## Media
 
 **Demo loop**:
-The hero's short silent video of Etch at work, with a poster, a Pause/Play button and a text
-description.
-_Avoid_: hero video, clip, GIF
+The hero's short silent video of Etch at work, a trailer of three feature loops, with a poster, a
+Pause/Play button and a text description.
+_Avoid_: hero video, GIF
+
+**Feature loop**:
+One feature's short silent video in the tour, with its poster, Pause/Play button and text
+description, as the demo loop's.
+_Avoid_: screenshot, GIF
 
 **Poster**:
 The loop's first frame as a still image; shown before playback, under reduced motion and with
 Save-Data.
 _Avoid_: thumbnail, cover
 
-**Still**:
-One screenshot of Etch at work, one per feature of the tour, 2560 × 1440.
-_Avoid_: image, picture, shot
-
-**Lightbox**:
-The dialog that shows an enlarged still, with Previous/Next and "Actual size".
-_Avoid_: modal, zoom view
-
-**Actual size**:
-The lightbox view that shows a still's native pixels, so game pixels are shown 1:1.
-_Avoid_: 100 %, full size
+**Loop viewer**:
+The dialog that shows a loop large, with the video's controls and its text description, opened
+by Enlarge or a click on the loop.
+_Avoid_: lightbox, modal, zoom view
 
 **Unavailable state**:
-How the demo loop and stills render when there is no media manifest yet or a load failed: the
-reserved box with the text description or caption.
+How a loop renders when there is no media manifest yet or its load failed: the reserved box
+with the text description.
 _Avoid_: placeholder, empty state
 
 **Media manifest**:
@@ -64,19 +63,20 @@ _Avoid_: placeholder, empty state
 learns media bucket keys from.
 _Avoid_: media index, media list
 
-**Scene**:
-One named shot (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`) that the
-media script captures; its id appears in the bucket key, the file name and the manifest.
-_Avoid_: shot, clip
+**Clip**:
+One named loop (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`, `reload`,
+`pick`, `snapshot`) that the media script makes; its id appears in the bucket key, the file name
+and the manifest. Until 2.0.0's media refresh the ids named scenes, most of them stills.
+_Avoid_: scene, shot
 
 **Media refresh**:
 Capturing Etch's media for one Etch release and publishing them: loops to the media bucket;
-posters, stills and the media manifest to this site.
+posters and the media manifest to this site.
 _Avoid_: media update, re-record
 
 **Demo mod**:
 The workspace of Etch's media: our own files, drawn with the game's art; since 2.0.0 the
-scenes edit its throwaway override of the base game's `provinceview.gui`.
+clips edit its throwaway override of the base game's `provinceview.gui`.
 _Avoid_: sample mod, test mod, fixture
 
 **Takedown**:

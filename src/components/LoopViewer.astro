@@ -1,0 +1,61 @@
+---
+// The loop viewer (docs/spec.md, section 4.1; DESIGN.md, "Loop viewer"): one native <dialog>
+// that shows a loop large, with the video's own controls and its text description. The loop
+// controller in DemoLoop.astro fills and opens it; Esc, Close or a click outside it closes it and
+// returns the focus.
+---
+
+<dialog class="loop-viewer" aria-labelledby="loop-viewer-caption" data-loop-viewer>
+	<div class="media-box">
+		<video muted loop playsinline controls preload="none" width="1920" height="1080"></video>
+	</div>
+	<div class="bar">
+		<p id="loop-viewer-caption" data-loop-viewer-caption></p>
+		<button type="button" class="media-control" data-close>Close</button>
+	</div>
+</dialog>
+
+<style>
+	.loop-viewer {
+		width: min(96vw, 1600px, calc((100vh - 9rem) * 16 / 9));
+		max-width: none;
+		padding: 0.75rem;
+		border: 1px solid var(--forge-border);
+		border-radius: var(--forge-radius);
+		background: var(--forge-bg);
+		color: var(--forge-text);
+	}
+
+	.loop-viewer::backdrop {
+		background: rgb(0 0 0 / 0.8);
+	}
+
+	.loop-viewer video {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bar {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+		justify-content: space-between;
+		margin-top: 0.75rem;
+	}
+
+	.bar p {
+		margin: 0;
+		color: var(--forge-text-muted);
+		font-size: 0.9rem;
+	}
+
+	.bar p :global(strong) {
+		color: var(--forge-text);
+		font-weight: 600;
+	}
+
+	.bar button {
+		flex: none;
+	}
+</style>
