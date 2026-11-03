@@ -192,7 +192,7 @@ export async function getStatus() {
 			);
 		}
 	}
-	return { status, roadmap };
+	return { status, roadmap, latest };
 }
 
 // The live game after the feature tour (section 3.2.1), following the extension README: its

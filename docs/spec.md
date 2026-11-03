@@ -233,7 +233,9 @@ A vertical timeline **M0 → M1 → M2 → M3 → M4 → 1.0.0 → 2.0.0**, one 
 11, with a link to the v1 specification (until 1.0.0 also the note "version numbers are
 indicative"; since 1.0.0 a link to its `after-v1.md`, what v1 left, and since 2.0.0 to
 `after-v2.md`, which took that over). Each milestone's state (done, current, next) comes from
-`src/data/status.yaml`.
+`src/data/status.yaml`. The current milestone also names the latest release when it is a later
+one ("2.0.0, now 2.2.0"), from the version the badge fetches, so a reader does not take the
+milestone's version for the newest; without the fetched version it shows the milestone's alone.
 
 The **2.0** line comes from `etch`'s
 [v2 specification](https://github.com/happy-dwarf-team/etch/blob/main/docs/spec/v2.md) (its

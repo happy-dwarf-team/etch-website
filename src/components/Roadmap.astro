@@ -1,10 +1,11 @@
 ---
 // The roadmap timeline (docs/spec.md, section 3.5; DESIGN.md, "Roadmap timeline"): M0 to
 // 2.0.0 as a vertical list, each milestone's state shown by a marker and by text; the current
-// milestone uses the accent. States come from src/data/status.yaml.
+// milestone uses the accent. States come from src/data/status.yaml; the current milestone also
+// names the latest release when it is a later one.
 import { getStatus } from '../lib/content';
 
-const { roadmap } = await getStatus();
+const { roadmap, latest } = await getStatus();
 const stateLabel = { done: 'Done', current: 'Current', next: 'Next' } as const;
 ---
 
@@ -17,7 +18,11 @@ const stateLabel = { done: 'Done', current: 'Current', next: 'Next' } as const;
 					<span>
 						{id} {name}
 					</span>
-					{version && <span class="version">{version}</span>}
+					{version && (
+						<span class="version">
+							{state === 'current' && latest && latest !== version ? `${version}, now ${latest}` : version}
+						</span>
+					)}
 					<span class="state">{stateLabel[state]}</span>
 				</h3>
 				<p>{line}</p>
