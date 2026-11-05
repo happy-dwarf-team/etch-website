@@ -14,6 +14,7 @@ export const README_URL = `${REPO_URL}/blob/main/packages/extension/README.md`;
 export const V1_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v1.md`;
 export const V2_SPEC_URL = `${REPO_URL}/blob/main/docs/spec/v2.md`;
 export const AFTER_V2_URL = `${REPO_URL}/blob/main/docs/spec/after-v2.md`;
+export const BUDGETS_URL = `${REPO_URL}/blob/main/docs/budgets.md`;
 export const ETCH_1X_URL = `${README_URL}#etch-1x`;
 export const ADR_0005_URL = `${REPO_URL}/blob/main/docs/adr/0005-live-game-replaces-game-host.md`;
 export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
@@ -47,7 +48,7 @@ export const FEATURES: Feature[] = [
 	{
 		clip: 'preview',
 		title: 'Preview as you type',
-		textHtml: `The preview follows the unsaved editor buffer on every change, including the mod's <code>.gfx</code> and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms <span class="source">(measured on the maintainer's machine, <a href="${REPO_URL}/issues/39">etch#39</a>)</span>.`,
+		textHtml: `The preview follows the unsaved buffer on every change, including the mod's <code>.gfx</code> and localisation files. A warm reload of the province view takes a median of 10–13 ms, p95 12–16 ms <span class="source">(vanilla and Anbennar, on the maintainer's machine, 28 October 2026, <a href="${BUDGETS_URL}">budgets</a>)</span>.`,
 		descriptionHtml:
 			"The view moves in on the preview, with the edited line in an inset. The buildings panel's x, 480, is retyped as 7, 72 and 720, unsaved, and the panel jumps to each position at once. An undo returns it.",
 		posterAlt:
@@ -57,7 +58,7 @@ export const FEATURES: Feature[] = [
 		clip: 'views',
 		title: 'Views of the window',
 		textHtml:
-			'A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. <strong>View ▾</strong> lists the views and every selector with where its value comes from; <strong>Save as view…</strong> writes your own into the mod.',
+			'A window with a window profile is drawn in one view, as the game would show it: for example the province view as an own or a foreign province, with one side panel open. <strong>View ▾</strong> lists the views and every selector, with where its value comes from. <strong>Save as view…</strong> writes your own into the mod.',
 		descriptionHtml:
 			"The view moves in on the preview. In <strong>View ▾</strong> two other views of the province view are chosen in turn and the window is drawn in each, then the own province's view again.",
 		posterAlt: WIDE_ALT,
@@ -66,7 +67,7 @@ export const FEATURES: Feature[] = [
 		clip: 'data',
 		title: 'Sample data',
 		textHtml:
-			"Texts the game's code fills (a province's name, its development, culture, religion) show sample data. <strong>Data ▾</strong> shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length.",
+			"Texts the game's code fills (a province's name, its development, culture, religion) show sample data. <strong>Data ▾</strong> shows the layers, and the upper one wins: a live snapshot, a save, the game's and the mod's files, then generated text of a chosen length.",
 		descriptionHtml:
 			"In <strong>Data ▾</strong> generated text is set to long, and the view moves in on the province view's header, where long names and numbers fill their boxes; then the text is set back to typical.",
 		posterAlt: WIDE_ALT,
@@ -75,7 +76,7 @@ export const FEATURES: Feature[] = [
 		clip: 'zoom',
 		title: 'Zoom without a new layout',
 		textHtml:
-			'Zoom changes only how big the preview is shown, never the resolution the window is laid out at. <strong>Ctrl+mouse wheel</strong> zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp.',
+			'Zoom changes how big the preview is shown, never the resolution the window is laid out at. <strong>Ctrl+mouse wheel</strong> zooms around the cursor. Above 100 % only whole steps are offered, so pixels stay sharp.',
 		descriptionHtml:
 			"With the pointer on the province view's header, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp; a click on the zoom level fits it again.",
 		posterAlt: WIDE_ALT,
@@ -84,7 +85,7 @@ export const FEATURES: Feature[] = [
 		clip: 'outline',
 		title: 'Widget outline and jump to source',
 		textHtml:
-			"The Widget Outline lists the window's widgets, a window's alternatives as radios and an eye on every other widget. Click a widget in the preview to reveal its source; hover to see its path and rect.",
+			"The Widget Outline lists the window's widgets, with radios for a window's alternatives and an eye on every other widget. Click a widget in the preview to reveal its source. Hover to see its path and rect.",
 		descriptionHtml:
 			"The Widget Outline is open in the sidebar. The pointer hovers three widgets in the preview, each outlined with a tooltip giving its path and rect; a click on a building selects its definition in <code>provinceview.gui</code> and in the outline. Go Back returns the cursor.",
 		posterAlt:
@@ -105,20 +106,20 @@ export const FEATURES: Feature[] = [
 // The preview's features without a loop, after the tour (section 3.2).
 export const ALSO_HTML = [
 	'<strong>Pin</strong> keeps the preview on one window while you edit other files.',
-	"Any resolution: the game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160 (3840×2160 not yet measured against the game) or any width × height. <code>if_resolution</code> blocks follow it.",
-	'Etch finds the game through Steam and draws with its textures, fonts and localisation. It ships none of them and sends nothing anywhere.',
+	"Any resolution: the one in the game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160, or any width × height. <code>if_resolution</code> blocks follow it. 3840×2160 is not yet measured against the game.",
+	'Etch finds the game through Steam, or in <code>etch.gamePath</code>. It ships none of the game\'s files and sends nothing anywhere.',
 ];
 
 // Etch's two parts, before the feature tour (section 3.2), following the extension README.
 export const PARTS_HTML =
-	"Etch has two parts. The <strong>offline preview</strong> needs no running game: it draws the window under the cursor from the unsaved buffer, in one <strong>view</strong> of the window from its profile (the province view as an own or a foreign province, with one side panel and one sub-panel), with <strong>sample data</strong> where the game's code fills in texts: a live snapshot, a save, the game's and the mod's files, or generated text. The <strong>live game</strong> is the game itself, beside the editor.";
+	"Etch has two parts. The <strong>offline preview</strong> draws the window from the unsaved buffer and needs no running game. The <strong>live game</strong> is the game itself, beside the editor.";
 
 // What the released version does not do (section 3.3), following the extension README.
 export const LIMITS_HTML = [
-	'Values the engine works out (income, modifiers) come from a live snapshot or are generated: Etch never computes one. Ironman and other binary saves are not readable.',
-	'Reloading does not work in ironman or multiplayer games, and a file nothing rebuilds (<code>countryview.gui</code>, <code>.gfx</code> files, fonts) asks for a planned restart.',
+	'Values the engine works out (income, modifiers) come from a live snapshot or are generated. Etch never computes one.',
+	'Ironman and other binary saves are not readable, and reloading does not work in ironman or multiplayer games.',
 	"You edit in VS Code's own text editor, not in the preview or the game.",
-	'Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam; the live game needs build 1.37.5 exactly.',
+	'Etch is built for Windows (x64) and EU4 1.37.5. The live game refuses any other <code>eu4.exe</code>.',
 ];
 
 export type MilestoneId = 'M0' | 'M1' | 'M2' | 'M3' | 'M4' | '1.0' | '2.0';
@@ -131,7 +132,7 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 		id: 'M1',
 		name: 'Offline preview',
 		version: '0.1.0',
-		line: 'Released on the Marketplace and Open VSX, marked preview. Everything in the feature tour.',
+		line: 'First release on the Marketplace and Open VSX, marked preview.',
 	},
 	{
 		id: 'M2',
@@ -163,7 +164,7 @@ const MILESTONES: { id: MilestoneId; name: string; version?: string; line: strin
 		id: '2.0',
 		name: 'Live game and views',
 		version: '2.0.0',
-		line: "A live game reloads each saved file into the game's own window, with pick mode; the preview shows a view of the window from its profile, with sample data from saves and live snapshots. The game host and the diff view leave.",
+		line: "The live game reloads each saved file into the game's own window, with pick mode. The preview shows views of a window, with sample data from saves and live snapshots. The game host and the diff view are gone.",
 	},
 ];
 
@@ -204,7 +205,7 @@ export const LIVE_GAME = {
 			clip: 'reload',
 			title: 'Reload on save',
 			textHtml:
-				"<strong>Etch: Start the Live Game</strong>, or the preview's <strong>Live game</strong> button, starts a private copy of the game with your mod's playset. You play it; each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds asks for a planned restart.",
+				"<strong>Etch: Start the Live Game</strong>, or the preview's <strong>Live game</strong> button, starts a private copy of the game with your mod's playset. You play it, and each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds (<code>countryview.gui</code>, <code>.gfx</code> files, fonts) asks for a planned restart.",
 			descriptionHtml:
 				"VS Code beside the live game, its province view open. One keystroke changes the buildings panel's x from 480 to 580 and a save reloads the window in the game: the panel moves right. An undo and a save move it back.",
 			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
@@ -229,12 +230,12 @@ export const LIVE_GAME = {
 		},
 	] satisfies Feature[],
 	noteHtml:
-		'Etch creates the private install on first use, after one confirmation. It never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>.',
+		'Etch creates the private install on first use, after one confirmation. It never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>. The live game counts as your EU4 session on Steam, so your own game does not start beside it. Settings changed in it do not persist.',
 };
 
 // The note on staying on 1.x (section 3.2.2), following the extension README (etch#209).
 export const ETCH_1X = {
 	title: 'Staying on 1.x',
-	textHtml: `2.0.0 replaced 1.x's game host and its diff view with the live game (<a href="${ADR_0005_URL}">ADR 0005</a>). To keep them, install 1.0.x: in the Extensions view, <strong>Install Specific Version…</strong> on Etch, then 1.0.x, and turn off automatic updates for it. 1.0.x gets no fixes after 2.0.0 (<a href="${ETCH_1X_URL}">extension README</a>).`,
+	textHtml: `2.0.0 replaced 1.x's game host and its diff view with the live game (<a href="${ADR_0005_URL}">ADR 0005</a>). To keep them, use <strong>Install Specific Version…</strong> on Etch in the Extensions view, pick 1.0.x and turn off automatic updates for it. 1.0.x gets no fixes after 2.0.0 (<a href="${ETCH_1X_URL}">extension README</a>).`,
 };
 export const ANVIL_URL = 'https://anvil.happydwarf.dev/';
