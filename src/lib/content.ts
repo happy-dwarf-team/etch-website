@@ -230,7 +230,7 @@ export const LIVE_GAME = {
 		},
 	] satisfies Feature[],
 	noteHtml:
-		'Etch creates the private install on first use, after one confirmation. It never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>. The live game counts as your EU4 session on Steam, so your own game does not start beside it. Settings changed in it do not persist.',
+		'Etch creates the private install on first use, after one confirmation. The live game never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>. The live game counts as your EU4 session on Steam, so your own game does not start beside it. Settings changed in it do not persist.',
 };
 
 // The note on staying on 1.x (section 3.2.2), following the extension README (etch#209).
