@@ -107,7 +107,7 @@ export const FEATURES: Feature[] = [
 export const ALSO_HTML = [
 	'<strong>Pin</strong> keeps the preview on one window while you edit other files.',
 	"Any resolution: the one in the game's <code>settings.txt</code>, the monitor's, a corpus resolution from 1280×720 to 3840×2160, or any width × height. <code>if_resolution</code> blocks follow it. 3840×2160 is not yet measured against the game.",
-	'Etch finds the game through Steam, or in <code>etch.gamePath</code>. It ships none of the game\'s files and sends nothing anywhere.',
+	'Etch finds the game through Steam. For a GOG game, set its folder in <code>etch.gamePath</code>: the preview reads it, and the live game needs the Steam build. Etch ships none of the game\'s files and sends nothing anywhere.',
 ];
 
 // Etch's two parts, before the feature tour (section 3.2), following the extension README.
