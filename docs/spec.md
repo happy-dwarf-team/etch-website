@@ -606,7 +606,7 @@ From [#8](https://github.com/happy-dwarf-team/.github/issues/8) and
 - **VP9 WebM**: two-pass, `-tune-content screen`, starting at **CRF 34**.
 - **H.264 MP4**: `-preset veryslow`, starting at **CRF 23**, `-movflags +faststart`.
 - No AV1 at launch.
-- Sizes measured at the 2.0.0 media refresh (CRF 34): feature loops 1.5â€“3.6 MB WebM, the hero
+- Sizes measured at the 2.0.0 media refresh (CRF 34): feature loops 1.5–3.6 MB WebM, the hero
   (15 s) 4.3 MB; CRF 40 would take the hero to 3.0 MB at a visible cost to the code's text.
   Each loop loads only when it plays (section 4.1).
 - **Posters** are the cuts' first frames, 1920 × 1080 PNG.
