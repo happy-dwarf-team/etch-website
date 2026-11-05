@@ -145,11 +145,9 @@ There is no separate gallery.
 ### 3.2 The six features
 
 Since 2.0.0 the tour opens with Etch's two parts, following the extension README and ADR 0005
-(draft): "Etch has two parts. The **offline preview** needs no running game: it draws the window
-under the cursor from the unsaved buffer, in one **view** of the window from its profile (the
-province view as an own or a foreign province, with one side panel and one sub-panel), with
-**sample data** where the game's code fills in texts: a live snapshot, a save, the game's and
-the mod's files, or generated text. The **live game** is the game itself, beside the editor."
+(draft): "Etch has two parts. The **offline preview** draws the window from the unsaved buffer
+and needs no running game. The **live game** is the game itself, beside the editor." Views and
+sample data have their own rows.
 The rows follow.
 
 In this order, one loop each (until the 2.0.0 media refresh a still each,
@@ -163,7 +161,7 @@ of the province view on the right." unless the row gives its own.
 
 | #   | Feature                           | Text (draft)                                                                                                                                                                                                                                                                                                                        | Loop       | Text description (draft)                                                                                                                                                                                                                                              |
 | --- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Preview as you type               | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload: median 6–7 ms, p95 8–14 ms (measured on the maintainer's machine, etch#39).                                                                                                                          | `preview`  | The view moves in on the preview, with the edited line in an inset. The buildings panel's x, 480, is retyped as 7, 72 and 720, unsaved, and the panel jumps to each position at once. An undo returns it.                                                             |
+| 1   | Preview as you type               | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload of the province view: median 10–13 ms, p95 12–16 ms (the newest `provinceview` results of etch's `docs/budgets.md`, vanilla and Anbennar, with their date).                                                                                                                          | `preview`  | The view moves in on the preview, with the edited line in an inset. The buildings panel's x, 480, is retyped as 7, 72 and 720, unsaved, and the panel jumps to each position at once. An undo returns it.                                                             |
 | 2   | Views of the window               | A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. **View ▾** lists the views and every selector with where its value comes from; **Save as view…** writes your own into the mod. | `views`    | The view moves in on the preview. In **View ▾** two other views of the province view are chosen in turn and the window is drawn in each, then the own province's view again.                                                                                          |
 | 3   | Sample data                       | Texts the game's code fills (a province's name, its development, culture, religion) show sample data. **Data ▾** shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length.                                                                               | `data`     | In **Data ▾** generated text is set to long, and the view moves in on the province view's header, where long names and numbers fill their boxes; then the text is set back to typical.                                                                                |
 | 4   | Zoom without a new layout         | Zoom changes only how big the preview is shown, never the resolution the window is laid out at. **Ctrl+mouse wheel** zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp.                                                                                                                       | `zoom`     | With the pointer on the province view's header, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp; a click on the zoom level fits it again.                                                                                          |
@@ -194,7 +192,8 @@ provinceview.gui beside the live game, its province view open."
 | 9   | Live snapshot  | A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.                                                                                                                                | `snapshot` | Etch's preview of the province view shows sample data, with the live game in an inset. A pick in the game takes a live snapshot, and the preview redraws with the texts the game shows.                                                                                                  |
 
 Then: "Etch creates the private install on first use, after one confirmation. It never writes to
-your game folder, profile or mods, and never changes `eu4.exe`." It ends with a visible link
+your game folder, profile or mods, and never changes `eu4.exe`.", followed by what the README
+says about Steam's session and settings that do not persist. It ends with a visible link
 **"Built on Anvil"** to `https://anvil.happydwarf.dev/`, Anvil being the plugin loader the live
 game runs on.
 
@@ -212,13 +211,12 @@ The version in the title is the latest `etch` release, from the same build-time 
 badge; without it the title reads "What Etch does not do". (Until 2.0.0 the title said "does not
 do yet".) Drafts, following the extension README:
 
-- Values the engine works out (income, modifiers) come from a live snapshot or are generated:
-  Etch never computes one. Ironman and other binary saves are not readable.
-- Reloading does not work in ironman or multiplayer games, and a file nothing rebuilds
-  (`countryview.gui`, `.gfx` files, fonts) asks for a planned restart.
+- Values the engine works out (income, modifiers) come from a live snapshot or are generated.
+  Etch never computes one.
+- Ironman and other binary saves are not readable, and reloading does not work in ironman or
+  multiplayer games.
 - You edit in VS Code's own text editor, not in the preview or the game.
-- Windows (x64), VS Code 1.100+, EU4 1.37.5 from Steam; the live game needs build 1.37.5
-  exactly.
+- Etch is built for Windows (x64) and EU4 1.37.5. The live game refuses any other `eu4.exe`.
 
 ### 3.4 Install
 
@@ -245,17 +243,17 @@ M5–M10: v2 makes no store release before 2.0.0. The text above the timeline li
 specification and says 2.0.0 is not released, without claiming any of it is built. M3 and M4
 stay as history; the game host note and the feature tour change with the 2.0.0 release, not
 before (etch#156). Since 2.0.0 (released 2026-11-01) 2.0 is `current`, 1.0 is `done`, and the
-text says 2.0.0 is the whole of the v2 specification, frozen with it.
+text says 2.0.0 completed the v2 specification.
 
 | Milestone               | Version | Line (draft)                                                                                                                                                                                                                    |
 | ----------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | M0 Foundation           | —       | Public repository, CI, release-please, packaged VSIX.                                                                                                                                                                           |
-| M1 Offline preview      | 0.1.0   | Released on the Marketplace and Open VSX, marked preview. Everything in the feature tour.                                                                                                                                       |
+| M1 Offline preview      | 0.1.0   | First release on the Marketplace and Open VSX, marked preview.                                                                                                                                       |
 | M2 Precision corpus     | 0.2.0   | Measured against the game, widget by widget, at six resolutions: vanilla and Proper 2K UI Enhanced.                                                                                                                             |
 | M3 Game host            | 0.3.0   | A private copy of the running game draws the window itself.                                                                                                                                                                     |
 | M4 Compare and scale    | 0.4.0   | Diff view between the two backends; the Anbennar playset in both.                                                                                                                                                               |
 | 1.0 Release             | 1.0.0   | The release criteria hold and the preview flag is gone.                                                                                                                                                                         |
-| 2.0 Live game and views | 2.0.0   | A live game reloads each saved file into the game's own window, with pick mode; the preview shows a view of the window from its profile, with sample data from saves and live snapshots. The game host and the diff view leave. |
+| 2.0 Live game and views | 2.0.0   | The live game reloads each saved file into the game's own window, with pick mode. The preview shows views of a window, with sample data from saves and live snapshots. The game host and the diff view are gone. |
 
 ### 3.6 `404`
 
