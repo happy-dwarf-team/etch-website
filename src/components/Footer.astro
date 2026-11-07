@@ -1,6 +1,7 @@
 ---
 // The footer on every page, 404 included (docs/spec.md, section 7): the family marker, Etch's
-// links and the three-line disclaimer, since the site shows EU4 interface art.
+// links and the three-line disclaimer, since the site shows EU4 interface art. Discord goes
+// through the hub's discord.happydwarf.dev redirect, so a new invite changes no code.
 import logo from '../assets/happy-dwarf.svg?url';
 import { REPO_URL } from '../lib/content';
 
@@ -8,6 +9,7 @@ const links = [
 	{ href: REPO_URL, label: 'Source' },
 	{ href: `${REPO_URL}/blob/main/CHANGELOG.md`, label: 'Changelog' },
 	{ href: `${REPO_URL}/issues`, label: 'Issues' },
+	{ href: 'https://discord.happydwarf.dev/', label: 'Discord' },
 	{ href: `${REPO_URL}/blob/main/LICENSE`, label: 'MIT' },
 ];
 ---

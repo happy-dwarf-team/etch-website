@@ -437,7 +437,10 @@ From [#13](https://github.com/happy-dwarf-team/.github/issues/13) and
 
 - the **family marker**: the full team logo with "A Happy Dwarf project", linking to
   `https://happydwarf.dev/`;
-- links to Etch's Source (the `etch` repository), Changelog, Issues, and "MIT";
+- links to Etch's Source (the `etch` repository), Changelog, Issues, Discord and "MIT". Discord
+  is the team's public server through `https://discord.happydwarf.dev/` (the hub's redirect to the
+  invite, hub spec section 7.1), where `#help-and-bugs` takes questions next to the issues; it is a
+  plain link and the page loads nothing from Discord;
 - the **disclaimer** as its own paragraph in muted text, with all three lines (the site shows EU4
   art):
 

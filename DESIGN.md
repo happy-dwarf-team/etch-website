@@ -118,8 +118,8 @@ not a horizontal track (it reads better on phones).
 
 - Header: the mark and wordmark, the status badge, anchors _Features · Install · Roadmap_, a
   GitHub link with an `sr-only` label.
-- Footer: the family marker, links (Source, Changelog, Issues, MIT) and the disclaimer as its
-  own paragraph in muted text.
+- Footer: the family marker, links (Source, Changelog, Issues, Discord, MIT; Discord as a text
+  link, no logo) and the disclaimer as its own paragraph in muted text.
 
 ## Motion
 
