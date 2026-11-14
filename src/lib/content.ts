@@ -117,7 +117,7 @@ export const PARTS_HTML =
 // What the released version does not do (section 3.3), following the extension README.
 export const LIMITS_HTML = [
 	'Values the engine works out (income, modifiers) come from a live snapshot or are generated. Etch never computes one.',
-	'Ironman and other binary saves are not readable, and reloading does not work in ironman or multiplayer games.',
+	'Ironman and other binary saves are not readable, and reloading and Run selection do not work in ironman or multiplayer games.',
 	"You edit in VS Code's own text editor, not in the preview or the game.",
 	'Etch is built for Windows (x64) and EU4 1.37.5. The live game refuses any other <code>eu4.exe</code>.',
 ];
@@ -229,6 +229,10 @@ export const LIVE_GAME = {
 			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
 		},
 	] satisfies Feature[],
+	// Without loops, after the three rows (section 3.2.1), following the README's "Run selection".
+	alsoHtml: [
+		'<strong>Run selection</strong>: select an effect in a script file and <strong>Etch: Run Selection in the Live Game</strong> runs it in your country, or in the province on screen. <strong>Etch: Check Selection as Trigger in the Live Game</strong> says whether a trigger is true. The game\'s errors from the run go to the Problems panel. Run changes only the private copy, never your own saves, and does not work in ironman or multiplayer games.',
+	],
 	noteHtml:
 		'Etch creates the private install on first use, after one confirmation. The live game never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>. The live game counts as your EU4 session on Steam, so your own game does not start beside it. Settings changed in it do not persist.',
 };

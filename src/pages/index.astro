@@ -93,6 +93,12 @@ const version = await getLatestVersion();
 			<h3>{LIVE_GAME.title}</h3>
 			<FeatureTour features={LIVE_GAME.features} loops={media?.loops} start={FEATURES.length} />
 			<div class="note">
+				<h3>Also in the live game</h3>
+				<ul class="live">
+					{LIVE_GAME.alsoHtml.map((item) => <li set:html={item} />)}
+				</ul>
+			</div>
+			<div class="note">
 				<p set:html={LIVE_GAME.noteHtml} />
 				<p><a href={ANVIL_URL}>Built on Anvil</a></p>
 			</div>

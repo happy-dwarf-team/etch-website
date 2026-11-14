@@ -191,6 +191,12 @@ provinceview.gui beside the live game, its province view open."
 | 8   | Pick mode      | **Ctrl+Shift+E** turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.                                                                    | `pick`     | Ctrl+Shift+E in the game turns on pick mode, with VS Code in an inset. The pointer moves over the province view and each widget is outlined with its name, kind, size and file. A click on the buildings panel brings VS Code forward at the definition of the widget under the pointer. |
 | 9   | Live snapshot  | A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.                                                                                                                                | `snapshot` | Etch's preview of the province view shows sample data, with the live game in an inset. A pick in the game takes a live snapshot, and the preview redraws with the texts the game shows.                                                                                                  |
 
+Then a short list **"Also in the live game"**, without loops (drafts, following the extension
+README's "Run selection", since Etch 2.9.0): **Run selection** runs the selected effects in the
+live game, in your country or the province on screen, and **Check Selection as Trigger** says
+whether a trigger is true; the game's errors from the run go to Problems; it changes only the
+private copy, never your saves, and does not work in ironman or multiplayer.
+
 Then: "Etch creates the private install on first use, after one confirmation. It never writes to
 your game folder, profile or mods, and never changes `eu4.exe`.", followed by what the README
 says about Steam's session and settings that do not persist. It ends with a visible link
@@ -213,8 +219,8 @@ do yet".) Drafts, following the extension README:
 
 - Values the engine works out (income, modifiers) come from a live snapshot or are generated.
   Etch never computes one.
-- Ironman and other binary saves are not readable, and reloading does not work in ironman or
-  multiplayer games.
+- Ironman and other binary saves are not readable, and reloading and Run selection do not work
+  in ironman or multiplayer games.
 - You edit in VS Code's own text editor, not in the preview or the game.
 - Etch is built for Windows (x64) and EU4 1.37.5. The live game refuses any other `eu4.exe`.
 
