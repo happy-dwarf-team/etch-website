@@ -195,7 +195,11 @@ Then a short list **"Also in the live game"**, without loops (drafts, following 
 README's "Run selection", since Etch 2.9.0): **Run selection** runs the selected effects in the
 live game, in your country or the province on screen, and **Check Selection as Trigger** says
 whether a trigger is true; the game's errors from the run go to Problems; it changes only the
-private copy, never your saves, and does not work in ironman or multiplayer.
+private copy, never your saves, and does not work in ironman or multiplayer. Then **Script
+profile** (following the README's "Script profile", since Etch 2.10.0): Anvil's script profiler
+(Anvil 1.22 or newer), in your own game, times your events', decisions' and other scripts'
+triggers and effects, and **Etch: Show Latest Script Profile** shows its newest file, the longest
+rows first.
 
 Then: "Etch creates the private install on first use, after one confirmation. It never writes to
 your game folder, profile or mods, and never changes `eu4.exe`.", followed by what the README

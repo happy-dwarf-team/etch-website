@@ -229,9 +229,11 @@ export const LIVE_GAME = {
 			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
 		},
 	] satisfies Feature[],
-	// Without loops, after the three rows (section 3.2.1), following the README's "Run selection".
+	// Without loops, after the three rows (section 3.2.1), following the README's "Run selection"
+	// and "Script profile".
 	alsoHtml: [
 		'<strong>Run selection</strong>: select an effect in a script file and <strong>Etch: Run Selection in the Live Game</strong> runs it in your country, or in the province on screen. <strong>Etch: Check Selection as Trigger in the Live Game</strong> says whether a trigger is true. The game\'s errors from the run go to the Problems panel. Run changes only the private copy, never your own saves, and does not work in ironman or multiplayer games.',
+		"<strong>Script profile</strong>: Anvil's script profiler (Anvil 1.22 or newer) times your events', decisions' and other scripts' triggers and effects in your own game, and <strong>Etch: Show Latest Script Profile</strong> shows its newest file, the longest rows first.",
 	],
 	noteHtml:
 		'Etch creates the private install on first use, after one confirmation. The live game never writes to your game folder, profile or mods, and never changes <code>eu4.exe</code>. The live game counts as your EU4 session on Steam, so your own game does not start beside it. Settings changed in it do not persist.',
