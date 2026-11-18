@@ -637,10 +637,10 @@ From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
 
 The lengths are those of the 2026-11-18 set, reviewed frame by frame at the site's size: a
 loop holds each step long enough to be read at about 650 px wide. The set keeps 2.0.0's
-`snapshot`: in Etch 2.12.0's take the pick came after the take's reloads of `provinceview.gui`,
-its snapshot's widget paths started `provinceview[267]/…`, and the preview kept its sample data,
-so the loop would not show what its caption says (an Etch bug, reported, not worked around on
-camera; described in etch#451).
+`snapshot`: in two takes with Etch 2.12.0 the pick's snapshot did not show in the preview (once
+its widget paths started `provinceview[267]/…` and the preview kept its sample data, once the
+window was drawn off the preview's 1280 × 720 canvas), so the loop would not show what its
+caption says (an Etch bug, not worked around on camera; described in etch#451).
 
 The live take runs one reload unrecorded first, because the first reload of a freshly opened
 province view blanks its name (Etch's `docs/live-game.md`). Until the 2.0.0 media refresh the
