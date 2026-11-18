@@ -3,6 +3,7 @@
 	"etch": "2.12.0",
 	"loops": {
 		"hero": {
+			"etch": "2.12.0",
 			"width": 1920,
 			"height": 1080,
 			"duration": 15.833,
@@ -21,6 +22,7 @@
 			]
 		},
 		"preview": {
+			"etch": "2.12.0",
 			"width": 1920,
 			"height": 1080,
 			"duration": 8.166,
@@ -41,76 +43,77 @@
 		"views": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 16.866,
+			"duration": 18.5,
 			"poster": "views.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/views.a4eeac8b.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/views.adc03b2b.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 2781974
+					"bytes": 2793251
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/views.9afe951e.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/views.c15c1404.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 3781616
+					"bytes": 3841986
 				}
 			]
 		},
 		"data": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 15.933,
+			"duration": 16.566,
 			"poster": "data.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/data.63369e32.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/data.a0eebada.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 1848430
+					"bytes": 1780471
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/data.1fb0b9e2.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/data.0c58afce.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 2307567
+					"bytes": 2176013
 				}
 			]
 		},
 		"zoom": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 11.933,
+			"duration": 12.466,
 			"poster": "zoom.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/zoom.2fea9dd1.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/zoom.b4f68b38.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 1819861
+					"bytes": 1986326
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/zoom.d7505b46.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/zoom.22997e8c.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 1961223
+					"bytes": 1940043
 				}
 			]
 		},
 		"outline": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 16.333,
+			"duration": 15,
 			"poster": "outline.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/outline.7060bbd6.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/outline.6756d0df.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 3029500
+					"bytes": 3248935
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/outline.e77662df.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/outline.5960233d.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 3484604
+					"bytes": 3689578
 				}
 			]
 		},
 		"problems": {
+			"etch": "2.12.0",
 			"width": 1920,
 			"height": 1080,
 			"duration": 10.7,
@@ -131,22 +134,23 @@
 		"profile": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 16.633,
+			"duration": 16.533,
 			"poster": "profile.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/profile.e0d29249.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/profile.fbdc01e3.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 2300929
+					"bytes": 2181968
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/profile.1913de2d.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.12.0/profile.496e2077.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 2711728
+					"bytes": 2742118
 				}
 			]
 		},
 		"names": {
+			"etch": "2.12.0",
 			"width": 1920,
 			"height": 1080,
 			"duration": 12.966,
@@ -165,6 +169,7 @@
 			]
 		},
 		"reload": {
+			"etch": "2.12.0",
 			"width": 1920,
 			"height": 1080,
 			"duration": 9.8,
@@ -183,6 +188,7 @@
 			]
 		},
 		"pick": {
+			"etch": "2.12.0",
 			"width": 1920,
 			"height": 1080,
 			"duration": 14.266,

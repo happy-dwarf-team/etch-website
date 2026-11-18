@@ -60,7 +60,7 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			'A window with a window profile is drawn in one view, as the game would show it: for example the province view as an own or a foreign province, with one side panel open. <strong>View ▾</strong> lists the views and every selector, with where its value comes from. <strong>Save as view…</strong> writes your own into the mod.',
 		descriptionHtml:
-			"The view moves in on the preview. In <strong>View ▾</strong> two other views of the province view are chosen in turn and the window is drawn in each, then the own province's view again.",
+			"The view moves in on the preview. In <strong>View ▾</strong> two other views of the province view, a foreign province and the state tab, are chosen in turn and the window is drawn in each, then the own province's view again.",
 		posterAlt: WIDE_ALT,
 	},
 	{
@@ -78,7 +78,7 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			'Zoom changes how big the preview is shown, never the resolution the window is laid out at. <strong>Ctrl+mouse wheel</strong> zooms around the cursor. Above 100 % only whole steps are offered, so pixels stay sharp.',
 		descriptionHtml:
-			"With the pointer on the province view's header, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp; a click on the zoom level fits it again.",
+			"With the pointer on the province's culture, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp, the culture still under the pointer; a click on the zoom level fits it again.",
 		posterAlt: WIDE_ALT,
 	},
 	{
@@ -87,7 +87,7 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			"The Widget Outline lists the window's widgets, with radios for a window's alternatives and an eye on every other widget. Click a widget in the preview to reveal its source. Hover to see its path and rect.",
 		descriptionHtml:
-			"The Widget Outline is open in the sidebar. The pointer hovers three widgets in the preview, each outlined with a tooltip giving its path and rect; a click on a building selects its definition in <code>provinceview.gui</code> and in the outline. Go Back returns the cursor.",
+			"The Widget Outline is open in the sidebar. The pointer hovers a text, an icon and a button in the preview, each outlined with a tooltip giving its path and rect; a click on the button selects its definition in <code>provinceview.gui</code> and in the outline. Go Back returns the cursor.",
 		posterAlt:
 			"VS Code with the Widget Outline in the sidebar, provinceview.gui and Etch's preview of the province view.",
 	},
