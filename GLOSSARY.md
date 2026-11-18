@@ -23,7 +23,7 @@ _Avoid_: install section, quick start
 
 **Feature tour**:
 The numbered feature rows, each a short text beside its feature's loop: six of the offline
-preview, then three of the live game.
+preview, then three of the live game and two of your scripts.
 _Avoid_: gallery, feature grid
 
 **Roadmap**:

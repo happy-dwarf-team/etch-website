@@ -26,7 +26,7 @@ stays about the extension.
 
 - **What:** the website of Etch, the VS Code extension that previews Europa Universalis IV
   interface mods, at **`https://etch.happydwarf.dev/`**: a landing page with a demo loop, the
-  preview's features and the live game's, each with a short loop, install, and the status and
+  preview's features, the live game's and the scripts', each with a short loop, install, and the status and
   roadmap to v1 and v2.
 - **Language:** English only.
 - **User documentation stays in the extension README** (linked from Install). Revisit only if
@@ -135,8 +135,8 @@ Differences from the hub:
    button, "open a `.gui` and run **Etch: Open Preview**", and a link to the extension README.
 4. **Features as a tour:** a short introduction to 2.0's two parts, six numbered rows, each a
    short text beside its feature's loop (section 3.2), then the **live game** with three more
-   rows (section 3.2.1), the **Etch 1.x note** (section 3.2.2), then a box **"What 2.0.0 does
-   not do"** (section 3.3).
+   rows (section 3.2.1), **your scripts** with two more (section 3.2.3), the **Etch 1.x note**
+   (section 3.2.2), then a box **"What 2.0.0 does not do"** (section 3.3).
 5. **Roadmap:** a vertical timeline (section 3.5).
 6. **Footer** (section 7).
 
@@ -195,11 +195,9 @@ Then a short list **"Also in the live game"**, without loops (drafts, following 
 README's "Run selection", since Etch 2.9.0): **Run selection** runs the selected effects in the
 live game, in your country or the province on screen, and **Check Selection as Trigger** says
 whether a trigger is true; the game's errors from the run go to Problems; it changes only the
-private copy, never your saves, and does not work in ironman or multiplayer. Then **Script
-profile** (following the README's "Script profile", since Etch 2.10.0): Anvil's script profiler
-(Anvil 1.22 or newer), in your own game, times your events', decisions' and other scripts'
-triggers and effects, and **Etch: Show Latest Script Profile** shows its newest file, the longest
-rows first.
+private copy, never your saves, and does not work in ironman or multiplayer. (Until the
+2026-11-18 media refresh the list also had **Script profile**, which then got a row of its own,
+section 3.2.3.)
 
 Then: "Etch creates the private install on first use, after one confirmation. It never writes to
 your game folder, profile or mods, and never changes `eu4.exe`.", followed by what the README
@@ -214,6 +212,24 @@ A short note after the live game, following the extension README's "Etch 1.x" se
 and its diff view with the live game. To keep them, install 1.0.x: in the Extensions view,
 **Install Specific Version…** on Etch, then 1.0.x, and turn off automatic updates for it. 1.0.x
 gets no fixes after 2.0.0." It links that README section and ADR 0005.
+
+### 3.2.3 Your scripts
+
+Since the 2026-11-18 media refresh (Etch 2.12.0 and the province ids and names of 2.13.0) the
+live game is followed by Etch's work on a mod's script files, following the extension README's
+"Script profile" (since Etch 2.10.0) and "Province IDs and names" (since 2.13.0): the heading "Your
+scripts", one sentence, "Etch also reads the script files of your mod: how long they take in the
+game, and names in them that crash it.", then two more rows of the tour, numbered 10–11, each a
+short text beside its loop. Their loops show VS Code alone in their close-ups: no game art is in
+those frames, and their wide shots show the preview as every offline loop's.
+
+| #   | Feature                | Text (draft)                                                                                                                                                                                                                                                                                                                                                                                  | Loop      | Text description (draft)                                                                                                                                                                                                                                                                       |
+| --- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 10  | Script profile         | Anvil's script profiler (Anvil 1.22 or newer) times your events', decisions' and other scripts' triggers and effects in your own game. **Etch: Show Latest Script Profile** opens its newest file, the longest rows first, and each name links to where it is written. While a profile is shown, a line above each measured event, option or decision gives its time and calls.          | `profile` | **Etch: Show Latest Script Profile** runs from the command palette and opens a profile Anvil's profiler measured in the base game, the slowest triggers first. A click on a decision's name opens its file at the measured block, with the profile's time and calls on a line above it.            |
+| 11  | Province IDs and names | A province id the map does not have, such as `owns = 5075`, gets no line in the game's `error.log`, and the game may crash when it reads that province. Etch warns about such ids in the script files you open, and about names the playset does not define where the game crashes on them, such as an idea group in `add_idea_group`. **Etch: Check Province IDs and Names in the Playset** checks every mod of the playset. | `names`   | In an event of the demo mod, a 5 typed before province 151 makes it 5151, and Problems warns at once that the map has no such province. Two letters turn the idea group `economic_ideas` into `economical_ideas`, and a second warning says the playset has no such idea group. An undo removes both. |
+
+The `names` row describes Etch 2.13.0, which the README on `main` already has: its site change
+merges once 2.13.0 is released.
 
 ### 3.3 "What 2.0.0 does not do"
 
@@ -384,12 +400,17 @@ Validated by a zod schema in the site's code; the build fails on error.
 (Values are examples.)
 
 - `etch`: the Etch version the set was captured for (also the `v<version>` in the keys).
+- A loop's own `etch` (optional): a loop kept from an earlier set, with the version it was
+  captured for and its keys' prefix. `pnpm media publish --keep <clip>` writes it when a new take
+  shows an Etch bug: the loop that still shows the feature working stays until a later set has a
+  good take (2026-11-18: `snapshot` stays 2.0.0's, see section 8.5).
 - The manifest carries **only facts about files**. The loops' text descriptions, the posters'
   alts and the order of the features are editorial content and stay in the site's code
   (sections 3.2, 3.2.1 and 4.1).
 - **Clip ids** (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`, `reload`,
-  `pick`, `snapshot`) are defined by the media script and are the same in bucket keys, file names
-  and the manifest. Every set has all ten loops.
+  `pick`, `snapshot`, `profile`, `names`) are defined by the media script and are the same in
+  bucket keys, file names and the manifest. Every set has all twelve loops (ten until the
+  2026-11-18 media refresh added `profile` and `names`).
 - Schema version 1, before the 2.0.0 media refresh, had the hero loop and six stills (with
   `pin`, `resolution` and `playset` until 2.0.0); the site reads only version 2.
 - Every `poster` must exist in `src/assets/media/`.
@@ -502,7 +523,9 @@ From [#16](https://github.com/happy-dwarf-team/.github/issues/16) and
 - Files: a `.mod` descriptor; `interface/etch_demo.gui` with two top-level windows: a **dialog**
   in the style of an EU4 event (background, header in a game font, short body text, an icon in a
   frame, two option buttons, a close button) and a **small panel** for the window-under-cursor
-  scene; `interface/etch_demo.gfx`; `localisation/etch_demo_l_english.yml`. Text in an EU4 tone
+  scene; `interface/etch_demo.gfx`; `localisation/etch_demo_l_english.yml`; since the 2026-11-18
+  media refresh `events/etch_demo_events.txt`, one event (`is_triggered_only`, never fired) that
+  the `names` clip edits, with its texts' keys taken from the dialog's. Text in an EU4 tone
   with a smithing, Happy Dwarf flavour.
 - **No event picture** (`GFX_evt_*`), **no textures of our own** at the start (no `gfx/` folder),
   English only. #16 allows a few own textures later (and #21's fallback would need them).
@@ -548,6 +571,11 @@ From [#6](https://github.com/happy-dwarf-team/.github/issues/6),
   copy of the chosen save, and turns on Tongs' pipe in that install for the script's reads. The
   game runs the base game and the demo mod, with the DLC the player owns, as the live game would
   for them. It needs `--save <file>`.
+- **The `profile` take** needs `--profile <file>`, a CSV that Anvil's script profiler wrote in a
+  base game, so its names link into the take's playset. The take copies it into the run's
+  throwaway private profile (`logs/`), where **Etch: Show Latest Script Profile** finds it as the
+  newest; the run's work folder (`--work`) is a short folder outside the user's own, since the page
+  shows the file's path.
 - Known gotchas: keep VS Code and its user data in a **short folder** (MAX_PATH); select text
   through Find, not Ctrl+G (wrong column on tab-indented `.gui`). A visible, unlocked desktop
   session is assumed, with the display awake (a sleeping display slows the game to a few frames a
@@ -558,7 +586,7 @@ From [#6](https://github.com/happy-dwarf-team/.github/issues/6),
 From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
 
 - VS Code at **2560 × 1440 CSS px**, device scale 1, as on an ordinary monitor, so its master is
-  **2560 × 1440**. Editor font **14**, VS Code's default, `window.zoomLevel` 0. (Until the loops
+  **2560 × 1440**. Editor font **18**, so code in a close-up still reads at the site's size (VS Code's default is 14), `window.zoomLevel` 0. (Until the loops
   it was 1280 × 720 at device scale 2 with font 18: the stills were the close-ups; now the
   edit's are.)
 - `etch.previewResolution` **1280x720**; the preview panel keeps about 1280 CSS px in every take
@@ -596,14 +624,23 @@ From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
 | ---------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `hero`     | ~15 s | Parts of three loops, cut one after another: `preview`'s typing from its wide start, `reload`'s save and moving panel, `pick`'s last hover, click and definition to its wide end.                                                                                                                                                                                                                                                                                      |
 | `preview`  | ~8 s  | The first digit to the last of the buildings window's x (480) selected; the camera moves in on the preview with the line in an inset; `7`, `2`, `0` are typed one by one, each drawn at once (x 7, 72, 720), unsaved; back to the wide shot, **Ctrl+Z**.                                                                                                                                                                                                               |
-| `views`    | ~10 s | The pointer opens **View ▾**; the camera on the preview; two other views (the foreign province's, the army builder's, as the menu lists them) are chosen in turn, then the current one again; the menu closes.                                                                                                                                                                                                                                                         |
-| `data`     | ~12 s | **Data ▾**, generated text **long**; the menu closes and the camera moves in on the province view's header; back, **Data ▾**, **typical**.                                                                                                                                                                                                                                                                                                                             |
+| `views`    | ~17 s | The pointer opens **View ▾**, the camera on its list of views; two other views (Build army, then State tab, which change the window most at the site's size) are chosen in turn, each shown on the preview, then the current one again; the menu closes.                                                                                                                                                                                                                                                         |
+| `data`     | ~16 s | **Data ▾**, generated text **long**; the menu closes and the camera moves in on the province view's header; back, **Data ▾**, **typical**.                                                                                                                                                                                                                                                                                                                             |
 | `zoom`     | ~12 s | The pointer on the province view's header; **Ctrl+wheel** two whole steps in, a hold, then a click on the zoom level fits the screen again (the starting level).                                                                                                                                                                                                                                                                                                       |
-| `outline`  | ~12 s | The Widget Outline in the sidebar; the pointer hovers three widgets of the preview (the dashed hover box and the tooltip with path and rect), then clicks the first building: its definition is selected in the editor and in the outline; **Go Back** returns the cursor.                                                                                                                                                                                             |
-| `problems` | ~10 s | Problems filtered to the typo (the base game's file has problems of its own); the `ui` of `GFX_provinceview_building_bg` swapped, one Etch "missing sprite" warning, ringed; the camera on the preview without the panel's background; **Ctrl+Z**.                                                                                                                                                                                                                     |
+| `outline`  | ~16 s | The Widget Outline in the sidebar; the pointer hovers three widgets of the preview (the dashed hover box and the tooltip with path and rect), the camera close on the three, then clicks the first building: its definition is selected in the editor and in the outline; **Go Back** returns the cursor.                                                                                                                                                                                             |
+| `problems` | ~11 s | Problems filtered to the typo (the base game's file has problems of its own); the `ui` of `GFX_provinceview_building_bg` swapped, one Etch "missing sprite" warning, ringed; the camera on the preview without the panel's background; **Ctrl+Z**.                                                                                                                                                                                                                     |
 | `reload`   | ~9 s  | Live: the buildings window's x 480 → 580 with one keystroke, **Ctrl+S**, the game reloads and the panel moves (ringed, with the time from the save to Tongs seeing the panel moved); **Ctrl+Z**, **Ctrl+S**, back.                                                                                                                                                                                                                                                     |
 | `pick`     | ~15 s | Live: **Ctrl+Shift+E** in the game; the game fills the frame, VS Code in an inset; the pointer hovers widgets of the province view, each outlined and labelled by pick mode, then clicks the buildings panel; VS Code fills the frame at the definition of the widget under the pointer (ringed). The take opens an own province without a great project: its picture is DLC art, which the preview's playset does not have, so the snapshot would draw a placeholder. |
 | `snapshot` | ~8 s  | Live: the camera on Etch's preview with sample data, the game in an inset; the same pick's live snapshot redraws the preview with the game's texts.                                                                                                                                                                                                                                                                                                                    |
+| `profile`  | ~17 s | **Etch: Show Latest Script Profile** typed in the command palette; the camera on the profile page's heading and first rows; the pointer clicks a decision's name; the camera on its block in the base game's file, the profile's line above it ringed; both tabs closed. |
+| `names`    | ~13 s | In the demo mod's event, Problems filtered to its file: a `5` before `owns = 151`, the warning ringed; `al` into `economic_ideas`, the second warning ringed; **Ctrl+Z** removes both. |
+
+The lengths are those of the 2026-11-18 set, reviewed frame by frame at the site's size: a
+loop holds each step long enough to be read at about 650 px wide. The set keeps 2.0.0's
+`snapshot`: in Etch 2.12.0's take the pick came after the take's reloads of `provinceview.gui`,
+its snapshot's widget paths started `provinceview[267]/…`, and the preview kept its sample data,
+so the loop would not show what its caption says (an Etch bug, reported, not worked around on
+camera; described in etch#451).
 
 The live take runs one reload unrecorded first, because the first reload of a freshly opened
 province view blanks its name (Etch's `docs/live-game.md`). Until the 2.0.0 media refresh the
@@ -657,7 +694,7 @@ From [#17](https://github.com/happy-dwarf-team/.github/issues/17) and
   `HAPPYDWARF_MEDIA_SECRET_ACCESS_KEY` (the token of hub spec 7.4). Missing variables stop
   `publish` before its first write; the script never prints their values. The account ID, bucket
   name and endpoint sit in the package's configuration.
-- **Every clip:** a set holds all ten loops with their posters; `publish` refuses a capture that
+- **Every clip:** a set holds all twelve loops with their posters; `publish` refuses a capture that
   lacks any of them.
 - **Order:** upload every loop and check each with `HeadObject`; only then write
   `src/data/media.json` and the posters into `src/assets/media/` of the given `etch-website`
@@ -738,7 +775,7 @@ E6 also answers the hub's open check 1 (CORS on a cache hit filled without `Orig
 
 ## 11. Not verified
 
-- The poster as LCP, and the page's weight with ten loops (each loads only when it plays).
+- The poster as LCP, and the page's weight with twelve loops (each loads only when it plays).
   (Encode sizes were measured on the first media refresh, Etch 0.2.0: the hero loop is 9.4 s,
   311 KB WebM and 273 KB MP4.)
 - Headless or locked-screen capture, Windows display scaling other than 100 %.

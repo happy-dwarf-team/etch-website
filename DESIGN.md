@@ -61,7 +61,7 @@ From [#13](https://github.com/happy-dwarf-team/.github/issues/13). Prototype for
   loop still starts in the first screen on a 375 px phone.
 - **Feature tour:** numbered rows, each a short text beside its feature's loop, **sides
   alternating from 860 px**; stacked below that. The offline preview has six; the live game's three
-  continue the numbering under its heading.
+  continue the numbering under its heading, and the scripts' two under theirs.
 - Side gutter 16 px on phones; **no horizontal scroll at 375 px**.
 - Every medium shows at about 650 CSS px wide on desktop (hero 7/12, tour row 1.4/2.4).
 
