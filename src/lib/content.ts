@@ -25,9 +25,9 @@ export const REQUIREMENTS = ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5 (Steam
 export const LOOP = {
 	title: 'Demo loop',
 	descriptionHtml:
-		"Three moments from the loops below. In VS Code, the buildings panel's x in an unsaved <code>provinceview.gui</code> is retyped digit by digit, and Etch's preview redraws the panel at every keystroke. Beside the live game, a save reloads the province view in the game and the panel moves. In the game, pick mode outlines each widget under the pointer with its name, kind, size and file, and a click opens its definition in VS Code.",
+		"Three moments from the loops below. In VS Code, the trade node button's x in an unsaved <code>provinceview.gui</code> is retyped digit by digit, and Etch's preview moves the button at every keystroke. Beside the live game, a save reloads the province view in the game and the button moves. In the game, pick mode outlines each widget under the pointer with its name, kind, size and file, and a click opens its definition in VS Code.",
 	posterAlt:
-		"VS Code with provinceview.gui on the left and Etch's preview of the province view on the right.",
+		"provinceview.gui with the trade node button's position selected, beside the trade section of Etch's preview of the province view.",
 };
 
 export interface Feature {
@@ -39,10 +39,7 @@ export interface Feature {
 	posterAlt: string;
 }
 
-// The poster of every offline loop: its first frame, the wide shot it also ends on.
-const WIDE_ALT =
-	"VS Code with provinceview.gui on the left and Etch's preview of the province view on the right.";
-
+// Every poster is its loop's first frame, the shot it also ends on (section 4.1).
 // In the order of the feature tour (section 3.2).
 export const FEATURES: Feature[] = [
 	{
@@ -50,9 +47,9 @@ export const FEATURES: Feature[] = [
 		title: 'Preview as you type',
 		textHtml: `The preview follows the unsaved buffer on every change, including the mod's <code>.gfx</code> and localisation files. A warm reload of the province view takes a median of 10–13 ms, p95 12–16 ms <span class="source">(vanilla and Anbennar, on the maintainer's machine, 28 October 2026, <a href="${BUDGETS_URL}">budgets</a>)</span>.`,
 		descriptionHtml:
-			"The view moves in on the preview, with the edited line in an inset. The buildings panel's x, 480, is retyped as 7, 72 and 720, unsaved, and the panel jumps to each position at once. An undo returns it.",
+			"The code beside the preview's trade section. The trade node button's x, 251, is retyped as 3, 30 and 300, unsaved, and the button with its outline jumps to each position at once. An undo returns it to 251.",
 		posterAlt:
-			"VS Code with provinceview.gui on the left, the buildings panel's x selected, and Etch's preview of the province view on the right.",
+			"provinceview.gui with the trade node button's position selected, beside the trade section of Etch's preview of the province view.",
 	},
 	{
 		clip: 'views',
@@ -60,8 +57,9 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			'A window with a window profile is drawn in one view, as the game would show it: for example the province view as an own or a foreign province, with one side panel open. <strong>View ▾</strong> lists the views and every selector, with where its value comes from. <strong>Save as view…</strong> writes your own into the mod.',
 		descriptionHtml:
-			"The view moves in on the preview. In <strong>View ▾</strong> two other views of the province view, a foreign province and the state tab, are chosen in turn and the window is drawn in each, then the own province's view again.",
-		posterAlt: WIDE_ALT,
+			"<strong>View ▾</strong> beside Etch's preview of the province view. The menu lists the window's views; Foreign province is chosen and the window is drawn as a foreign province's, with a red banner, the owner's shield and Diplomacy. The menu then goes back to Own province.",
+		posterAlt:
+			"The preview's View button, set to Own province, beside the upper half of Etch's preview of the province view.",
 	},
 	{
 		clip: 'data',
@@ -69,8 +67,9 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			"Texts the game's code fills (a province's name, its development, culture, religion) show sample data. <strong>Data ▾</strong> shows the layers, and the upper one wins: a live snapshot, a save, the game's and the mod's files, then generated text of a chosen length.",
 		descriptionHtml:
-			"In <strong>Data ▾</strong> generated text is set to long, and the view moves in on the province view's header, where long names and numbers fill their boxes; then the text is set back to typical.",
-		posterAlt: WIDE_ALT,
+			"<strong>Data ▾</strong> beside the province view's header, with sample data from a save of Russia in 1719. The menu shows its layers, upper ones winning; <strong>Province…</strong> picks Bali from the save, and the header redraws with its names, area, region, culture, religion and development. Then Kaluga again.",
+		posterAlt:
+			"The preview's Data button, Kaluga from a 1719 save, beside the header of Etch's preview of the province view.",
 	},
 	{
 		clip: 'zoom',
@@ -78,8 +77,9 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			'Zoom changes how big the preview is shown, never the resolution the window is laid out at. <strong>Ctrl+mouse wheel</strong> zooms around the cursor. Above 100 % only whole steps are offered, so pixels stay sharp.',
 		descriptionHtml:
-			"With the pointer on the province's culture, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp, the culture still under the pointer; a click on the zoom level fits it again.",
-		posterAlt: WIDE_ALT,
+			"The pointer rests just above the province view's tabs. Ctrl+mouse wheel zooms the preview in two whole steps, 200 % and 300 %, around the pointer, game pixels sharp; a click on the zoom level fits it again.",
+		posterAlt:
+			"The preview's zoom level, Fit · 100 %, beside the top of Etch's preview of the province view.",
 	},
 	{
 		clip: 'outline',
@@ -87,9 +87,8 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			"The Widget Outline lists the window's widgets, with radios for a window's alternatives and an eye on every other widget. Click a widget in the preview to reveal its source. Hover to see its path and rect.",
 		descriptionHtml:
-			"The Widget Outline is open in the sidebar. The pointer hovers a text, an icon and a button in the preview, each outlined with a tooltip giving its path and rect; a click on the button selects its definition in <code>provinceview.gui</code> and in the outline. Go Back returns the cursor.",
-		posterAlt:
-			"VS Code with the Widget Outline in the sidebar, provinceview.gui and Etch's preview of the province view.",
+			"The pointer hovers a text, a button and an icon in Etch's preview, each outlined with a tooltip giving its path, kind and rect. A click on the icon selects its definition in <code>provinceview.gui</code> and its row in the Widget Outline, both ringed; Alt+← returns the cursor where it was.",
+		posterAlt: "Etch's preview of the province view close up, its demographics.",
 	},
 	{
 		clip: 'problems',
@@ -97,9 +96,9 @@ export const FEATURES: Feature[] = [
 		textHtml:
 			"Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit.",
 		descriptionHtml:
-			"Two letters of a sprite name in <code>provinceview.gui</code> are swapped. Problems reports the missing sprite at once, and in the preview the buildings panel's background is gone while the rest of the window still draws. An undo fixes it.",
+			"<code>provinceview.gui</code> above the Problems panel, the preview's buildings panel beside them. Two letters of a sprite name are swapped; Problems reports the missing sprite at once, and the panel's background is gone while the rest of the window still draws. An undo fixes it.",
 		posterAlt:
-			"VS Code with provinceview.gui, the Problems panel below it, and Etch's preview of the province view.",
+			"A sprite's line of provinceview.gui above an empty Problems panel, beside the buildings panel of Etch's preview.",
 	},
 ];
 
@@ -207,8 +206,9 @@ export const LIVE_GAME = {
 			textHtml:
 				"<strong>Etch: Start the Live Game</strong>, or the preview's <strong>Live game</strong> button, starts a private copy of the game with your mod's playset. You play it, and each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds (<code>countryview.gui</code>, <code>.gfx</code> files, fonts) asks for a planned restart.",
 			descriptionHtml:
-				"VS Code beside the live game, its province view open. One keystroke changes the buildings panel's x from 480 to 580 and a save reloads the window in the game: the panel moves right. An undo and a save move it back.",
-			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
+				"The trade node button's line in <code>provinceview.gui</code> beside the trade section of the live game's province view. One keystroke changes its x from 251 to 151, and a save reloads the window in the game: the button moves left. An undo and a save move it back.",
+			posterAlt:
+				"provinceview.gui with the trade node button's position, beside the trade section of the live game's province view.",
 		},
 		{
 			clip: 'pick',
@@ -216,8 +216,9 @@ export const LIVE_GAME = {
 			textHtml:
 				'<strong>Ctrl+Shift+E</strong> turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.',
 			descriptionHtml:
-				'Ctrl+Shift+E in the game turns on pick mode, with VS Code in an inset. The pointer moves over the province view and each widget is outlined with its name, kind, size and file. A click on the buildings panel brings VS Code forward at the definition of the widget under the pointer.',
-			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
+				'Ctrl+Shift+E turns on pick mode in the game. The pointer hovers the owner\'s shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file; the game\'s own tooltip still shows under the label. A click on the trade node button opens its definition in VS Code, and the game does not take the click.',
+			posterAlt:
+				"The live game's trade section close up, pick mode outlining the owner's shield with its name, kind, size and file, the game's tooltip under it.",
 		},
 		{
 			clip: 'snapshot',
@@ -225,8 +226,9 @@ export const LIVE_GAME = {
 			textHtml:
 				'A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.',
 			descriptionHtml:
-				"Etch's preview of the province view shows sample data, with the live game in an inset. A pick in the game takes a live snapshot, and the preview redraws with the texts the game shows.",
-			posterAlt: 'VS Code with provinceview.gui beside the live game, its province view open.',
+				"The military and trade rows of Etch's preview beside the same rows of the live game. The preview's values come from the save or are generated; a pick in the game takes a live snapshot, and the preview redraws with the game's own manpower, supply limit, sailors, trade value and goods produced.",
+			posterAlt:
+				"The military and trade rows of Etch's preview, beside the same rows of the live game's province view.",
 		},
 	] satisfies Feature[],
 	// Without loops, after the three rows (section 3.2.1), following the README's "Run selection".
@@ -250,8 +252,9 @@ export const SCRIPTS = {
 			textHtml:
 				"Anvil's script profiler (Anvil 1.22 or newer) times your events', decisions' and other scripts' triggers and effects in your own game. <strong>Etch: Show Latest Script Profile</strong> opens its newest file, the longest rows first, and each name links to where it is written. While a profile is shown, a line above each measured event, option or decision gives its time and calls.",
 			descriptionHtml:
-				"<strong>Etch: Show Latest Script Profile</strong> runs from the command palette and opens a profile Anvil's profiler measured in the base game, the slowest triggers first. A click on a decision's name opens its file at the measured block, with the profile's time and calls on a line above it.",
-			posterAlt: WIDE_ALT,
+				"The page of <strong>Etch: Show Latest Script Profile</strong>, with a profile Anvil's profiler measured in the base game, the slowest rows first. A click on a decision's name opens its file at the measured block, with the profile's time and calls on a line above it; Ctrl+W returns to the page.",
+			posterAlt:
+				"The table of Etch's script profile page: owners, names, roles, calls and times.",
 		},
 		{
 			clip: 'names',
@@ -259,9 +262,8 @@ export const SCRIPTS = {
 			textHtml:
 				"A province id the map does not have, such as <code>owns = 5075</code>, gets no line in the game's <code>error.log</code>, and the game may crash when it reads that province. Etch warns about such ids in the script files you open, and about names the playset does not define where the game crashes on them, such as an idea group in <code>add_idea_group</code>. <strong>Etch: Check Province IDs and Names in the Playset</strong> checks every mod of the playset.",
 			descriptionHtml:
-				'In an event of the demo mod, a 5 typed before province 151 makes it 5151, and Problems warns at once that the map has no such province. Two letters turn the idea group <code>economic_ideas</code> into <code>economical_ideas</code>, and a second warning says the playset has no such idea group. An undo removes both.',
-			posterAlt:
-				"VS Code with an event file of the demo mod, the Problems panel below it, and Etch's preview of the province view.",
+				'In an event of the demo mod, a 5 typed before province 151 makes it 5151, and Problems warns at once that the map has no such province. An s turns the idea group <code>economic_ideas</code> into <code>economics_ideas</code>, and a second warning says the playset has no such idea group. Two undos take them away one at a time.',
+			posterAlt: 'An event of the demo mod above an empty Problems panel.',
 		},
 	] satisfies Feature[],
 };
