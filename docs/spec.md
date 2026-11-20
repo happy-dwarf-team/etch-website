@@ -26,7 +26,7 @@ stays about the extension.
 
 - **What:** the website of Etch, the VS Code extension that previews Europa Universalis IV
   interface mods, at **`https://etch.happydwarf.dev/`**: a landing page with a demo loop, the
-  preview's features and the live game's, each with a short loop, install, and the status and
+  preview's features, the live game's and the scripts', each with a short loop, install, and the status and
   roadmap to v1 and v2.
 - **Language:** English only.
 - **User documentation stays in the extension README** (linked from Install). Revisit only if
@@ -46,18 +46,22 @@ From [#7](https://github.com/happy-dwarf-team/.github/issues/7) and
 User Agreement (sections 5–6, last update 2026-01-21), not legal advice.
 
 - Screenshots and silent loops show **Etch rendering EU4 interface art from a local copy of the
-  game**, with Etch and the mod's layout as the subject. **Every frame shows the editor and
-  Etch's preview together**, never bare game art. No game audio.
+  game**, with Etch and the mod's layout as the subject. **Every frame shows Etch at work**: the
+  editor, Etch's preview or its menus, or the outlines and labels Etch's pick mode draws in the
+  game, never bare game art. No game audio. (Until the 2026-11-18 media refresh: every frame
+  showed the editor and Etch's preview together.)
 - Since the 2.0.0 media refresh the clips edit the province view as a mod overrides it: the
   editor shows the text of the base game's `interface/provinceview.gui`, copied from the local
   game into each take's throwaway workspace and never stored (section 8.2). We read this like
   the interface art: Etch and the mod's layout stay the subject.
-- The loops move a camera over the recorded windows (section 8.4): close-ups follow what the
-  feature does, and **whenever a close-up leaves the editor out, an inset of the editor stays in
-  frame**, so every frame still shows the editor and Etch's preview together.
+- The loops cut panels from the recorded windows (section 8.4): the control on the left (the
+  code, a menu of the preview, the Widget Outline, Problems) and its effect on the right (Etch's
+  preview or the game's window). A close-up of the preview alone (`zoom`, `outline`'s hovers)
+  shows Etch's drawing of the window with its outlines and tooltips, so Etch stays the subject.
 - **The live game's loops** (section 3.2.1) show EU4 itself running beside VS Code, as Etch's
-  live game runs it: every frame shows the editor and the game's window together (side by side,
-  or one filling the frame and the other in an inset), never the game alone. They show the game
+  live game runs it: the game's window beside the code it reloads or the preview it feeds, or
+  alone while Etch's pick mode outlines and labels its widgets, never the game without Etch's
+  part in it. They show the game
   in play with the province view open (the window being edited, its map beside it), paused and
   silent, never the launcher, the main menu or a loading screen, so no logo or key art is in
   frame. The save is the player's own copy, played in the take's throwaway profile (section 8.3).
@@ -135,8 +139,8 @@ Differences from the hub:
    button, "open a `.gui` and run **Etch: Open Preview**", and a link to the extension README.
 4. **Features as a tour:** a short introduction to 2.0's two parts, six numbered rows, each a
    short text beside its feature's loop (section 3.2), then the **live game** with three more
-   rows (section 3.2.1), the **Etch 1.x note** (section 3.2.2), then a box **"What 2.0.0 does
-   not do"** (section 3.3).
+   rows (section 3.2.1), **your scripts** with two more (section 3.2.3), the **Etch 1.x note**
+   (section 3.2.2), then a box **"What 2.0.0 does not do"** (section 3.3).
 5. **Roadmap:** a vertical timeline (section 3.5).
 6. **Footer** (section 7).
 
@@ -155,18 +159,17 @@ In this order, one loop each (until the 2.0.0 media refresh a still each,
 [#19](https://github.com/happy-dwarf-team/.github/issues/19)). Texts are drafts from the
 prototype, edited at build time without going beyond the extension README; each loop's text
 description says what its clip shows (section 8.5) and follows the lead "**<title>, <n> s,
-silent.**" (section 4.1). Every offline loop opens and closes on the wide shot of VS Code, which
-is its poster, with the poster alt "VS Code with provinceview.gui on the left and Etch's preview
-of the province view on the right." unless the row gives its own.
+silent.**" (section 4.1). Every loop opens and closes on the same shot, which is its poster; the
+poster's alt says what that shot shows.
 
 | #   | Feature                           | Text (draft)                                                                                                                                                                                                                                                                                                                        | Loop       | Text description (draft)                                                                                                                                                                                                                                              |
 | --- | --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Preview as you type               | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload of the province view: median 10–13 ms, p95 12–16 ms (the newest `provinceview` results of etch's `docs/budgets.md`, vanilla and Anbennar, with their date).                                                                                                                          | `preview`  | The view moves in on the preview, with the edited line in an inset. The buildings panel's x, 480, is retyped as 7, 72 and 720, unsaved, and the panel jumps to each position at once. An undo returns it.                                                             |
-| 2   | Views of the window               | A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. **View ▾** lists the views and every selector with where its value comes from; **Save as view…** writes your own into the mod. | `views`    | The view moves in on the preview. In **View ▾** two other views of the province view are chosen in turn and the window is drawn in each, then the own province's view again.                                                                                          |
-| 3   | Sample data                       | Texts the game's code fills (a province's name, its development, culture, religion) show sample data. **Data ▾** shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length.                                                                               | `data`     | In **Data ▾** generated text is set to long, and the view moves in on the province view's header, where long names and numbers fill their boxes; then the text is set back to typical.                                                                                |
-| 4   | Zoom without a new layout         | Zoom changes only how big the preview is shown, never the resolution the window is laid out at. **Ctrl+mouse wheel** zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp.                                                                                                                       | `zoom`     | With the pointer on the province view's header, Ctrl+mouse wheel zooms the preview in two whole steps around it, game pixels sharp; a click on the zoom level fits it again.                                                                                          |
-| 5   | Widget outline and jump to source | The Widget Outline lists the window's widgets, a window's alternatives as radios and an eye on every other widget. Click a widget in the preview to reveal its source; hover to see its path and rect.                                                                                                                              | `outline`  | The Widget Outline is open in the sidebar. The pointer hovers three widgets in the preview, each outlined with a tooltip giving its path and rect; a click on a building selects its definition in `provinceview.gui` and in the outline. Go Back returns the cursor. |
-| 6   | Diagnostics in Problems           | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit.                                                                                                                                                                                                                       | `problems` | Two letters of a sprite name in `provinceview.gui` are swapped. Problems reports the missing sprite at once, and in the preview the buildings panel's background is gone while the rest of the window still draws. An undo fixes it.                                  |
+| 1   | Preview as you type               | The preview follows the unsaved editor buffer on every change, including the mod's `.gfx` and localisation files. Warm reload of the province view: median 10–13 ms, p95 12–16 ms (the newest `provinceview` results of etch's `docs/budgets.md`, vanilla and Anbennar, with their date).                                                                                                                          | `preview`  | The code beside the preview's trade section. The trade node button's x, 251, is retyped as 3, 30 and 300, unsaved, and the button with its outline jumps to each position at once. An undo returns it to 251.                                                         |
+| 2   | Views of the window               | A window with a window profile is drawn in one view, as the game would show it: the province view as an own or a foreign province, with its province or state tab, one side panel and one sub-panel. **View ▾** lists the views and every selector with where its value comes from; **Save as view…** writes your own into the mod. | `views`    | **View ▾** beside Etch's preview of the province view. The menu lists the window's views; Foreign province is chosen and the window is drawn as a foreign province's, with a red banner, the owner's shield and Diplomacy. The menu then goes back to Own province.   |
+| 3   | Sample data                       | Texts the game's code fills (a province's name, its development, culture, religion) show sample data. **Data ▾** shows the layers, the upper winning: a live snapshot, a save, the game's and the mod's files, and generated text of a chosen length.                                                                               | `data`     | **Data ▾** beside the province view's header, with sample data from a save of Russia in 1719. The menu shows its layers, upper ones winning; **Province…** picks Bali from the save, and the header redraws with its names, area, region, culture, religion and development. Then Kaluga again. |
+| 4   | Zoom without a new layout         | Zoom changes only how big the preview is shown, never the resolution the window is laid out at. **Ctrl+mouse wheel** zooms around the cursor; above 100 % only whole steps are offered, so pixels stay sharp.                                                                                                                       | `zoom`     | The pointer rests just above the province view's tabs. Ctrl+mouse wheel zooms the preview in two whole steps, 200 % and 300 %, around the pointer, game pixels sharp; a click on the zoom level fits it again.                                                        |
+| 5   | Widget outline and jump to source | The Widget Outline lists the window's widgets, a window's alternatives as radios and an eye on every other widget. Click a widget in the preview to reveal its source; hover to see its path and rect.                                                                                                                              | `outline`  | The pointer hovers a text, a button and an icon in Etch's preview, each outlined with a tooltip giving its path, kind and rect. A click on the icon selects its definition in `provinceview.gui` and its row in the Widget Outline, both ringed; Alt+← returns the cursor where it was. |
+| 6   | Diagnostics in Problems           | Missing sprites, fonts and textures, duplicate names and more appear in VS Code's Problems panel as you edit.                                                                                                                                                                                                                       | `problems` | `provinceview.gui` above the Problems panel, the preview's buildings panel beside them. Two letters of a sprite name are swapped; Problems reports the missing sprite at once, and the panel's background is gone while the rest of the window still draws. An undo fixes it. |
 
 Then a short list **"Also in the preview"**, without loops (drafts, following the extension
 README): **Pin** keeps the preview on one window while you edit other files; any resolution (the
@@ -182,24 +185,21 @@ and playset, on the demo mod's dialog.
 
 Since 2.0.0 the live game follows the tour, replacing the game host note (M3), following the
 extension README (drafts): the heading "The live game", then three more rows of the tour,
-numbered 07–09, each a short text beside its loop. Their poster alt is "VS Code with
-provinceview.gui beside the live game, its province view open."
+numbered 07–09, each a short text beside its loop.
 
 | #   | Feature        | Text (draft)                                                                                                                                                                                                                                                                     | Loop       | Text description (draft)                                                                                                                                                                                                                                                                 |
 | --- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 7   | Reload on save | **Etch: Start the Live Game**, or the preview's **Live game** button, starts a private copy of the game with your mod's playset. You play it; each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds asks for a planned restart. | `reload`   | VS Code beside the live game, its province view open. One keystroke changes the buildings panel's x from 480 to 580 and a save reloads the window in the game: the panel moves right. An undo and a save move it back.                                                                   |
-| 8   | Pick mode      | **Ctrl+Shift+E** turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.                                                                    | `pick`     | Ctrl+Shift+E in the game turns on pick mode, with VS Code in an inset. The pointer moves over the province view and each widget is outlined with its name, kind, size and file. A click on the buildings panel brings VS Code forward at the definition of the widget under the pointer. |
-| 9   | Live snapshot  | A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.                                                                                                                                | `snapshot` | Etch's preview of the province view shows sample data, with the live game in an inset. A pick in the game takes a live snapshot, and the preview redraws with the texts the game shows.                                                                                                  |
+| 7   | Reload on save | **Etch: Start the Live Game**, or the preview's **Live game** button, starts a private copy of the game with your mod's playset. You play it; each file you save is reloaded into the game's own window, with its real data. A file nothing rebuilds asks for a planned restart. | `reload`   | The trade node button's line in `provinceview.gui` beside the trade section of the live game's province view. One keystroke changes its x from 251 to 151, and a save reloads the window in the game: the button moves left. An undo and a save move it back.                            |
+| 8   | Pick mode      | **Ctrl+Shift+E** turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.                                                                    | `pick`     | Ctrl+Shift+E turns on pick mode in the game. The pointer hovers the owner's shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file. A click on the trade node button opens its definition in VS Code, and the game does not take the click. |
+| 9   | Live snapshot  | A pick also takes a live snapshot of the window: the texts, visibility and states the game shows, which the preview uses as its upper data layer.                                                                                                                                | `snapshot` | The military and trade rows of Etch's preview beside the same rows of the live game. The preview's values come from the save or are generated; a pick in the game takes a live snapshot, and the preview redraws with the game's own manpower, supply limit, sailors, trade value and goods produced. |
 
 Then a short list **"Also in the live game"**, without loops (drafts, following the extension
 README's "Run selection", since Etch 2.9.0): **Run selection** runs the selected effects in the
 live game, in your country or the province on screen, and **Check Selection as Trigger** says
 whether a trigger is true; the game's errors from the run go to Problems; it changes only the
-private copy, never your saves, and does not work in ironman or multiplayer. Then **Script
-profile** (following the README's "Script profile", since Etch 2.10.0): Anvil's script profiler
-(Anvil 1.22 or newer), in your own game, times your events', decisions' and other scripts'
-triggers and effects, and **Etch: Show Latest Script Profile** shows its newest file, the longest
-rows first.
+private copy, never your saves, and does not work in ironman or multiplayer. (Until the
+2026-11-18 media refresh the list also had **Script profile**, which then got a row of its own,
+section 3.2.3.)
 
 Then: "Etch creates the private install on first use, after one confirmation. It never writes to
 your game folder, profile or mods, and never changes `eu4.exe`.", followed by what the README
@@ -214,6 +214,20 @@ A short note after the live game, following the extension README's "Etch 1.x" se
 and its diff view with the live game. To keep them, install 1.0.x: in the Extensions view,
 **Install Specific Version…** on Etch, then 1.0.x, and turn off automatic updates for it. 1.0.x
 gets no fixes after 2.0.0." It links that README section and ADR 0005.
+
+### 3.2.3 Your scripts
+
+Since the 2026-11-18 media refresh (Etch 2.13.0) the
+live game is followed by Etch's work on a mod's script files, following the extension README's
+"Script profile" (since Etch 2.10.0) and "Province IDs and names" (since 2.13.0): the heading "Your
+scripts", one sentence, "Etch also reads the script files of your mod: how long they take in the
+game, and names in them that crash it.", then two more rows of the tour, numbered 10–11, each a
+short text beside its loop. Their loops show VS Code alone: no preview and no game art.
+
+| #   | Feature                | Text (draft)                                                                                                                                                                                                                                                                                                                                                                                  | Loop      | Text description (draft)                                                                                                                                                                                                                                                                       |
+| --- | ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 10  | Script profile         | Anvil's script profiler (Anvil 1.22 or newer) times your events', decisions' and other scripts' triggers and effects in your own game. **Etch: Show Latest Script Profile** opens its newest file, the longest rows first, and each name links to where it is written. While a profile is shown, a line above each measured event, option or decision gives its time and calls.          | `profile` | The page of **Etch: Show Latest Script Profile**, with a profile Anvil's profiler measured in the base game, the slowest rows first. A click on a decision's name opens its file at the measured block, with the profile's time and calls on a line above it; Ctrl+W returns to the page.          |
+| 11  | Province IDs and names | A province id the map does not have, such as `owns = 5075`, gets no line in the game's `error.log`, and the game may crash when it reads that province. Etch warns about such ids in the script files you open, and about names the playset does not define where the game crashes on them, such as an idea group in `add_idea_group`. **Etch: Check Province IDs and Names in the Playset** checks every mod of the playset. | `names`   | In an event of the demo mod, a 5 typed before province 151 makes it 5151, and Problems warns at once that the map has no such province. An s turns the idea group `economic_ideas` into `economics_ideas`, and a second warning says the playset has no such idea group. Two undos take them away one at a time. |
 
 ### 3.3 "What 2.0.0 does not do"
 
@@ -300,17 +314,13 @@ The hero's demo loop and every feature's loop (sections 3.2 and 3.2.1) follow th
   "**<title>, <n> s, silent.**", the length rounded from the manifest's `duration`. The feature
   loops' descriptions are in sections 3.2 and 3.2.1; the demo loop's, a draft:
 
-  > **Demo loop, 15 s, silent.** Three moments from the loops below. In VS Code, the buildings
-  > panel's x in an unsaved `provinceview.gui` is retyped digit by digit, and Etch's preview
-  > redraws the panel at every keystroke. Beside the live game, a save reloads the province view
-  > in the game and the panel moves. In the game, pick mode outlines each widget under the pointer
-  > with its name, kind, size and file, and a click opens its definition in VS Code.
+  > **Demo loop, 12 s, silent.** Three moments from the loops below. In VS Code, the trade node button's x in an unsaved `provinceview.gui` is retyped digit by digit, and Etch's preview moves the button at every keystroke. Beside the live game, a save reloads the province view in the game and the button moves. In the game, pick mode outlines each widget under the pointer with its name, kind, size and file, and a click opens its definition in VS Code.
 
   (Until the 2.0.0 media refresh the loop widened the demo mod's dialog; at the refresh it first
-  moved the buildings panel and chose the army builder's view.)
+  moved the buildings panel and chose the army builder's view; until the 2026-11-18 refresh it
+  moved the buildings panel.)
 
-- **Poster `alt`** of the demo loop: "VS Code with provinceview.gui on the left and Etch's
-  preview of the province view on the right." Every poster is its loop's first frame, so starting
+- **Poster `alt`** of the demo loop: "provinceview.gui with the trade node button's position selected, beside the trade section of Etch's preview of the province view." Every poster is its loop's first frame, so starting
   playback does not jump.
 
 ### 4.2 The loop viewer
@@ -384,12 +394,17 @@ Validated by a zod schema in the site's code; the build fails on error.
 (Values are examples.)
 
 - `etch`: the Etch version the set was captured for (also the `v<version>` in the keys).
+- A loop's own `etch` (optional): a loop kept from an earlier set, with the version it was
+  captured for and its keys' prefix. `pnpm media publish --keep <clip>` writes it when a new take
+  shows an Etch bug: the loop that still shows the feature working stays until a later set has a
+  good take (2026-11-18: `snapshot` stays 2.0.0's, see section 8.5).
 - The manifest carries **only facts about files**. The loops' text descriptions, the posters'
   alts and the order of the features are editorial content and stay in the site's code
   (sections 3.2, 3.2.1 and 4.1).
 - **Clip ids** (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`, `reload`,
-  `pick`, `snapshot`) are defined by the media script and are the same in bucket keys, file names
-  and the manifest. Every set has all ten loops.
+  `pick`, `snapshot`, `profile`, `names`) are defined by the media script and are the same in
+  bucket keys, file names and the manifest. Every set has all twelve loops (ten until the
+  2026-11-18 media refresh added `profile` and `names`).
 - Schema version 1, before the 2.0.0 media refresh, had the hero loop and six stills (with
   `pin`, `resolution` and `playset` until 2.0.0); the site reads only version 2.
 - Every `poster` must exist in `src/assets/media/`.
@@ -502,7 +517,9 @@ From [#16](https://github.com/happy-dwarf-team/.github/issues/16) and
 - Files: a `.mod` descriptor; `interface/etch_demo.gui` with two top-level windows: a **dialog**
   in the style of an EU4 event (background, header in a game font, short body text, an icon in a
   frame, two option buttons, a close button) and a **small panel** for the window-under-cursor
-  scene; `interface/etch_demo.gfx`; `localisation/etch_demo_l_english.yml`. Text in an EU4 tone
+  scene; `interface/etch_demo.gfx`; `localisation/etch_demo_l_english.yml`; since the 2026-11-18
+  media refresh `events/etch_demo_events.txt`, one event (`is_triggered_only`, never fired) that
+  the `names` clip edits, with its texts' keys taken from the dialog's. Text in an EU4 tone
   with a smithing, Happy Dwarf flavour.
 - **No event picture** (`GFX_evt_*`), **no textures of our own** at the start (no `gfx/` folder),
   English only. #16 allows a few own textures later (and #21's fallback would need them).
@@ -544,10 +561,15 @@ From [#6](https://github.com/happy-dwarf-team/.github/issues/6),
   and clicked by the script (pick mode needs a real click) and recorded over the game; pick mode
   is turned on with **Ctrl+Shift+E** pressed in the game (`SendInput`). It is the only take that
   starts EU4: through Etch's own **Start the Live Game**, with a capture helper extension that
-  gives the run's private install a copy of the player's settings windowed at 2560 × 1440 and a
-  copy of the chosen save, and turns on Tongs' pipe in that install for the script's reads. The
+  gives the run's private install a copy of the player's settings windowed at the preview's
+  1440 × 900 (until the 2026-11-18 refresh 2560 × 1440) and a copy of the chosen save, and turns on Tongs' pipe in that install for the script's reads. The
   game runs the base game and the demo mod, with the DLC the player owns, as the live game would
   for them. It needs `--save <file>`.
+- **The `profile` take** needs `--profile <file>`, a CSV that Anvil's script profiler wrote in a
+  base game, so its names link into the take's playset. The take copies it into the run's
+  throwaway private profile (`logs/`), where **Etch: Show Latest Script Profile** finds it as the
+  newest; the run's work folder (`--work`) is a short folder outside the user's own, since the page
+  shows the file's path.
 - Known gotchas: keep VS Code and its user data in a **short folder** (MAX_PATH); select text
   through Find, not Ctrl+G (wrong column on tab-indented `.gui`). A visible, unlocked desktop
   session is assumed, with the display awake (a sleeping display slows the game to a few frames a
@@ -558,11 +580,12 @@ From [#6](https://github.com/happy-dwarf-team/.github/issues/6),
 From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
 
 - VS Code at **2560 × 1440 CSS px**, device scale 1, as on an ordinary monitor, so its master is
-  **2560 × 1440**. Editor font **14**, VS Code's default, `window.zoomLevel` 0. (Until the loops
+  **2560 × 1440**. Editor font **18**, so code in a close-up still reads at the site's size (VS Code's default is 14), `window.zoomLevel` 0. (Until the loops
   it was 1280 × 720 at device scale 2 with font 18: the stills were the close-ups; now the
   edit's are.)
-- `etch.previewResolution` **1280x720**; the preview panel keeps about 1280 CSS px in every take
-  (the editor gives way), so one game pixel is one master pixel. The preview only scales down.
+- `etch.previewResolution` **1440x900**, the large layout the game draws at that height (until
+  the 2026-11-18 refresh 1280x720); the preview panel keeps about 1440 CSS px in every take (the
+  editor gives way), so one game pixel is one master pixel. The preview only scales down.
 - **Dark Modern**, activity bar and status bar shown, minimap and breadcrumbs off; the sidebar and
   the bottom panel only in takes that need them; tabs only for demo mod files.
 - **Never in a take** unless the clip shows it: Welcome, toasts, other extensions, the Find
@@ -570,40 +593,66 @@ From [#19](https://github.com/happy-dwarf-team/.github/issues/19).
   the clip does not expect (e.g. `game_ui_scale` from the player's `settings.txt`) **fails the
   run**.
 - The preview panel must stay visible: the host defers renders while it is hidden.
-- **The edit** is 1920 × 1080 at 30 fps. Every loop opens on the wide shot of the whole window
-  (or, in the live loops, of VS Code and the game side by side) and closes on the same shot of
-  the same state, so it loops without a jump; a take whose end differs from its start (the
-  editor moved by a pick) dissolves into its first frame over half a second. Between them a
-  camera eases (cubic, about 0.8 s a move) to close-ups of what the step changes, from the rects
-  in the take's log, never deeper than 1.5 master pixels per output pixel.
-- **Every frame shows the editor and Etch's preview together** (section 1.1): a close-up that
-  leaves the editor out shows an inset of the editor's current lines. In the live loops every
-  frame shows the editor and the game's window.
-- **Captions** name the keys pressed (`Ctrl` `S`) or what happens, in one line at the bottom, in
-  the site's IBM Plex Sans and JetBrains Mono on a dark pill; a measured time says it was
-  measured in this take. **Highlights** ring a changed rect in the site's verdigris. VS Code's
-  takes are recorded without a pointer, so the edit **draws one** where Playwright's mouse moved
-  (a plain arrow, with a ring on a click); the game's pointer is its own, recorded.
-- **The live take:** VS Code as above on the primary monitor, the game windowed at
-  **2560 × 1440**, a corpus resolution, on the monitor right of it (the lab: 3440 × 1440 and
-  2560 × 1440, both at 100 %), its client area at that monitor's top left corner. The real
-  pointer waits over the game's interface, since anywhere outside its client area the game
-  scrolls its map.
+- **The edit** is 1920 × 1080 at 30 fps, for a page that shows a loop about 650 px wide. It
+  cuts panels from the masters, mostly a split: the control on the left (the code, a menu of the
+  preview, the Widget Outline, Problems) and its effect on the right (the preview or the game),
+  each at a scale that reads at the site's size (code at 1.5× or more, the preview's menus at
+  2.2×, a part of the window at 2×), from the rects in the take's log. A loop opens and closes on
+  the same shot of the same state, so it loops without a jump; a take whose end differs from its
+  start dissolves into its first frame over about half a second. The camera moves only between steps (cubic,
+  about 0.8 s a move) or cuts. (Until the 2026-11-18 refresh a camera moved over the whole
+  window, with an inset of the editor in its close-ups.)
+- A menu's panel is folded to its button's row while the menu is closed and unfolds with it.
+  While a menu of the preview is open over the window, the window's panel holds its frame from
+  before the menu opened and shows the window's new state from the frame the menu closes, so the
+  menu shows whole in its own panel, never cut off at the window panel's edge. Panels of text
+  lines longer than they are (code, Problems) fade out at their right edge rather than cut a word.
+- **Every frame shows Etch at work** (section 1.1): the code, Etch's preview or its menus, or pick
+  mode in the game.
+- **Captions** name the keys pressed (`Ctrl` `S`) or what happens, in one line in a band under
+  the panels, which no panel enters, in the site's IBM Plex Sans with keys in JetBrains Mono; a
+  measured time says it was measured in this take. **Highlights** ring a changed rect in the
+  site's verdigris once it has changed. VS Code's takes are recorded without a pointer, so the
+  edit **draws one** where Playwright's mouse moved (a plain arrow the size of Windows' own, with
+  a ring on a click); where the pointer crosses other widgets between two it hovers (`outline`),
+  the drawn pointer glides while Playwright's mouse moves at the end only, so the preview
+  outlines no widget on the way. The game's pointer is its own, recorded.
+- **The live take:** VS Code as above on the primary monitor, the game windowed at the
+  preview's **1440 × 900** (until the 2026-11-18 refresh 2560 × 1440, a corpus resolution) on the
+  monitor right of it (the lab: 3440 × 1440 and 2560 × 1440, both at 100 %), its client area at
+  that monitor's top left corner, as for a player whose preview follows the game's settings
+  (until Etch 2.13.0 the preview drew a live snapshot's positions as the game's screen had them,
+  so the game had to run at the preview's resolution). The real pointer waits over
+  the map, away from the screen's edges (the game scrolls its map when the pointer is near or past
+  them) and outside every part of the window the loops show. In `pick` it goes to the first
+  widget before **Ctrl+Shift+E** and then jumps from widget to widget, so pick mode outlines
+  nothing on the way.
 
 ### 8.5 Clips
 
 | Clip       | Loop  | What it shows                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ---------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `hero`     | ~15 s | Parts of three loops, cut one after another: `preview`'s typing from its wide start, `reload`'s save and moving panel, `pick`'s last hover, click and definition to its wide end.                                                                                                                                                                                                                                                                                      |
-| `preview`  | ~8 s  | The first digit to the last of the buildings window's x (480) selected; the camera moves in on the preview with the line in an inset; `7`, `2`, `0` are typed one by one, each drawn at once (x 7, 72, 720), unsaved; back to the wide shot, **Ctrl+Z**.                                                                                                                                                                                                               |
-| `views`    | ~10 s | The pointer opens **View ▾**; the camera on the preview; two other views (the foreign province's, the army builder's, as the menu lists them) are chosen in turn, then the current one again; the menu closes.                                                                                                                                                                                                                                                         |
-| `data`     | ~12 s | **Data ▾**, generated text **long**; the menu closes and the camera moves in on the province view's header; back, **Data ▾**, **typical**.                                                                                                                                                                                                                                                                                                                             |
-| `zoom`     | ~12 s | The pointer on the province view's header; **Ctrl+wheel** two whole steps in, a hold, then a click on the zoom level fits the screen again (the starting level).                                                                                                                                                                                                                                                                                                       |
-| `outline`  | ~12 s | The Widget Outline in the sidebar; the pointer hovers three widgets of the preview (the dashed hover box and the tooltip with path and rect), then clicks the first building: its definition is selected in the editor and in the outline; **Go Back** returns the cursor.                                                                                                                                                                                             |
-| `problems` | ~10 s | Problems filtered to the typo (the base game's file has problems of its own); the `ui` of `GFX_provinceview_building_bg` swapped, one Etch "missing sprite" warning, ringed; the camera on the preview without the panel's background; **Ctrl+Z**.                                                                                                                                                                                                                     |
-| `reload`   | ~9 s  | Live: the buildings window's x 480 → 580 with one keystroke, **Ctrl+S**, the game reloads and the panel moves (ringed, with the time from the save to Tongs seeing the panel moved); **Ctrl+Z**, **Ctrl+S**, back.                                                                                                                                                                                                                                                     |
-| `pick`     | ~15 s | Live: **Ctrl+Shift+E** in the game; the game fills the frame, VS Code in an inset; the pointer hovers widgets of the province view, each outlined and labelled by pick mode, then clicks the buildings panel; VS Code fills the frame at the definition of the widget under the pointer (ringed). The take opens an own province without a great project: its picture is DLC art, which the preview's playset does not have, so the snapshot would draw a placeholder. |
-| `snapshot` | ~8 s  | Live: the camera on Etch's preview with sample data, the game in an inset; the same pick's live snapshot redraws the preview with the game's texts.                                                                                                                                                                                                                                                                                                                    |
+| `hero`     | ~12 s | Parts of three loops, each dipping through the background into the next and the last into the first: `preview`'s typing, `reload`'s save and moving button, `pick`'s last hover, click and definition.                                                                                                                                                                                                                                                                 |
+| `preview`  | ~7 s  | The trade node button's line (`x = 251`, the 251 selected) at 1.5× left, the preview's trade section right; `3`, `0`, `0` typed one by one, each drawn at once with the button's outline (x 3, 30, 300), unsaved; **Ctrl+Z** back to 251.                                                                                                                                                                                                                              |
+| `views`    | ~12 s | **View ▾** left, the window's upper half (the header down to the religion row) right, both at 2.2×; Foreign province chosen (the red banner, the owner's shield, Diplomacy), then Own province again. The menu's panel is folded to its button's row while the menu is closed; while it is open over the window, the window's panel holds its frame from before.                                                                                                                                                                                           |
+| `data`     | ~13 s | **Data ▾** left, every layer down to the generated text's lengths, as large as the stage's height allows; the province view's header at 2.2× right, with sample data from the Russia 1719 save; **Province…** with Bali typed (the quick pick cut to its input and the typed name's row), Escape closes the menu and the header shows Bali's names, area and region (Lesser Sunda Islands, Indonesia), culture, religion (Hindu) and development; then Kaluga again. While the menu is open, the window's panel holds its frame from before. |
+| `zoom`     | ~7 s  | The pointer resting just above the province view's tabs, over no widget, the zoom level beside; **Ctrl+wheel** to 200 % and 300 % around the pointer, then a click on the level fits the screen again; 1.3 s later the end dissolves into the start over 0.5 s.                                                                                                                                                                                                                                                                                                                         |
+| `outline`  | ~12 s | The preview at 2×: the pointer hovers a text, a button and an icon (each outlined, with its tooltip: path, kind and rect), gliding between them; a click on the icon: its definition in `provinceview.gui` and its row in the Widget Outline, both ringed; **Alt+←** returns the cursor.                                                                                                                                                                                                                                                                                                                                             |
+| `problems` | ~8 s  | The sprite's line above Problems (filtered to the file, cut to its last warning) left, the buildings panel right; the `ui` of `GFX_provinceview_building_bg` swapped: one missing-sprite warning, ringed, and the panel's background gone; **Ctrl+Z**.                                                                                                                                                                                                                 |
+| `reload`   | ~7 s  | Live: the trade node button's line at 1.5× left, the game's trade section at 2× right; x 251 → 151 with one keystroke, **Ctrl+S**, the game reloads the window and the button moves (ringed, with the time from the save to Tongs seeing it moved); **Ctrl+Z**, **Ctrl+S**, back.                                                                                                                                                                                      |
+| `pick`     | ~8 s  | Live: **Ctrl+Shift+E** in the game; the loop opens on its trade section at 2×, the real pointer on the owner's shield, then on the trade post button and the trade node button's right end, each outlined and labelled by pick mode (the game shows no tooltips in pick mode since Etch 2.13.0); a click on the button, ringed: the game's row of the button on top, its definition in VS Code under it, the keyword ringed, and the game shows the province view still. The take opens Kaluga, the sample data's province. |
+| `snapshot` | ~6 s  | Live: the preview's military and trade rows left, the game's same rows right, the game windowed at the preview's 1440 × 900; the same pick's live snapshot redraws the preview with the game's manpower, supply limit, sailors, trade value and goods produced (both columns ringed). Two rows, so the values read at the site's width.                                                                                                              |
+| `profile`  | ~10 s | Opens on the profile page, the slowest rows; a click on a decision's name cuts to its block in the base game's file, the profile's line above it ringed; **Ctrl+W** cuts back to the page.                                                                                               |
+| `names`    | ~12 s | The demo mod's event above Problems (filtered to its file, cut to its last warning): a `5` before `owns = 151`, the warning ringed; an `s` into `economic_ideas`, the second warning ringed; two **Ctrl+Z** take them away one at a time. |
+
+The lengths are those of the 2026-11-18 set, reviewed frame by frame at the site's size: a
+loop holds each step long enough to be read at about 650 px wide. The set is Etch 2.13.0's,
+captured from the release tag. `snapshot` is taken with the game windowed at the preview's
+1440 × 900: until Etch 2.13.0 the preview drew a live snapshot's positions as the game's screen
+had them, so a game at another resolution drew the window off the preview's canvas (until this
+refresh the set kept 2.0.0's `snapshot` because of it); 2.13.0 re-anchors them to the preview's
+screen. The game is paused, so its values stay the same through the
+take, and the loop's game panel is a still frame from just before pick mode.
 
 The live take runs one reload unrecorded first, because the first reload of a freshly opened
 province view blanks its name (Etch's `docs/live-game.md`). Until the 2.0.0 media refresh the
@@ -657,7 +706,7 @@ From [#17](https://github.com/happy-dwarf-team/.github/issues/17) and
   `HAPPYDWARF_MEDIA_SECRET_ACCESS_KEY` (the token of hub spec 7.4). Missing variables stop
   `publish` before its first write; the script never prints their values. The account ID, bucket
   name and endpoint sit in the package's configuration.
-- **Every clip:** a set holds all ten loops with their posters; `publish` refuses a capture that
+- **Every clip:** a set holds all twelve loops with their posters; `publish` refuses a capture that
   lacks any of them.
 - **Order:** upload every loop and check each with `HeadObject`; only then write
   `src/data/media.json` and the posters into `src/assets/media/` of the given `etch-website`
@@ -738,7 +787,7 @@ E6 also answers the hub's open check 1 (CORS on a cache hit filled without `Orig
 
 ## 11. Not verified
 
-- The poster as LCP, and the page's weight with ten loops (each loads only when it plays).
+- The poster as LCP, and the page's weight with twelve loops (each loads only when it plays).
   (Encode sizes were measured on the first media refresh, Etch 0.2.0: the hero loop is 9.4 s,
   311 KB WebM and 273 KB MP4.)
 - Headless or locked-screen capture, Windows display scaling other than 100 %.

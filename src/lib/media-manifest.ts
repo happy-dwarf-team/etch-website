@@ -7,8 +7,8 @@ import { z } from 'astro/zod';
 // Hub spec 7.2: one bucket behind this origin, keys etch/v<version>/<clip>.<hash8>.<ext>.
 export const MEDIA_ORIGIN = 'https://media.happydwarf.dev';
 
-// The clip ids (section 5.2): the hero's trailer, the offline preview's six features and the
-// live game's three, the same in bucket keys, file names and the manifest.
+// The clip ids (section 5.2): the hero's trailer, the offline preview's six features, the live
+// game's three and the scripts' two, the same in bucket keys, file names and the manifest.
 export const CLIP_IDS = [
 	'hero',
 	'preview',
@@ -20,6 +20,8 @@ export const CLIP_IDS = [
 	'reload',
 	'pick',
 	'snapshot',
+	'profile',
+	'names',
 ] as const;
 export type ClipId = (typeof CLIP_IDS)[number];
 
@@ -29,7 +31,12 @@ const source = z.strictObject({
 	bytes: z.int().positive(),
 });
 
+const version = z.string().regex(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/);
+
 const loop = z.strictObject({
+	// A loop kept from an earlier set: the Etch version it was captured for, and the key prefix
+	// of its files (section 5.2). Without it, the loop is of the set's version.
+	etch: version.optional(),
 	width: z.int().positive(),
 	height: z.int().positive(),
 	duration: z.number().positive(),
@@ -45,7 +52,7 @@ const loop = z.strictObject({
 export const mediaManifestSchema = z
 	.strictObject({
 		schemaVersion: z.literal(2),
-		etch: z.string().regex(/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/),
+		etch: version,
 		loops: z.strictObject({
 			hero: loop,
 			preview: loop,
@@ -57,11 +64,13 @@ export const mediaManifestSchema = z
 			reload: loop,
 			pick: loop,
 			snapshot: loop,
+			profile: loop,
+			names: loop,
 		}),
 	})
 	.superRefine((manifest, ctx) => {
 		// Clip ids are the same in bucket keys, file names and the manifest (section 5.2).
-		for (const [clip, { poster, sources }] of Object.entries(manifest.loops)) {
+		for (const [clip, { etch, poster, sources }] of Object.entries(manifest.loops)) {
 			if (poster !== `${clip}.png`) {
 				ctx.addIssue({
 					code: 'custom',
@@ -69,7 +78,7 @@ export const mediaManifestSchema = z
 					message: `expected ${clip}.png`,
 				});
 			}
-			const prefix = `${MEDIA_ORIGIN}/etch/v${manifest.etch}/${clip}.`;
+			const prefix = `${MEDIA_ORIGIN}/etch/v${etch ?? manifest.etch}/${clip}.`;
 			sources.forEach(({ src }, i) => {
 				const ext = i === 0 ? 'webm' : 'mp4';
 				const rest = src.startsWith(prefix) ? src.slice(prefix.length) : '';

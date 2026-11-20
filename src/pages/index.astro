@@ -18,6 +18,7 @@ import {
 	INSTALL_COMMAND,
 	LIMITS_HTML,
 	LIVE_GAME,
+	SCRIPTS,
 	MARKETPLACE_URL,
 	OPEN_VSX_URL,
 	PARTS_HTML,
@@ -102,6 +103,15 @@ const version = await getLatestVersion();
 				<p set:html={LIVE_GAME.noteHtml} />
 				<p><a href={ANVIL_URL}>Built on Anvil</a></p>
 			</div>
+		</div>
+		<div class="live-game" id="scripts">
+			<h3>{SCRIPTS.title}</h3>
+			<p class="parts" set:html={SCRIPTS.introHtml} />
+			<FeatureTour
+				features={SCRIPTS.features}
+				loops={media?.loops}
+				start={FEATURES.length + LIVE_GAME.features.length}
+			/>
 		</div>
 		<div class="note">
 			<h3>{ETCH_1X.title}</h3>
