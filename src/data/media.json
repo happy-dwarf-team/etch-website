@@ -1,22 +1,22 @@
 {
 	"schemaVersion": 2,
-	"etch": "2.12.0",
+	"etch": "2.13.0",
 	"loops": {
 		"hero": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 12.433,
+			"duration": 12.5,
 			"poster": "hero.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/hero.26b44370.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/hero.0fd04453.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 1518409
+					"bytes": 1492283
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/hero.3a8dd9d9.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/hero.29e9f12a.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 2061597
+					"bytes": 2074880
 				}
 			]
 		},
@@ -27,86 +27,86 @@
 			"poster": "preview.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/preview.23c9641d.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/preview.8f4e8d98.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 246847
+					"bytes": 252242
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/preview.4849054b.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/preview.ad51ba58.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 292485
+					"bytes": 285393
 				}
 			]
 		},
 		"views": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 12,
+			"duration": 11.833,
 			"poster": "views.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/views.8753614c.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/views.89e62a44.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 413082
+					"bytes": 443396
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/views.ab15f5af.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/views.7683c6e9.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 533403
+					"bytes": 531085
 				}
 			]
 		},
 		"data": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 12.533,
+			"duration": 12.466,
 			"poster": "data.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/data.ae0196ad.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/data.26290fcd.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 493048
+					"bytes": 465519
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/data.997ec91d.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/data.1c8b3f8c.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 615065
+					"bytes": 590001
 				}
 			]
 		},
 		"zoom": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 6.733,
+			"duration": 6.7,
 			"poster": "zoom.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/zoom.cc7613aa.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/zoom.a3ad21d1.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 379426
+					"bytes": 371117
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/zoom.fde09b26.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/zoom.b66f32da.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 441192
+					"bytes": 412560
 				}
 			]
 		},
 		"outline": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 12.5,
+			"duration": 12.466,
 			"poster": "outline.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/outline.a376be36.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/outline.74981d10.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 966489
+					"bytes": 865164
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/outline.6a119e71.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/outline.6ef1a1fd.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 1110979
+					"bytes": 1161949
 				}
 			]
 		},
@@ -117,14 +117,14 @@
 			"poster": "problems.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/problems.d9be7f30.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/problems.e80854ab.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 293472
+					"bytes": 305898
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/problems.7ee078e7.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/problems.104caacd.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 369335
+					"bytes": 331808
 				}
 			]
 		},
@@ -135,50 +135,50 @@
 			"poster": "profile.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/profile.ebe859dd.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/profile.14f6c980.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 358307
+					"bytes": 369431
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/profile.b418734b.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/profile.dea34fbb.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 309852
+					"bytes": 337808
 				}
 			]
 		},
 		"names": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 12.333,
+			"duration": 12.3,
 			"poster": "names.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/names.e17b38d5.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/names.320b9708.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 328637
+					"bytes": 337642
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/names.ed0972f1.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/names.74680ea2.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 484186
+					"bytes": 477907
 				}
 			]
 		},
 		"reload": {
 			"width": 1920,
 			"height": 1080,
-			"duration": 6.966,
+			"duration": 7,
 			"poster": "reload.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/reload.d178b214.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/reload.459df6a0.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 324095
+					"bytes": 324898
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/reload.eceaadfd.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/reload.34c841d4.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 418176
+					"bytes": 422465
 				}
 			]
 		},
@@ -189,14 +189,14 @@
 			"poster": "pick.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/pick.62116746.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/pick.98310084.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 914567
+					"bytes": 896974
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/pick.9cf23f11.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/pick.022bfa62.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 1406433
+					"bytes": 1414726
 				}
 			]
 		},
@@ -207,14 +207,14 @@
 			"poster": "snapshot.png",
 			"sources": [
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/snapshot.66e188df.webm",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/snapshot.efa09678.webm",
 					"type": "video/webm; codecs=\"vp9\"",
-					"bytes": 167455
+					"bytes": 171887
 				},
 				{
-					"src": "https://media.happydwarf.dev/etch/v2.12.0/snapshot.b53e025f.mp4",
+					"src": "https://media.happydwarf.dev/etch/v2.13.0/snapshot.85baeb89.mp4",
 					"type": "video/mp4; codecs=\"avc1.640028\"",
-					"bytes": 206815
+					"bytes": 218673
 				}
 			]
 		}

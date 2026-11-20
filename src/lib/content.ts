@@ -216,9 +216,9 @@ export const LIVE_GAME = {
 			textHtml:
 				'<strong>Ctrl+Shift+E</strong> turns on pick mode: the widget under the pointer is outlined with its name, kind, size and file, and a click opens its definition at its line in VS Code, without the game taking the click.',
 			descriptionHtml:
-				'Ctrl+Shift+E turns on pick mode in the game. The pointer hovers the owner\'s shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file; the game\'s own tooltip still shows under the label. A click on the trade node button opens its definition in VS Code, and the game does not take the click.',
+				'Ctrl+Shift+E turns on pick mode in the game. The pointer hovers the owner\'s shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file. A click on the trade node button opens its definition in VS Code, and the game does not take the click.',
 			posterAlt:
-				"The live game's trade section close up, pick mode outlining the owner's shield with its name, kind, size and file, the game's tooltip under it.",
+				"The live game's trade section close up, pick mode outlining the owner's shield with its name, kind, size and file.",
 		},
 		{
 			clip: 'snapshot',
