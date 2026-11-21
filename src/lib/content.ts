@@ -31,14 +31,14 @@ export const CHANGELOG_URL = `${REPO_URL}/blob/main/CHANGELOG.md`;
 export const HERO = {
 	eyebrow: 'Europa Universalis IV modding · VS Code',
 	title: 'See your mod as the game draws it, while you write it.',
-	lead: "Etch draws your interface windows as you type, opens the textures, meshes and animations VS Code can't, checks your scripts the way the game reads them, and runs the game beside the editor to reload each file you save.",
-	requirements: ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5', 'Free, MIT', 'No telemetry'],
+	lead: "Etch draws your interface windows as you type. It opens the textures and meshes VS Code can't, and plays their animations. It checks your scripts the way the game reads them. And it runs the game beside the editor, reloading each file you save.",
+	requirements: ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5', 'Free and open source', 'Sends no data'],
 };
 
 // The install band (section 3.1): the command, then the first step and the first docs page.
 export const INSTALL = {
 	textHtml:
-		"Then open your mod's folder and any <code>.gui</code>, <code>.mesh</code> or <code>.dds</code> file. EU4 must be installed; Anvil need not be.",
+		"Run it in a terminal, or use the Install button above. Then open your mod's folder in VS Code and a <code>.gui</code>, <code>.mesh</code> or <code>.dds</code> file; for a <code>.gui</code>, click the preview button at the editor's top right. You need EU4 installed, and Anvil, the plugin loader, only for the script profile.",
 	link: { href: docsUrl('getting-started/install'), label: 'Getting started' },
 };
 
@@ -56,7 +56,7 @@ export interface LoopText {
 export const DEMO_LOOP: LoopText = {
 	title: 'Demo loop',
 	descriptionHtml:
-		"Three moments from the loops below. In VS Code, the trade node button's x in an unsaved <code>provinceview.gui</code> is retyped digit by digit, and Etch's preview moves the button at every keystroke. Beside the live game, a save reloads the province view in the game and the button moves. In the game, pick mode outlines each widget under the pointer with its name, kind, size and file, and a click opens its definition in VS Code.",
+		"Three moments from the loops below. In VS Code, the trade node button's x position in an unsaved <code>provinceview.gui</code> is retyped digit by digit, and Etch's preview moves the button at every keystroke. Beside the live game, a save reloads the province view in the game and the button moves. In the game, pick mode outlines the trade node button with its name, kind, size and file, and a click on it opens its definition in VS Code.",
 	posterAlt:
 		"provinceview.gui with the trade node button's position selected, beside the trade section of Etch's preview of the province view.",
 };
@@ -149,16 +149,16 @@ const SECTIONS: FeatureSection[] = [
 		eyebrow: 'Interface windows',
 		title: 'Edit a window. Watch it redraw.',
 		sentenceHtml:
-			"The preview draws the window under your cursor with the game's own textures, fonts and localisation, from the unsaved file. No game needs to run.",
+			"The preview draws the window your text cursor is in, with the game's own textures, fonts and localisation. It shows what you type before you save. The game doesn't need to run.",
 		listSide: 'left',
 		features: [
 			{
 				clip: 'preview',
 				title: 'Preview as you type',
 				textHtml:
-					"Change a number in a <code>.gui</code> and the window redraws before you save. Edits to the mod's <code>.gfx</code> and localisation files count too.",
+					"Change a number in a <code>.gui</code> and the window redraws before you save. The preview also follows your edits to the mod's <code>.gfx</code> and localisation files.",
 				descriptionHtml:
-					"The code beside the preview's trade section. The trade node button's x, 251, is retyped as 3, 30 and 300, unsaved, and the button with its outline jumps to each position at once. An undo returns it to 251.",
+					"The code beside the preview's trade section. The trade node button's x position, 251, is retyped as 3, 30 and 300, unsaved, and the button with its outline jumps to each position at once. An undo returns it to 251.",
 				posterAlt:
 					"provinceview.gui with the trade node button's position selected, beside the trade section of Etch's preview of the province view.",
 			},
@@ -166,9 +166,9 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'views',
 				title: 'Views of a window',
 				textHtml:
-					'See the window as the game shows it in one situation: your own province or a foreign one, with one side panel open. Switch in <strong>View ▾</strong>, or save your own view into the mod.',
+					'See the province view and other windows Etch knows as the game shows them in one situation: your own province or a foreign one, one side panel open. Switch in <strong>View ▾</strong>, or keep your own with <strong>Save as view…</strong>.',
 				descriptionHtml:
-					"<strong>View ▾</strong> beside Etch's preview of the province view. The menu lists the window's views; Foreign province is chosen and the window is drawn as a foreign province's, with a red banner, the owner's shield and Diplomacy. The menu then goes back to Own province.",
+					"<strong>View ▾</strong> beside Etch's preview of the province view. The menu lists the window's views; <strong>Foreign province</strong> is chosen and the window is drawn as a foreign province's, with a red banner, the owner's shield and Diplomacy. Then <strong>Own province</strong> is chosen again.",
 				posterAlt:
 					"The preview's View button, set to Own province, beside the upper half of Etch's preview of the province view.",
 			},
@@ -176,9 +176,9 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'data',
 				title: 'Sample data',
 				textHtml:
-					'Names, development and the other texts the game fills show sample data: from a save, a live snapshot, or generated text as short or long as you choose.',
+					'Names, development and the other texts the game fills in show sample data. Choose it in <strong>Data ▾</strong>: from a save, from the running game (a live snapshot), or made-up text of the length you choose.',
 				descriptionHtml:
-					"<strong>Data ▾</strong> beside the province view's header, with sample data from a save of Russia in 1719. The menu shows its layers, upper ones winning; <strong>Province…</strong> picks Bali from the save, and the header redraws with its names, area, region, culture, religion and development. Then Kaluga again.",
+					"<strong>Data ▾</strong> beside the province view's header, with sample data from a save of Russia in 1719. The menu lists where the sample data comes from, a higher source winning over a lower one; <strong>Province…</strong> picks Bali from the save, and the header redraws with its names, area, region, culture, religion and development. Then Kaluga is picked again.",
 				posterAlt:
 					"The preview's Data button, Kaluga from a 1719 save, beside the header of Etch's preview of the province view.",
 			},
@@ -186,17 +186,17 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'outline',
 				title: 'Widget Outline',
 				textHtml:
-					"Every widget of the window in a tree. Hide one by hand to see what lies under it, switch a window's alternatives, type sample text into a widget, and click to jump to its line.",
+					"The <strong>Widget Outline</strong> in the Explorer lists the window's widgets. Point at one in the preview for its path, kind and size; click it to jump to its line. In the outline, hide a widget or pick which tab or panel shows.",
 				// The loop of Etch 2.13.0's set, from before the redesign (see above).
 				descriptionHtml:
-					"The pointer hovers a text, a button and an icon in Etch's preview, each outlined with a tooltip giving its path, kind and rect. A click on the icon selects its definition in <code>provinceview.gui</code> and its row in the Widget Outline, both ringed; Alt+← returns the cursor where it was.",
+					"The pointer hovers a text, a button and an icon in Etch's preview, each outlined with a tooltip giving its path, kind, position and size. A click on the icon selects its definition in <code>provinceview.gui</code> and its row in the Widget Outline, both highlighted; <strong>Alt+Left Arrow</strong> returns the cursor where it was.",
 				posterAlt: "Etch's preview of the province view close up, its demographics.",
 			},
 			{
 				clip: 'problems',
 				title: 'Problems as you type',
 				textHtml:
-					'Misspell a sprite and Problems names it at once, while the rest of the window keeps drawing. Missing fonts and textures and duplicate names show up the same way.',
+					"Misspell a sprite's name and the Problems panel names it at once, while the rest of the window keeps drawing. Missing fonts and textures and duplicate names show up the same way.",
 				descriptionHtml:
 					"<code>provinceview.gui</code> above the Problems panel, the preview's buildings panel beside them. Two letters of a sprite name are swapped; Problems reports the missing sprite at once, and the panel's background is gone while the rest of the window still draws. An undo fixes it.",
 				posterAlt:
@@ -214,7 +214,7 @@ const SECTIONS: FeatureSection[] = [
 		eyebrow: 'Textures, meshes and animations',
 		title: "Open the art VS Code can't.",
 		sentenceHtml:
-			"Models, animations, entities and textures open in Etch's own previews, drawn with the same code as the window preview and lit as the game lights them.",
+			"Models, entities and textures open in Etch's own previews. Models play their animations and are lit as the game lights them.",
 		listSide: 'right',
 		features: [
 			{
@@ -223,7 +223,7 @@ const SECTIONS: FeatureSection[] = [
 				textHtml:
 					"Open a <code>.mesh</code> and turn it in your hand, with its normal and specular maps under the game's light. Give it a country's colours or flag, and play the <code>.anim</code> files beside it.",
 				descriptionHtml:
-					"A ship's <code>.mesh</code> open in the Etch Mesh Preview, its facts in the bar above it. A drag turns the ship; <strong>Wire</strong> shows its triangles and goes off again. A country's tag typed in <strong>Flag</strong> puts that country's flag and colours on the ship. Its idle animation is picked and <strong>Play</strong> rocks it. <strong>Reset view</strong> frames it again.",
+					"A ship's <code>.mesh</code> open in the Etch Mesh Preview, its shapes, vertices, triangles and bones in the bar above it. A drag turns the ship; <strong>Wire</strong> shows its triangles and goes off again. A country's tag typed in <strong>Flag</strong> puts that country's flag on the ship. Its idle animation is picked and <strong>Play</strong> rocks it. <strong>Reset view</strong> frames it again.",
 				posterAlt: "A ship in Etch's Mesh Preview, the bar above it with its shapes, vertices, triangles and bones.",
 			},
 			{
@@ -239,9 +239,9 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'trees',
 				title: 'Map trees',
 				textHtml:
-					'A map tree takes its tint, its season colour and snow from your map. Set <strong>Date</strong> and <strong>Snow</strong>, or type a province ID in <strong>Place</strong> to stand the tree there.',
+					"Etch draws a map tree as the game does, with your map's tint and season colours. Set <strong>Date</strong> and <strong>Snow</strong>, or type a province ID in <strong>Place</strong> to see the tree as it looks there.",
 				descriptionHtml:
-					"A map tree's mesh in the Etch Mesh Preview. <strong>Date</strong> is moved through the year and the tree's season colour follows it; <strong>Snow</strong> goes from 0 to 1. A province ID typed in <strong>Place</strong> stands the tree there, and its ground colour and how far north it is follow the map.",
+					"A map tree's mesh in the Etch Mesh Preview. <strong>Date</strong> is moved through the year and the tree's season colour follows it; <strong>Snow</strong> goes from 0 to 1. A province ID typed in <strong>Place</strong> stands the tree there, and <strong>Ground</strong> and <strong>North</strong> follow the map.",
 				posterAlt: "A map tree in Etch's Mesh Preview, the bar's tree controls above it.",
 			},
 			{
@@ -250,16 +250,16 @@ const SECTIONS: FeatureSection[] = [
 				textHtml:
 					'<code>.dds</code> and <code>.tga</code> files open in a viewer with their format and mip levels. Look at the alpha alone or read the colour under the mouse; a new export shows up at once.',
 				descriptionHtml:
-					"A <code>.dds</code> texture in the Etch Texture Preview, its size, format and mip levels in the bar. <strong>A</strong> shows the alpha alone in grey, then <strong>RGBA</strong> again; <strong>Mip</strong> steps down the chain; the pointer rests on the image and the bar gives that texel's colour.",
+					"A <code>.dds</code> texture in the Etch Texture Preview, its size, format and mip levels in the bar. <strong>A</strong> shows the alpha alone in grey, then <strong>RGBA</strong> again; <strong>Mip</strong> steps down the chain; the pointer rests on the image and the line at the bottom gives that pixel's colour.",
 				posterAlt: "A .dds texture in Etch's Texture Preview, its size, format and mip levels in the bar above it.",
 			},
 			{
 				clip: 'hovers',
 				title: 'Hovers and links',
 				textHtml:
-					'Hover a sprite in a <code>.gui</code> to see it, and press <strong>F12</strong> to reach its <code>.gfx</code>. Hover a mesh path for a picture of the model, and Ctrl+click any texture, mesh or animation path to open it.',
+					"Hover a sprite's name in a <code>.gui</code> to see it, and press <strong>F12</strong> to reach its <code>.gfx</code>. Hover a mesh path for a picture of the model. In <code>.gfx</code> and <code>.asset</code> files, <strong>Ctrl+click</strong> a texture, mesh or animation path to open it.",
 				descriptionHtml:
-					"A sprite's name hovered in <code>provinceview.gui</code> shows the sprite, its frames and the <code>.gfx</code> file that defines it; <strong>F12</strong> opens that file at the sprite. A mesh path hovered in a <code>.gfx</code> file shows a picture of the model with its counts; a Ctrl+click on a texture path opens the texture.",
+					"A sprite's name hovered in <code>provinceview.gui</code> shows the sprite, its frames and the <code>.gfx</code> file that defines it; <strong>F12</strong> opens that file at the sprite. A mesh path hovered in a <code>.gfx</code> file shows a picture of the model with its counts; a <strong>Ctrl+click</strong> on a texture path opens the texture.",
 				posterAlt: 'provinceview.gui in the editor, close up.',
 			},
 		],
@@ -267,23 +267,23 @@ const SECTIONS: FeatureSection[] = [
 	{
 		id: 'live-game',
 		area: {
-			files: 'eu4.exe',
+			files: 'the running game',
 			name: 'The live game',
 			lineHtml: 'Play your mod beside the editor.',
 		},
 		eyebrow: 'The live game',
 		title: 'Play your mod beside the editor.',
 		sentenceHtml:
-			"One click starts a private copy of EU4 with your playset. You play it; Etch reloads what you save into the game's own windows.",
+			"Click <strong>Live game</strong> in the preview, and Etch starts EU4 with your playset (your mod and the mods it depends on), from its own copy of the game with its own settings and saves. You play it; Etch reloads what you save into the game's own windows.",
 		listSide: 'left',
 		features: [
 			{
 				clip: 'reload',
 				title: 'Reload on save',
 				textHtml:
-					'Start the live game from the preview: a private copy of EU4 with your playset. Save a file and the game reloads that window in place, with its real data.',
+					'Click <strong>Live game</strong> in the preview to start it. Save a file and the game reloads that window in place, with its real data. Some, such as <code>.gfx</code> files, need a restart: click <strong>Restart now</strong>.',
 				descriptionHtml:
-					"The trade node button's line in <code>provinceview.gui</code> beside the trade section of the live game's province view. One keystroke changes its x from 251 to 151, and a save reloads the window in the game: the button moves left. An undo and a save move it back.",
+					"The trade node button's line in <code>provinceview.gui</code> beside the trade section of the live game's province view. One keystroke changes its x position from 251 to 151, and a save reloads the window in the game: the button moves left. An undo and a save move it back.",
 				posterAlt:
 					"provinceview.gui with the trade node button's position, beside the trade section of the live game's province view.",
 			},
@@ -291,19 +291,19 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'pick',
 				title: 'Pick mode',
 				textHtml:
-					'Press <strong>Ctrl+Shift+E</strong> in the game and point: every widget shows its name, kind, size and file. Click, and VS Code opens it at its line.',
+					'Press <strong>Ctrl+Shift+E</strong> in the game and point at a widget: Etch outlines it with its name, kind, size and file. Click it, and VS Code opens its definition.',
 				descriptionHtml:
-					"Ctrl+Shift+E turns on pick mode in the game. The pointer hovers the owner's shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file. A click on the trade node button opens its definition in VS Code, and the game does not take the click.",
+					"<strong>Ctrl+Shift+E</strong> turns on pick mode in the game. The pointer hovers the owner's shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file. A click on the trade node button opens its definition in VS Code, and the game does not take the click.",
 				posterAlt:
-					"The live game's trade section close up, pick mode outlining the owner's shield with its name, kind, size and file.",
+					"The lower half of the live game's province view, pick mode outlining the owner's shield in its trade section with its name, kind, size and file.",
 			},
 			{
 				clip: 'snapshot',
 				title: 'Live snapshot',
 				textHtml:
-					"A pick also takes the window's texts and states from the game, and the preview shows them in place of sample data.",
+					"A pick also takes from the game the window's texts and which of its parts are shown, and the preview uses them in place of sample data.",
 				descriptionHtml:
-					"The military and trade rows of Etch's preview beside the same rows of the live game. The preview's values come from the save or are generated; a pick in the game takes a live snapshot, and the preview redraws with the game's own manpower, supply limit, sailors, trade value and goods produced.",
+					"The military and trade rows of Etch's preview beside the same rows of the live game. Most of the preview's values are generated (12.3); a pick in the game takes a live snapshot, and the preview redraws with the game's own manpower, supply limit, sailors, trade value and goods produced.",
 				posterAlt:
 					"The military and trade rows of Etch's preview, beside the same rows of the live game's province view.",
 			},
@@ -311,17 +311,17 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'run',
 				title: 'Run selection',
 				textHtml:
-					"Select an effect and run it in your country or the province on screen, or check whether a trigger is true. The game's errors land in Problems; your own saves stay untouched.",
+					"Select an effect and right-click to run it in your country or the province you have open, or check whether a trigger is true. The game's errors show in the Problems panel; your saves stay untouched.",
 				descriptionHtml:
-					"An effect selected in the demo mod's event file, the live game's province view beside it. <strong>Etch: Run Selection in the Province on Screen</strong> raises the province's development in the game. <strong>Etch: Check Selection as Trigger in the Live Game</strong> gives its answer beside the selected trigger. A misspelt effect is run, and the game's error appears in Problems on it.",
+					"An effect selected in the event file of Etch's demo mod, the live game's province view beside it. <strong>Etch: Run Selection in the Province on Screen</strong> raises the province's development in the game. <strong>Etch: Check Selection as Trigger in the Live Game</strong> gives its answer beside the selected trigger. A misspelt effect is run, and the game's error appears in the Problems panel, on the selection.",
 				posterAlt:
 					"The demo mod's event file beside the live game's province view with the province's development.",
 			},
 		],
 		note: {
 			textHtml:
-				'The private copy never writes to your game folder, your profile or your mods, and never changes <code>eu4.exe</code>. Reloading and Run selection do not work in ironman or multiplayer.',
-			link: { href: ANVIL_URL, label: 'Built on Anvil' },
+				'The live game never writes to your game folder, your EU4 profile (the folder, usually in Documents, where EU4 keeps settings, saves and mods) or your mods, and never changes <code>eu4.exe</code>. Reloading and running selected script do not work in ironman or multiplayer games.',
+			link: { href: ANVIL_URL, label: 'Built on Anvil, the plugin loader for EU4' },
 		},
 	},
 	{
@@ -329,39 +329,39 @@ const SECTIONS: FeatureSection[] = [
 		area: {
 			files: 'common · events · history',
 			name: 'Scripts',
-			lineHtml: 'Catch what <code>error.log</code> never tells you.',
+			lineHtml: "Catch the mistakes <code>error.log</code> doesn't show.",
 		},
 		eyebrow: 'Scripts',
 		title: "Catch what the game won't tell you.",
 		sentenceHtml:
-			'Checks for the mistakes the game swallows without a line in <code>error.log</code>, and the time your own scripts take.',
+			'Etch warns about mistakes the game lets through without a line in <code>error.log</code>, and shows how long your own scripts take.',
 		listSide: 'right',
 		features: [
 			{
 				clip: 'names',
 				title: 'Province IDs and names',
 				textHtml:
-					'A province the map does not have gets no line in <code>error.log</code>, and can crash the game. Etch warns as you type, and one command checks every file of the playset.',
+					"A province ID the map doesn't have, or an idea group the playset doesn't define, gets no line in <code>error.log</code> and can crash the game. Etch warns as you type; <strong>Etch: Check Province IDs and Names in the Playset</strong> checks every script file.",
 				descriptionHtml:
-					'In an event of the demo mod, a 5 typed before province 151 makes it 5151, and Problems warns at once that the map has no such province. An s turns the idea group <code>economic_ideas</code> into <code>economics_ideas</code>, and a second warning says the playset has no such idea group. Two undos take them away one at a time.',
+					"In an event of Etch's demo mod, a 5 typed before province 151 makes it 5151, and Problems warns at once that the map has no such province. An s turns the idea group <code>economic_ideas</code> into <code>economics_ideas</code>, and a second warning says the playset has no such idea group. Two undos take them away one at a time.",
 				posterAlt: 'An event of the demo mod above an empty Problems panel.',
 			},
 			{
 				clip: 'encoding',
 				title: 'Encoding',
 				textHtml:
-					"Typed a leader's <code>é</code> into a file the game reads as Windows-1252? Etch warns before the game shows <code>Ã©</code>, and its quick fix saves the file in the encoding the game expects.",
+					"Typed an <code>é</code> into a leader's name, in a file the game reads as Windows-1252? Etch warns before the game shows <code>Ã©</code>. Press <strong>Ctrl+.</strong>, choose <strong>Save with Encoding…</strong> and pick the encoding the game expects.",
 				descriptionHtml:
-					"A ruler's name in the demo mod's event file above Problems. An é typed into it brings Etch's warning at once: the game would show Ã©. The quick fix <strong>Save with Encoding…</strong> saves the file as Windows-1252, and the warning is gone.",
+					"A ruler's name in the event file of Etch's demo mod above Problems. An é typed into it brings Etch's warning at once: the game would show Ã©. <strong>Ctrl+.</strong> offers the quick fix <strong>Save with Encoding…</strong>; Windows 1252 is picked in VS Code's list, and the warning is gone.",
 				posterAlt: "A ruler's name in the demo mod's event file above an empty Problems panel.",
 			},
 			{
 				clip: 'profile',
 				title: 'Script profile',
 				textHtml:
-					"Anvil's script profiler times your events, decisions and other scripts in your own game. Etch lists the slowest, and writes each block's numbers above it in your files.",
+					"With Anvil 1.22 or newer, its script profiler times your events, decisions and other scripts in your own game. <strong>Etch: Show Latest Script Profile</strong> lists the slowest, and shows each block's time and calls on a line above it, without changing your files.",
 				descriptionHtml:
-					"The page of <strong>Etch: Show Latest Script Profile</strong>, with a profile Anvil's profiler measured in the base game, the slowest rows first. A click on a decision's name opens its file at the measured block, with the profile's time and calls on a line above it; Ctrl+W returns to the page.",
+					"The page that <strong>Etch: Show Latest Script Profile</strong> opens, with a profile Anvil's profiler measured in the base game, the slowest rows first. A click on a decision's name opens its file at the measured block, with the profile's time and calls on a line above it; <strong>Ctrl+W</strong> returns to the page.",
 				posterAlt:
 					"The table of Etch's script profile page: owners, names, roles, calls and times.",
 			},
@@ -394,7 +394,7 @@ export const PROOF = [
 	},
 	{
 		fact: '10–13 ms',
-		line: 'to redraw the province view after an edit, median.',
+		line: 'to redraw the province view after an edit; half of the redraws were faster.',
 		href: docsUrl('about/accuracy'),
 	},
 	{
@@ -406,8 +406,8 @@ export const PROOF = [
 
 // The closing call (section 3.1).
 export const CLOSING = {
-	title: 'Open your mod in Etch.',
-	textHtml: `Free and open source. Questions and bugs go to the <a href="${ISSUES_URL}">issues</a> or to <strong>#help-and-bugs</strong> on the team's Discord.`,
+	title: 'Open your mod in VS Code with Etch.',
+	textHtml: `Free and open source. Report a bug or ask a question in Etch's <a href="${ISSUES_URL}">issue tracker on GitHub</a>, or in <strong>#help-and-bugs</strong> on the Happy Dwarf Discord.`,
 };
 
 // The extension's status and the What's new pill's data, from src/data/status.yaml (section 3.1).
