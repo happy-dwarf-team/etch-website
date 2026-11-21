@@ -1039,8 +1039,10 @@ exist: a feature without its clip is left out (section 3.2).
 - Our reading of the Paradox User Agreement has not been confirmed by Paradox or a lawyer.
 - The redesign: the layout and the section player were tried in a local prototype with the
   2026-11-18 set's loops, at 1440, 980, 375 and 360 px; nothing of it is built yet. Starlight's
-  theming with this site's own header and footer, a sparse checkout of `etch` at the release tag
-  in the `deploy` workflow, and the size of the 35 s demo loop are not tried. The new clips'
+  theming with this site's own header and footer was tried in a local build of R3 at 1920, 375
+  and 360 px, with the docs from a local `etch` checkout. A sparse checkout of `etch` at the
+  release tag was tried locally, not in the `deploy` workflow, and the size of the 35 s demo loop
+  is not tried. The new clips'
   storyboards (section 8.5) are not tried in Etch: whether the game's province view shows a
   development change from **Run Selection** while paused, and whether the Mesh and Texture
   Previews already set a paint marker.
