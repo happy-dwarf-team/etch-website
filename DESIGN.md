@@ -18,8 +18,7 @@ and its `src/styles/forge-family.css`
 - Everything the family defines applies unchanged: neutrals, `--forge-radius`, `--forge-ease`,
   IBM Plex Sans and JetBrains Mono through Fontsource, motion rules, icon grammar, the
   accessibility checklist, the favicon tile.
-- Signature effects are not shared: no sparks or ember glow here. Etch's motion is its demo
-  loop.
+- Signature effects are not shared: no sparks or ember glow here. Etch's motion is its loops.
 
 ### Site accent: verdigris
 
@@ -34,8 +33,9 @@ names; contrast computed with the WCAG formula:
 | `--forge-on-accent`     | `#16171a` | 8.8:1 on accent                                   |
 
 White on verdigris is 2.0:1, so labels on accent fills are always `--forge-on-accent`. The
-accent is the one interaction accent on this site: buttons, links, focus ring, the roadmap's
-current milestone.
+accent is the one interaction accent on this site: buttons, links, focus ring, the selected
+feature's number and progress bar, the playing chapter, the What's new pill and the "new" mark.
+(Until the 2026-11 redesign also the roadmap's current milestone.)
 
 ### Mark
 
@@ -45,32 +45,41 @@ current milestone.
 - `src/assets/etch-mark.svg` is that glyph without its tile, drawn in `currentColor` (the icon
   grammar), with a comment naming the source commit; the page sets its colour to
   `--forge-accent`. Favicons put it on the family's favicon tile.
-- The footer carries the **family marker**: the full team logo (`src/assets/happy-dwarf.svg`,
-  40 px, copied from the hub with a comment naming the source commit) with "A Happy Dwarf
-  project", linking to `https://happydwarf.dev/`.
+- The footer of every page, the docs included, carries the **family marker**: the full team logo
+  (`src/assets/happy-dwarf.svg`, 40 px, copied from the hub with a comment naming the source
+  commit) with "A Happy Dwarf project", linking to `https://happydwarf.dev/`.
 
 ## Layout
 
-From [#13](https://github.com/happy-dwarf-team/.github/issues/13). Prototype for reference only:
-[`prototypes/etch-site/index.html`](https://github.com/happy-dwarf-team/.github/blob/prototype/etch-site/prototypes/etch-site/index.html)
-(`?variant=D` is the pick; its "video" is an animated SVG and its media are placeholders).
+From the 2026-11 redesign (decided with @s-tyda on 2026-11-21, from a local prototype of the home
+page and the docs; spec section 3). Until then: [#13](https://github.com/happy-dwarf-team/.github/issues/13)'s
+split hero and a feature tour of alternating rows.
 
-- Section order of `/`: header → split hero → install band → feature tour with the live game,
-  the 1.x note and the "does not do" box → roadmap → footer.
-- **Hero:** text 5/12 and demo loop 7/12 from **980 px**; stacked, text first, below that. The
-  loop still starts in the first screen on a 375 px phone.
-- **Feature tour:** numbered rows, each a short text beside its feature's loop, **sides
-  alternating from 860 px**; stacked below that. The offline preview has six; the live game's three
-  continue the numbering under its heading, and the scripts' two under theirs.
-- Side gutter 16 px on phones; **no horizontal scroll at 375 px**.
-- Every medium shows at about 650 CSS px wide on desktop (hero 7/12, tour row 1.4/2.4).
+- Section order of `/`: header → hero (centred text, the demo loop, its chapters) → install
+  band → areas → four feature sections (Interface windows, Textures and meshes, The live game,
+  Scripts) → proof band → closing call → footer.
+- Content width up to **1200 px**, side gutter 16 px on phones; **no horizontal scroll at 375
+  px** (and 360 px).
+- **Hero:** eyebrow, h1, lead and buttons centred, the lead at most about 46 rem wide; the demo
+  loop under them at the content's full width (VS Code's footage needs it: at 650 px its code
+  does not read), its chapters right under it.
+- **Areas:** four tiles in one row from 980 px, two by two from 600 px, one column below.
+- **Feature sections:** a heading block (eyebrow, h2, one sentence), then the section player:
+  from **980 px** the feature list 5/12 beside the stage 7/12, the list on the left in Interface
+  windows and The live game and on the right in Textures and meshes and Scripts; below 980 px the
+  stage first, then the list. A section's stage shows its loop at about 650 CSS px wide on desktop.
+- **Proof band:** three facts in one row from 720 px, stacked below; the numbers in mono.
+- **Docs:** Starlight's layout under the site's own header and footer: sidebar on the left (a
+  menu button below Starlight's breakpoint), the page in the middle, "On this page" on the right
+  on wide screens.
 
 ## Components
 
-### Demo loop
+### Loop
 
-The hero's loop and every feature's. A 16:9 `figure` with the video, the Pause/Play and Enlarge buttons and the text description in its
-`figcaption`. The box is always reserved, so no state causes layout shift. States:
+Every loop: the demo loop, a section player's stage and a docs page's loop. A 16:9 `figure`
+with the video, the Pause/Play and Enlarge buttons and the text description. The box is always
+reserved, so no state causes layout shift. States:
 
 | State          | Shows                                                                                                      |
 | -------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -83,15 +92,55 @@ The hero's loop and every feature's. A 16:9 `figure` with the video, the Pause/P
 | Save-Data      | the poster and a Play button, as reduced motion                                                            |
 | unavailable    | no video (no manifest yet, or the load failed): the reserved box with the text description; no Play button |
 
-- The Pause/Play button is a **44 px pill at the bottom right**, always visible while a video
-  can play, with a text label for screen readers.
-- The `figcaption` carries the bold lead, the loop's title and length from the manifest
-  ("Pick mode, 12 s, silent."), and the description; it is tied to the video with
-  `aria-describedby`. Only the hero's poster is preloaded.
-- The **Enlarge** chip is a 44 px pill at the bottom left, with a magnifier icon, shown with the
-  Pause/Play button; it and a click on the video (`cursor: zoom-in`) open the loop viewer.
+- The Pause/Play button is a **44 px pill at the top right**, always visible while a video can
+  play, with a text label for screen readers that names the loop ("Pause the pick mode loop").
+  The **Enlarge** chip is a 44 px pill left of it, with a magnifier icon and the word "Enlarge"
+  from 720 px; it and a click on the video (`cursor: zoom-in`) open the loop viewer. (Until the
+  redesign both sat at the bottom; the loops' own captions sit in the band at the bottom.)
+- The text description opens with the bold lead, the loop's title and length from the manifest
+  ("Pick mode, 12 s, silent."), and is tied to the video with `aria-describedby`. On the home
+  page it is visually hidden (`sr-only`); on a docs page it is shown under the loop.
+- Only the demo loop's poster is preloaded.
 - Without JavaScript the buttons stay hidden and the poster stays; the same holds for the
   Copy button, which leaves the command to be selected by hand.
+
+### Demo loop's chapters
+
+An ordered list under the demo loop, one button per chapter (at least 44 px high): its number in
+mono, its label, and a 2 px bar that fills while the chapter plays. The playing chapter has
+`aria-current="true"`, its number in the accent and its label in `--forge-text`; the others are
+muted. A click seeks the loop to the chapter. Five in one row from 720 px; below it the playing
+chapter's label alone, the others with their number and bar.
+
+### Section player
+
+- The **feature list**: one button per feature (the whole row, at least 44 px high) with its
+  number in mono (`01`…), its title and the loop's length in muted mono. The selected feature
+  has `aria-expanded="true"`, its number and progress bar in the accent, and shows its short
+  text under the title; the others show only the title. Every button names the stage with
+  `aria-controls`. A disclosure list, not ARIA tabs: the stage moves on by itself and its panel is
+  shared.
+- The **stage**: one loop (above), swapped when the selection changes, with no layout shift.
+- While the section is at least half in view the player moves on when a loop ends, and the
+  progress bar of the selected feature fills with its loop. Once the visitor picks a feature,
+  presses Pause or opens the viewer, it stays on that feature.
+
+### What's new pill
+
+A pill above the hero's eyebrow: "New in 2.13" in `--forge-on-accent` on the accent, then one line
+in `--forge-text` on `--forge-accent-soft`, and an arrow; the whole pill is one link, at least
+44 px high. The area it points at carries a small "new" mark in the same colours.
+
+### Area tiles
+
+A link per area on `--forge-surface` with a 1 px `--forge-border`: the files in muted mono, the
+name in bold, one line of text. Hover and focus raise the border to the accent; no movement.
+
+### Proof band
+
+Three facts on `--forge-surface`, each a link to its docs page: the number large, in mono, in
+`--forge-text`; one line under it in `--forge-text-muted`. No source line on the home page (the
+linked page gives it).
 
 ### Loop viewer
 
@@ -106,55 +155,71 @@ One native `<dialog>` for every loop, filled when it opens:
 ### Copy-command box
 
 The install command in mono with a **Copy** button. On success the label reads "Copied" for
-about 1.5 s; if the clipboard API is refused, the command's text is selected instead.
-
-### Roadmap timeline
-
-A vertical list M0 → 2.0.0, one line per milestone, the state (done, current, next) shown by a
-marker and text, not colour alone; the current milestone uses the accent. A vertical timeline,
-not a horizontal track (it reads better on phones).
+about 1.5 s; if the clipboard API is refused, the command's text is selected instead. The
+command may shrink and scroll inside its box; the box never widens the page.
 
 ### Header and footer
 
-- Header: the mark and wordmark, the status badge, anchors _Features · Install · Roadmap_, a
-  GitHub link with an `sr-only` label.
-- Footer: the family marker, links (Source, Changelog, Issues, Discord, MIT; Discord as a text
-  link, no logo) and the disclaimer as its own paragraph in muted text.
+- Header, on every page: the mark and wordmark, the status badge, links _Features · Docs ·
+  Changelog_, a GitHub link with an `sr-only` label. In the docs the same header, with
+  Starlight's search beside the links. (Until the redesign: _Features · Install · Roadmap_.)
+- Footer, on every page: the family marker, links (Docs, Changelog, Source, Issues, Discord, MIT;
+  Discord as a text link, no logo) and the disclaimer as its own paragraph in muted text.
+
+### Docs
+
+- **Starlight** with the forge family's tokens and the verdigris accent mapped onto Starlight's
+  variables (`--sl-color-accent*`, grays, fonts: IBM Plex Sans for text, JetBrains Mono for
+  code), **dark only**: no theme switch. The site's header and footer replace Starlight's through
+  its component overrides.
+- Bold for what you click, `kbd` for keys, code style only for file names, paths and script
+  text.
+- A page's loop is the Loop component above, with its description shown. The changelog page
+  (spec section 3.5) uses `<details>` for older releases: the summary row is the version, the
+  date and, for the newest, a **Latest** badge in the accent.
 
 ## Motion
 
 - Family rules only (150–220 ms, `--forge-ease`); no signature effect.
-- The loops are the site's only motion. None plays under `prefers-reduced-motion: reduce` or
-  Save-Data unless the visitor presses Play, and each plays only while it is half in view.
+- The loops are the site's only motion, with the progress bars that follow them. None plays
+  under `prefers-reduced-motion: reduce` or Save-Data unless the visitor presses Play, and each
+  plays only while it is half in view. Under reduced motion or Save-Data a section player does
+  not move on by itself.
 - Under reduced motion every transition is off.
 
 ## Client JavaScript
 
-Limited to two small scripts, each working on top of server-rendered HTML:
+On the home page and 404, limited to two small scripts, each working on top of server-rendered
+HTML:
 
 1. the **loop controller** (IntersectionObserver, visibility, reduced motion, Save-Data,
-   `NotAllowedError`, the Pause/Play and Enlarge buttons, the loop viewer), for every loop on
-   the page;
+   `NotAllowedError`, the Pause/Play and Enlarge buttons, the loop viewer, the section players
+   and the demo loop's chapters), for every loop on the page;
 2. the **copy button**.
 
-The stills' lightbox went with them in the 2.0.0 media refresh; the loop viewer took its place.
-
-No analytics, no framework, no third-party scripts.
+On `/docs/`, the loop controller for a page's loop and Starlight's own scripts (search, the
+sidebar on phones, the table of contents). No analytics, no UI framework, no third-party scripts.
 
 ## Accessibility
 
 The family checklist, plus:
 
-- 44 px media controls (Pause/Play, Enlarge, Close).
-- A keyboard-operable loop viewer that returns focus.
+- 44 px media controls (Pause/Play, Enlarge, Close), chapter and feature buttons.
+- A keyboard-operable loop viewer that returns focus; feature and chapter buttons in the tab
+  order, in reading order.
 - A text description for every loop (WCAG 1.2.1) and a visible pause control (WCAG 2.2.2).
-- Every poster has an `alt` from [docs/spec.md](docs/spec.md#32-the-six-features).
+- Every poster has an `alt` from [docs/spec.md](docs/spec.md#32-feature-sections).
+- The selected feature and the playing chapter are shown by more than colour: the expanded text,
+  the filled bar, `aria-expanded` and `aria-current`.
 
 ## Content rules
 
-- Say nothing beyond the extension README and the v1 specification; the roadmap's 2.0 line
-  follows the v2 specification.
-- Measurements carry their source; limits are stated plainly; the roadmap says "version numbers
-  are indicative".
+- Say nothing beyond the extension, its docs pages and the v1 and v2 specifications.
+- Plain language for modders who are not programmers, with the review of spec section 3.4.3
+  before a text merges.
+- Every measurement carries its source and conditions on the docs page it links to; limits are
+  stated plainly, on the docs pages.
 - No EU4 or Paradox logos or key art, and no game art in the Open Graph image or favicons.
-- Every frame shows the editor with Etch's preview or the live game; never bare game art.
+- Every frame shows Etch at work (spec section 1.1): the editor with Etch's preview, its Mesh
+  or Texture Preview with its bar, its hovers, or the live game with Etch's part in it; never bare
+  game art.
