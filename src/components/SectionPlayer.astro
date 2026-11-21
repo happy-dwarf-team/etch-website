@@ -1,0 +1,204 @@
+---
+// A feature section's section player (docs/spec.md, sections 3.2 and 4.1; DESIGN.md, "Section
+// player"): its features in a numbered list beside one stage that plays the selected feature's
+// loop. From 980 px the list takes 5/12 on the section's side and the stage 7/12; below that the
+// stage comes first. The stage starts with the first feature's loop; each feature carries what
+// the loop controller (src/scripts/loop-controller.ts) swaps onto the stage, so the other posters
+// load only when they are shown. The controller turns each heading into the button that selects
+// its feature, collapses the other features' texts and fills the selected one's progress bar;
+// without JavaScript every text shows and there is no button.
+import { getImage } from 'astro:assets';
+import { loopLead, loopName, type ShownSection } from '../lib/content';
+import Loop from './Loop.astro';
+
+interface Props {
+	section: ShownSection;
+}
+
+const { section } = Astro.props;
+const stageId = `${section.id}-stage`;
+// The posters, one WebP each at about twice the stage's width; none is preloaded.
+const posters = await Promise.all(
+	section.features.map(({ loop }) => getImage({ src: loop.poster, width: 1280, format: 'webp' })),
+);
+const [first] = section.features;
+---
+
+<div class:list={['player', `list-${section.listSide}`]} data-section-player>
+	<ol class="features">
+		{
+			section.features.map((feature, i) => (
+				<li
+					class="feature"
+					data-feature
+					data-poster={posters[i].src}
+					data-sources={JSON.stringify(feature.loop.sources.map(({ src, type }) => ({ src, type })))}
+					data-width={feature.loop.width}
+					data-height={feature.loop.height}
+					data-label={feature.posterAlt}
+					data-name={loopName(feature)}
+				>
+					<h3 class="heading" data-feature-heading>
+						<span class="n" aria-hidden="true">
+							{String(i + 1).padStart(2, '0')}
+						</span>
+						<span class="title">{feature.title}</span>
+						<span class="length">
+							<span class="sr-only">, </span>
+							{Math.round(feature.loop.duration)} s
+						</span>
+					</h3>
+					<div class="text" data-feature-text>
+						<p set:html={feature.textHtml} />
+						<span class="progress" aria-hidden="true">
+							<span class="fill" />
+						</span>
+					</div>
+					<template>
+						<strong>{loopLead(feature, feature.loop)}</strong>{' '}
+						<Fragment set:html={feature.descriptionHtml} />
+					</template>
+				</li>
+			))
+		}
+	</ol>
+	<div class="stage">
+		<Loop id={stageId} loop={first.loop} poster={posters[0]} text={first} repeat={false} />
+	</div>
+</div>
+
+<style>
+	.player {
+		display: grid;
+		gap: 1.25rem;
+	}
+
+	/* Below 980 px the stage comes first, then the list. */
+	.stage {
+		order: -1;
+		min-width: 0;
+	}
+
+	@media (min-width: 980px) {
+		.player {
+			grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+			gap: 2.25rem;
+			align-items: start;
+		}
+
+		.stage {
+			order: 0;
+		}
+
+		.list-right {
+			grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+		}
+
+		.list-right .stage {
+			order: -1;
+		}
+	}
+
+	.features {
+		display: grid;
+		gap: 0.25rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.feature {
+		border-radius: 0.65rem;
+		transition: background-color 180ms var(--forge-ease);
+	}
+
+	[data-ready] .feature[data-selected] {
+		background: var(--forge-surface);
+	}
+
+	.heading {
+		font: 600 1rem/1.35 var(--forge-font-mono);
+		letter-spacing: normal;
+	}
+
+	/* The row, without JavaScript a plain heading and with it the feature's button. */
+	.heading,
+	.heading :global(.feature-button) {
+		display: flex;
+		align-items: baseline;
+		gap: 0.7rem;
+		padding: 0.75rem 0.9rem 0.5rem;
+	}
+
+	.heading:has(:global(.feature-button)) {
+		padding: 0;
+	}
+
+	.heading :global(.feature-button) {
+		width: 100%;
+		min-height: 48px;
+		border: 0;
+		border-radius: 0.65rem;
+		background: none;
+		color: var(--forge-text-muted);
+		font: inherit;
+		text-align: left;
+		cursor: pointer;
+		transition: color 160ms var(--forge-ease);
+	}
+
+	.heading :global(.feature-button:hover),
+	.heading :global(.feature-button[aria-expanded='true']) {
+		color: var(--forge-text);
+	}
+
+	.n {
+		color: var(--forge-text-muted);
+		font-size: 0.75rem;
+	}
+
+	[data-selected] .n {
+		color: var(--forge-accent);
+	}
+
+	.length {
+		margin-left: auto;
+		color: var(--forge-text-muted);
+		font: 500 0.75rem var(--forge-font-mono);
+		white-space: nowrap;
+	}
+
+	/* Under the title, lined up with it. */
+	.text {
+		padding: 0 0.9rem 0.9rem 2.65rem;
+		color: var(--forge-text-muted);
+	}
+
+	.text[hidden] {
+		display: none;
+	}
+
+	.text :global(strong) {
+		color: var(--forge-text);
+	}
+
+	.progress {
+		display: none;
+		height: 2px;
+		margin-top: 0.8rem;
+		overflow: hidden;
+		background: var(--forge-border);
+	}
+
+	[data-ready] .progress {
+		display: block;
+	}
+
+	.fill {
+		display: block;
+		height: 100%;
+		background: var(--forge-accent);
+		transform: scaleX(0);
+		transform-origin: left;
+	}
+</style>
