@@ -1,0 +1,203 @@
+/*
+ * The docs under /docs/ (DESIGN.md, "Docs"): Starlight themed with the forge family's tokens and
+ * the verdigris accent, dark only, under the site's own header and footer. Loaded after
+ * forge-family.css and common.css. Starlight's own styles are in cascade layers, so these
+ * unlayered rules win over them.
+ */
+:root {
+	--sl-font: 'IBM Plex Sans Variable';
+	--sl-font-mono: 'JetBrains Mono Variable';
+
+	--sl-color-white: #f7f5f2;
+	--sl-color-gray-1: #ece9e5;
+	--sl-color-gray-2: var(--forge-text);
+	--sl-color-gray-3: var(--forge-text-muted);
+	--sl-color-gray-4: #6b6d74;
+	--sl-color-gray-5: var(--forge-border);
+	--sl-color-gray-6: var(--forge-surface);
+	--sl-color-black: var(--forge-bg);
+
+	--sl-color-accent-low: var(--forge-accent-soft);
+	--sl-color-accent: var(--forge-accent);
+	--sl-color-accent-high: var(--forge-accent-strong);
+
+	--sl-color-text: var(--forge-text);
+	--sl-color-text-accent: var(--forge-accent-strong);
+	/* Text on accent fills (the current page in the sidebar): never white (DESIGN.md). */
+	--sl-color-text-invert: var(--forge-on-accent);
+	--sl-color-bg: var(--forge-bg);
+	--sl-color-bg-nav: var(--forge-bg);
+	--sl-color-bg-sidebar: var(--forge-bg);
+	--sl-color-bg-inline-code: var(--forge-surface-raised);
+	--sl-color-hairline: var(--forge-border);
+	--sl-color-hairline-light: var(--forge-border);
+	--sl-color-hairline-shade: var(--forge-border);
+	--sl-line-height: 1.65;
+
+	/* The site's header: two rows below Starlight's 50rem breakpoint, one row from it
+	   (HeaderBar.astro). Starlight places the sidebar, the mobile table of contents and the anchors
+	   from these. */
+	--sl-nav-height: 6.25rem;
+	--sl-nav-pad-y: 0.25rem;
+	--sl-menu-button-size: 2.75rem;
+}
+
+@media (min-width: 50rem) {
+	:root {
+		--sl-nav-height: 4rem;
+		--sl-nav-pad-y: 0.5rem;
+	}
+}
+
+/* Headings use the mono face, as on the home page; body text stays in Plex Sans. */
+.sl-markdown-content :is(h1, h2, h3, h4),
+h1#_top {
+	font-family: var(--__sl-font-mono);
+	letter-spacing: -0.02em;
+}
+
+h1#_top {
+	color: var(--forge-text);
+	text-wrap: balance;
+}
+
+/* The header bar: the site's header content fills it. Below 50rem Starlight's menu button sits in
+   the second row's last column, so the bar keeps only its own padding at the right. */
+.page > .header {
+	padding-inline-end: var(--sl-nav-pad-x);
+	background: color-mix(in srgb, var(--forge-bg) 92%, transparent);
+	backdrop-filter: blur(8px);
+}
+
+.sl-menu-button {
+	top: calc(var(--sl-nav-pad-y) + 44px + (44px - var(--sl-menu-button-size)) / 2);
+	border: 1px solid var(--forge-border);
+	border-radius: 0.5rem;
+	background: var(--forge-surface);
+	color: var(--forge-text);
+	box-shadow: none;
+}
+
+.sl-menu-button:hover {
+	border-color: var(--forge-accent);
+}
+
+.sl-menu-button:has(~ :popover-open) {
+	background: var(--forge-surface-raised);
+}
+
+/* Starlight's search button: a 44 px target, an icon below 50rem and a box from 50rem. */
+button[data-open-modal] {
+	justify-content: center;
+	min-width: 44px;
+	min-height: 44px;
+	border-radius: 0.5rem;
+	color: var(--forge-text-muted);
+}
+
+button[data-open-modal]:hover {
+	color: var(--forge-text);
+}
+
+@media (min-width: 50rem) {
+	button[data-open-modal] {
+		justify-content: flex-start;
+		max-width: 20rem;
+		border-color: var(--forge-border);
+		background: var(--forge-surface);
+	}
+
+	button[data-open-modal]:hover {
+		border-color: var(--forge-accent);
+	}
+}
+
+/* Keys as keys (DESIGN.md, "Docs"). */
+.sl-markdown-content kbd {
+	padding: 0.05em 0.4em;
+	border: 1px solid var(--forge-border);
+	border-bottom-width: 2px;
+	border-radius: 0.3em;
+	background: var(--forge-surface);
+	color: var(--forge-text);
+	font-family: var(--__sl-font-mono);
+	font-size: 0.85em;
+	white-space: nowrap;
+}
+
+/* Previous and next: the accent on hover and focus, as the area tiles of the home page. */
+.pagination-links a:hover {
+	border-color: var(--forge-accent);
+}
+
+/* The changelog page (spec section 3.5; DESIGN.md, "Docs"): one <details> a release, its summary
+   row the version, the date and, for the newest, the Latest badge in the accent. */
+.sl-markdown-content details.release {
+	margin-top: 1rem;
+	padding: 0;
+	border: 1px solid var(--forge-border);
+	border-radius: var(--forge-radius);
+	background: var(--forge-surface);
+}
+
+.sl-markdown-content details.release > summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 1rem;
+	min-height: 44px;
+	padding: 0.75rem 1rem;
+	border-radius: var(--forge-radius);
+	cursor: pointer;
+	list-style-position: outside;
+}
+
+.sl-markdown-content details.release > summary::marker {
+	color: var(--forge-text-muted);
+}
+
+.sl-markdown-content details.release > summary:hover h2 {
+	color: var(--forge-accent-strong);
+}
+
+.sl-markdown-content details.release > summary h2 {
+	display: inline;
+	margin: 0;
+	font-size: var(--sl-text-2xl);
+	line-height: 1.2;
+}
+
+.sl-markdown-content details.release > summary time {
+	color: var(--forge-text-muted);
+	font-size: var(--sl-text-sm);
+}
+
+.sl-markdown-content details.release .latest {
+	padding: 0.1rem 0.55rem;
+	border-radius: 999px;
+	background: var(--forge-accent);
+	color: var(--forge-on-accent);
+	font: 700 0.72rem/1.5 var(--forge-font-mono);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.sl-markdown-content details.release > :not(summary) {
+	margin-inline: 1rem;
+}
+
+.sl-markdown-content details.release > :last-child {
+	margin-bottom: 1rem;
+}
+
+.sl-markdown-content details.release h3 {
+	font-size: var(--sl-text-xl);
+}
+
+.sl-markdown-content details.release h4 {
+	color: var(--forge-text-muted);
+	font-size: var(--sl-text-base);
+	font-family: var(--__sl-font);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}

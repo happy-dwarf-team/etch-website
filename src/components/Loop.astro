@@ -1,9 +1,9 @@
 ---
 // A loop (docs/spec.md, section 4; DESIGN.md, "Loop"): a 16:9 figure with the silent video, the
-// Enlarge and Pause/Play buttons at its top right and its text description, visually hidden on
-// the home page and tied to the video with aria-describedby. The demo loop and each section
-// player's stage use it; the demo loop also shows its chapters under it when the manifest has
-// them. The loop controller (src/scripts/loop-controller.ts) plays it only when it may, and
+// Enlarge and Pause/Play buttons at its top right and its text description, tied to the video
+// with aria-describedby: visually hidden on the home page, shown under the loop on a docs page.
+// The demo loop, each section player's stage and a docs page's loop use it; the demo loop also
+// shows its chapters under it when the manifest has them. The loop controller (src/scripts/loop-controller.ts) plays it only when it may, and
 // Enlarge (or a click on the video) shows it large in the loop viewer (LoopViewer.astro). Without
 // a loop the figure shows its unavailable state; without JavaScript the poster stays and no
 // button shows. The demo loop's poster is preloaded in index.astro's head.
@@ -24,9 +24,11 @@ interface Props {
 	repeat: boolean;
 	/** The demo loop's chapters, with their labels (section 4.2). */
 	chapters?: DemoChapter[];
+	/** Shows the text description under the loop, as a docs page does; hidden otherwise. */
+	describe?: boolean;
 }
 
-const { id, loop, poster, text, repeat, chapters } = Astro.props;
+const { id, loop, poster, text, repeat, chapters, describe = false } = Astro.props;
 const name = loopName(text);
 ---
 
@@ -115,7 +117,7 @@ const name = loopName(text);
 			</ol>
 		)
 	}
-	<figcaption class="sr-only" id={`${id}-description`} data-description>
+	<figcaption class={describe ? 'description' : 'sr-only'} id={`${id}-description`} data-description>
 		<strong>{loopLead(text, loop)}</strong>{' '}
 		<Fragment set:html={text.descriptionHtml} />
 	</figcaption>
@@ -124,6 +126,19 @@ const name = loopName(text);
 <style>
 	.media-box {
 		box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.8);
+	}
+
+	/* A docs page's loop: its text description under it. */
+	.description {
+		margin-top: 0.75rem;
+		color: var(--forge-text-muted);
+		font-size: 0.9rem;
+		line-height: 1.6;
+	}
+
+	.description :global(strong) {
+		color: var(--forge-text);
+		font-weight: 600;
 	}
 
 	video {

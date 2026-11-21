@@ -162,7 +162,10 @@ command may shrink and scroll inside its box; the box never widens the page.
 
 - Header, on every page: the mark and wordmark, the status badge, links _Features · Docs ·
   Changelog_, a GitHub link with an `sr-only` label. In the docs the same header, with
-  Starlight's search beside the links. (Until the redesign: _Features · Install · Roadmap_.)
+  Starlight's search beside the links: one row from Starlight's 50rem breakpoint (the search box
+  between the badge and the links); below it two rows, the search icon beside the GitHub link
+  and the links beside the sidebar's menu button. (Until the redesign: _Features · Install ·
+  Roadmap_.)
 - Footer, on every page: the family marker, links (Docs, Changelog, Source, Issues, Discord, MIT;
   Discord as a text link, no logo) and the disclaimer as its own paragraph in muted text.
 
