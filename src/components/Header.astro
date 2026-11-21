@@ -1,16 +1,17 @@
 ---
 // The sticky site header on every page (docs/spec.md, section 3.1): skip link, the Etch mark
-// and wordmark, the status badge, the three section anchors and the GitHub link. Two rows
-// below 640 px, one row from 640 px; no menu button.
+// and wordmark, the status badge, the links Features · Docs · Changelog and the GitHub link. Two
+// rows below 640 px, one row from 640 px; no menu button.
 import EtchMark from '../assets/etch-mark.svg';
-import { getStatus, REPO_URL } from '../lib/content';
+import { CHANGELOG_URL, docsUrl, getStatus, REPO_URL } from '../lib/content';
 import { getLatestVersion } from '../lib/release';
 import { url } from '../lib/url';
 
-const sections = [
-	{ id: 'features', label: 'Features' },
-	{ id: 'install', label: 'Install' },
-	{ id: 'roadmap', label: 'Roadmap' },
+// Features leads to the home page's areas, above the feature sections.
+const links = [
+	{ href: `${url('/')}#features`, label: 'Features' },
+	{ href: docsUrl(), label: 'Docs' },
+	{ href: CHANGELOG_URL, label: 'Changelog' },
 ];
 
 // "Preview · 0.2.0"; only the status when the release could not be fetched.
@@ -32,9 +33,9 @@ const badge = version ? `${status} · ${version}` : status;
 		<nav class="nav" aria-label="Main">
 			<ul>
 				{
-					sections.map(({ id, label }) => (
+					links.map(({ href, label }) => (
 						<li>
-							<a href={`${url('/')}#${id}`}>{label}</a>
+							<a href={href}>{label}</a>
 						</li>
 					))
 				}
@@ -80,7 +81,7 @@ const badge = version ? `${status} · ${version}` : status;
 		backdrop-filter: blur(8px);
 	}
 
-	/* Below 640 px: mark, badge and GitHub on top, the anchors in one row below. */
+	/* Below 640 px: mark, badge and GitHub on top, the links in one row below. */
 	.wrap {
 		display: grid;
 		grid-template-columns: 1fr auto;
@@ -132,7 +133,7 @@ const badge = version ? `${status} · ${version}` : status;
 
 	.nav {
 		grid-area: nav;
-		/* Lines the first anchor's text up with the mark. */
+		/* Lines the first link's text up with the mark. */
 		margin-left: -0.7rem;
 	}
 

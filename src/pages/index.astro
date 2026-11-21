@@ -1,41 +1,39 @@
 ---
-// The home page (docs/spec.md, section 3.1): split hero with the demo loop, install band,
-// feature tour with the live game, the 1.x note and the "does not do" box, roadmap. Header and
-// footer come from Base.
+// The home page (docs/spec.md, section 3.1): the hero with the What's new pill and the demo loop,
+// the install band, the areas, the feature sections with their section players, the proof band
+// and the closing call. Header and footer come from Base. Features, sections and areas without a
+// clip in the media manifest are left out (section 3.2).
 import { getImage } from 'astro:assets';
 import CopyCommand from '../components/CopyCommand.astro';
-import DemoLoop from '../components/DemoLoop.astro';
-import FeatureTour from '../components/FeatureTour.astro';
+import Loop from '../components/Loop.astro';
 import LoopViewer from '../components/LoopViewer.astro';
-import Roadmap from '../components/Roadmap.astro';
+import SectionPlayer from '../components/SectionPlayer.astro';
 import Base from '../layouts/Base.astro';
 import {
-	AFTER_V2_URL,
-	ALSO_HTML,
-	ANVIL_URL,
-	ETCH_1X,
-	FEATURES,
+	CLOSING,
+	DEMO_LOOP,
+	DISCORD_URL,
+	HERO,
+	INSTALL,
 	INSTALL_COMMAND,
-	LIMITS_HTML,
-	LIVE_GAME,
-	SCRIPTS,
 	MARKETPLACE_URL,
 	OPEN_VSX_URL,
-	PARTS_HTML,
-	README_URL,
-	REQUIREMENTS,
-	V1_SPEC_URL,
-	V2_SPEC_URL,
+	PROOF,
+	demoChapters,
+	docsUrl,
+	getWhatsNewPill,
+	shownSections,
 } from '../lib/content';
 import { loadMedia } from '../lib/media';
-import { getLatestVersion } from '../lib/release';
 
-// Undefined until the first media refresh: every loop renders unavailable.
+// Undefined until the first media refresh: the demo loop renders unavailable and no section shows.
 const media = loadMedia();
 const hero = media?.loops.hero;
-// The poster is the LCP image: one same-origin WebP, preloaded in the head.
-const poster = hero && (await getImage({ src: hero.poster, width: 1280, format: 'webp' }));
-const version = await getLatestVersion();
+// The poster is the LCP image: one same-origin WebP at the loop's own width, preloaded in the head.
+const poster = hero && (await getImage({ src: hero.poster, width: 1920, format: 'webp' }));
+const chapters = demoChapters(hero);
+const sections = shownSections(media?.loops);
+const pill = await getWhatsNewPill(sections);
 ---
 
 <Base title="See your Europa Universalis IV mod in VS Code">
@@ -45,267 +43,437 @@ const version = await getLatestVersion();
 		)
 	}
 
-	<section class="hero wrap">
+	<section class="hero wrap" aria-labelledby="hero-title">
 		<div class="hero-text">
-			<p class="eyebrow">EU4 interface mods · VS Code</p>
-			<h1>Edit the <code>.gui</code>. Watch the window.</h1>
-			<p class="lead">
-				Etch draws the interface window under your cursor as you type, with the game's own
-				textures, fonts and localisation. It can also run the game beside the editor and
-				reload each file you save.
-			</p>
+			{
+				pill && (
+					<a class="whats-new" href={pill.href}>
+						<span class="tag">New in {pill.version}</span>
+						<span class="line">
+							{pill.line} <span aria-hidden="true">→</span>
+						</span>
+					</a>
+				)
+			}
+			<p class="eyebrow">{HERO.eyebrow}</p>
+			<h1 id="hero-title">
+				{HERO.title.before}<em>{HERO.title.em}</em>{HERO.title.after}
+			</h1>
+			<p class="lead">{HERO.lead}</p>
 			<div class="buttons">
 				<a class="button primary" href={MARKETPLACE_URL}>Install from VS Code Marketplace</a>
 				<a class="button" href={OPEN_VSX_URL}>Open VSX</a>
+				<a class="text-link" href={docsUrl()}>Read the docs <span aria-hidden="true">→</span></a>
 			</div>
 			<ul class="requirements" aria-label="Requirements">
-				{REQUIREMENTS.map((r) => <li>{r}</li>)}
+				{HERO.requirements.map((r) => <li>{r}</li>)}
 			</ul>
 		</div>
-		<DemoLoop loop={hero} poster={poster} />
+		<Loop id="demo-loop" loop={hero} poster={poster} text={DEMO_LOOP} repeat chapters={chapters} />
 	</section>
 
-	<section class="install" id="install" aria-labelledby="install-title">
+	<section class="install" aria-labelledby="install-title">
 		<div class="wrap">
-			<div>
-				<h2 id="install-title">Install in one line</h2>
+			<h2 id="install-title">Install in one line</h2>
+			<div class="install-row">
+				<CopyCommand command={INSTALL_COMMAND} />
 				<p class="muted">
-					Then open your mod's folder in VS Code, open a <code>.gui</code> file, press
-					<strong>Ctrl+Shift+P</strong> and run <strong>Etch: Open Preview</strong>. You need EU4 installed,
-					but not Anvil. The full guide is in the <a href={README_URL}>extension README</a>.
+					<Fragment set:html={INSTALL.textHtml} />{' '}
+					<a class="arrow-link" href={INSTALL.link.href}>
+						{INSTALL.link.label} <span aria-hidden="true">→</span>
+					</a>
 				</p>
 			</div>
-			<CopyCommand command={INSTALL_COMMAND} />
 		</div>
 	</section>
 
-	<section class="section wrap" id="features" aria-labelledby="features-title">
-		<p class="eyebrow">Features</p>
-		<h2 id="features-title">The offline preview and the live game</h2>
-		<p class="parts" set:html={PARTS_HTML} />
-		<FeatureTour features={FEATURES} loops={media?.loops} />
-		<div class="note">
-			<h3>Also in the preview</h3>
-			<ul class="live">
-				{ALSO_HTML.map((item) => <li set:html={item} />)}
-			</ul>
-		</div>
-		<div class="live-game" id="live-game">
-			<h3>{LIVE_GAME.title}</h3>
-			<FeatureTour features={LIVE_GAME.features} loops={media?.loops} start={FEATURES.length} />
-			<div class="note">
-				<h3>Also in the live game</h3>
-				<ul class="live">
-					{LIVE_GAME.alsoHtml.map((item) => <li set:html={item} />)}
-				</ul>
-			</div>
-			<div class="note">
-				<p set:html={LIVE_GAME.noteHtml} />
-				<p><a href={ANVIL_URL}>Built on Anvil</a></p>
-			</div>
-		</div>
-		<div class="live-game" id="scripts">
-			<h3>{SCRIPTS.title}</h3>
-			<p class="parts" set:html={SCRIPTS.introHtml} />
-			<FeatureTour
-				features={SCRIPTS.features}
-				loops={media?.loops}
-				start={FEATURES.length + LIVE_GAME.features.length}
-			/>
-		</div>
-		<div class="note">
-			<h3>{ETCH_1X.title}</h3>
-			<p set:html={ETCH_1X.textHtml} />
-		</div>
-		<div class="limits">
-			<h3>{version ? `What ${version} does not do` : 'What Etch does not do'}</h3>
-			<ul>
-				{LIMITS_HTML.map((l) => <li set:html={l} />)}
-			</ul>
-		</div>
-	</section>
+	<div class="wrap" id="features">
+		{
+			sections.length > 0 && (
+				<nav class="areas" aria-label="What Etch works on" style={`--areas: ${String(sections.length)}`}>
+					<ul>
+						{sections.map(({ id, area }) => (
+							<li>
+								<a class="area" href={`#${id}`}>
+									<span class="files">{area.files}</span>
+									<span class="name">
+										{area.name}
+										{pill?.target === id && <span class="new">new</span>}
+									</span>
+									<span class="area-line" set:html={area.lineHtml} />
+								</a>
+							</li>
+						))}
+					</ul>
+				</nav>
+			)
+		}
 
-	<section class="section wrap roadmap" id="roadmap" aria-labelledby="roadmap-title">
-		<p class="eyebrow">Roadmap</p>
-		<h2 id="roadmap-title">From preview to 2.0.0</h2>
-		<p class="muted">
-			Etch 1.0.0 completed the <a href={V1_SPEC_URL}>v1 specification</a> in these milestones.
-			2.0.0 completed the <a href={V2_SPEC_URL}>v2 specification</a>.
-			<a href={AFTER_V2_URL}>After v2</a> lists what is left.
-		</p>
-		<Roadmap />
-	</section>
+		{
+			sections.map((section) => (
+				<section class="feature-section" id={section.id} aria-labelledby={`${section.id}-title`}>
+					<div class="section-head">
+						<p class="eyebrow">{section.eyebrow}</p>
+						<h2 id={`${section.id}-title`}>{section.title}</h2>
+						<p class="muted" set:html={section.sentenceHtml} />
+					</div>
+					<SectionPlayer section={section} />
+					{section.note && (
+						<p class="note">
+							<Fragment set:html={section.note.textHtml} />{' '}
+							<a class="arrow-link" href={section.note.link.href}>
+								{section.note.link.label} <span aria-hidden="true">→</span>
+							</a>
+						</p>
+					)}
+				</section>
+			))
+		}
+	</div>
+
+	<div class="wrap">
+		<ul class="proof" aria-label="Etch in numbers">
+			{
+				PROOF.map(({ fact, line, href }) => (
+					<li>
+						<a href={href}>
+							<span class="fact">{fact}</span>
+							<span class="fact-line">{line}</span>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+
+		<section class="closing" aria-labelledby="closing-title">
+			<h2 id="closing-title">{CLOSING.title}</h2>
+			<p class="muted" set:html={CLOSING.textHtml} />
+			<div class="buttons">
+				<a class="button primary" href={MARKETPLACE_URL}>Install from VS Code Marketplace</a>
+				<a class="button" href={docsUrl()}>Read the docs</a>
+				<a class="text-link" href={DISCORD_URL}>Discord <span aria-hidden="true">→</span></a>
+			</div>
+		</section>
+	</div>
 	{media && <LoopViewer />}
 </Base>
 
 <style>
-	h1 {
-		margin-bottom: 0.75rem;
-		font-size: clamp(1.75rem, 3.2vw + 0.9rem, 3.1rem);
-	}
-
-	h1 code {
-		padding: 0 0.2em;
-		border: 0;
-		background: var(--forge-accent-soft);
-		color: var(--forge-accent-strong);
-		font-size: 0.9em;
-	}
-
-	h2 {
-		margin-bottom: 0.75rem;
-		font-size: clamp(1.4rem, 1.8vw + 0.8rem, 2rem);
-	}
-
+	/* Hero: the text centred above the demo loop, which takes the content's full width. */
 	.hero {
-		display: grid;
-		gap: 1.5rem;
-		align-items: center;
-		padding-block: 1.5rem 3rem;
+		padding-block: clamp(2rem, 5vw, 4.5rem) 0;
 	}
 
-	/* Text 5/12 and the loop 7/12 from 980 px; stacked, text first, below that. */
-	@media (min-width: 980px) {
-		.hero {
-			grid-template-columns: 5fr 7fr;
-			gap: 3rem;
-			padding-block: 4.5rem 5rem;
-		}
+	.hero-text {
+		text-align: center;
+	}
+
+	.whats-new {
+		display: inline-flex;
+		align-items: stretch;
+		max-width: 100%;
+		min-height: 44px;
+		margin-bottom: 1.25rem;
+		overflow: hidden;
+		border: 1px solid var(--forge-accent);
+		border-radius: 999px;
+		color: var(--forge-text);
+		font-size: 0.875rem;
+		line-height: 1.35;
+		text-align: left;
+		text-decoration: none;
+	}
+
+	.whats-new .tag {
+		display: flex;
+		align-items: center;
+		flex: none;
+		padding: 0.35rem 0.75rem;
+		background: var(--forge-accent);
+		color: var(--forge-on-accent);
+		font: 700 0.75rem/1.3 var(--forge-font-mono);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+
+	.whats-new .line {
+		display: flex;
+		align-items: center;
+		gap: 0.4rem;
+		padding: 0.35rem 1rem 0.35rem 0.75rem;
+		background: var(--forge-accent-soft);
+		transition: background-color 180ms var(--forge-ease);
+	}
+
+	.whats-new:hover {
+		color: var(--forge-text);
+	}
+
+	.whats-new:hover .line {
+		background: color-mix(in srgb, var(--forge-accent-soft) 70%, var(--forge-accent));
+	}
+
+	.hero .eyebrow {
+		margin-bottom: 1rem;
+	}
+
+	h1 {
+		max-width: 20ch;
+		margin: 0 auto 1rem;
+		font-size: clamp(1.75rem, 3.6vw + 0.9rem, 3.5rem);
+	}
+
+	h1 em {
+		color: var(--forge-accent-strong);
+		font-style: normal;
 	}
 
 	.lead {
-		margin-bottom: 1.25rem;
+		max-width: 46rem;
+		margin: 0 auto 1.5rem;
 		color: var(--forge-text-muted);
-		font-size: 1.05rem;
-	}
-
-	@media (min-width: 980px) {
-		.lead {
-			font-size: 1.1rem;
-		}
+		font-size: clamp(1rem, 0.4vw + 0.92rem, 1.15rem);
 	}
 
 	.buttons {
 		display: flex;
 		flex-wrap: wrap;
+		align-items: center;
 		gap: 0.625rem;
+	}
+
+	.hero .buttons {
+		justify-content: center;
+	}
+
+	/* A text link that is still a 44 px target. */
+	.text-link,
+	.arrow-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		min-height: 44px;
+		font-weight: 600;
+	}
+
+	.text-link {
+		padding-inline: 0.6rem;
+		text-decoration: none;
+	}
+
+	.text-link:hover {
+		text-decoration: underline;
 	}
 
 	.requirements {
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: center;
 		gap: 0.25rem 1.1rem;
 		margin: 1rem 0 0;
 		padding: 0;
 		color: var(--forge-text-muted);
-		font: 500 0.82rem/1.5 var(--forge-font-mono);
+		font: 500 0.8rem/1.5 var(--forge-font-mono);
 		list-style: none;
 	}
 
-	.requirements li::before {
-		content: '· ';
+	.requirements li + li::before {
+		content: '·';
+		margin-right: 1.1rem;
 		color: var(--forge-accent);
 	}
 
+	.hero :global(.loop) {
+		margin-top: clamp(1.75rem, 4vw, 3rem);
+	}
+
+	/* Install band */
 	.install {
+		margin-top: clamp(3rem, 7vw, 5rem);
 		border-block: 1px solid var(--forge-border);
 		background: var(--forge-surface);
 	}
 
 	.install .wrap {
-		display: grid;
-		gap: 1rem;
-		align-items: center;
-		padding-block: 2rem;
-	}
-
-	@media (min-width: 860px) {
-		.install .wrap {
-			grid-template-columns: minmax(0, 1fr) minmax(0, auto);
-			gap: 2.5rem;
-		}
+		padding-block: 1.75rem;
 	}
 
 	.install h2 {
-		margin-bottom: 0.25rem;
-		font-size: 1.2rem;
+		margin-bottom: 0.75rem;
+		font-size: 1.15rem;
 	}
 
-	.section {
-		padding-block: clamp(3rem, 7vw, 5.5rem) 0;
+	.install-row {
+		display: grid;
+		gap: 0.75rem 2rem;
+		align-items: center;
 	}
 
-	.parts {
-		max-width: 52rem;
-		color: var(--forge-text-muted);
+	.install-row > :global(*) {
+		min-width: 0;
 	}
 
-	.note {
-		max-width: 52rem;
-		margin-top: 3rem;
+	@media (min-width: 860px) {
+		.install-row {
+			grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+		}
 	}
 
-	.note + .note {
-		margin-top: 2rem;
+	/* Areas: four in one row from 980 px, two by two from 600 px, one column below. */
+	.areas ul {
+		display: grid;
+		gap: 0.75rem;
+		margin: clamp(3rem, 7vw, 5rem) 0 0;
+		padding: 0;
+		list-style: none;
 	}
 
-	.note h3 {
-		margin-bottom: 0.5rem;
-		font-size: 1.2rem;
+	@media (min-width: 600px) {
+		.areas ul {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
 	}
 
-	.note p,
-	.note li {
-		margin-bottom: 0.5rem;
-		color: var(--forge-text-muted);
+	@media (min-width: 980px) {
+		.areas ul {
+			grid-template-columns: repeat(var(--areas), minmax(0, 1fr));
+		}
 	}
 
-	.note :global(strong) {
+	.area {
+		display: grid;
+		align-content: start;
+		gap: 0.3rem;
+		height: 100%;
+		padding: 1rem 1.1rem;
+		border: 1px solid var(--forge-border);
+		border-radius: var(--forge-radius);
+		background: var(--forge-surface);
+		color: var(--forge-text);
+		text-decoration: none;
+		transition: border-color 180ms var(--forge-ease);
+	}
+
+	.area:hover,
+	.area:focus-visible {
+		border-color: var(--forge-accent);
 		color: var(--forge-text);
 	}
 
-	.live {
-		padding-left: 1.1em;
+	.files {
+		color: var(--forge-text-muted);
+		font: 500 0.75rem/1.5 var(--forge-font-mono);
 	}
 
-	.live-game {
-		margin-top: clamp(3rem, 7vw, 5rem);
+	.name {
+		font: 700 1.02rem/1.35 var(--forge-font-mono);
 	}
 
-	.live-game > h3 {
-		font-size: clamp(1.25rem, 1.4vw + 0.8rem, 1.6rem);
+	.new {
+		margin-left: 0.5rem;
+		padding: 0.05rem 0.45rem;
+		border-radius: 999px;
+		background: var(--forge-accent);
+		color: var(--forge-on-accent);
+		font: 700 0.68rem/1.5 var(--forge-font-mono);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		vertical-align: 0.15em;
 	}
 
-	.live-game .note {
-		margin-top: 2rem;
+	.area-line {
+		color: var(--forge-text-muted);
+		font-size: 0.9rem;
+		line-height: 1.45;
 	}
 
-	.note p > a:only-child {
-		display: inline-flex;
-		align-items: center;
-		min-height: 44px;
-		font-weight: 600;
+	/* Feature sections */
+	.feature-section {
+		padding-top: clamp(4rem, 9vw, 6.5rem);
 	}
 
-	.limits {
-		margin-top: 2rem;
-		padding: 1.25rem 1.5rem;
-		border-left: 3px solid var(--forge-accent);
-		border-radius: 0 var(--forge-radius) var(--forge-radius) 0;
+	.section-head {
+		max-width: 46rem;
+		margin-bottom: 1.75rem;
+	}
+
+	.section-head h2 {
+		margin-bottom: 0.6rem;
+		font-size: clamp(1.5rem, 1.9vw + 0.9rem, 2.25rem);
+	}
+
+	.note {
+		max-width: 46rem;
+		margin-top: 1.25rem;
+		color: var(--forge-text-muted);
+		font-size: 0.95rem;
+	}
+
+	/* Proof band: three facts in one row from 720 px. */
+	.proof {
+		display: grid;
+		gap: 0.75rem;
+		margin: clamp(4rem, 9vw, 6.5rem) 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	@media (min-width: 720px) {
+		.proof {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	.proof a {
+		display: grid;
+		align-content: start;
+		gap: 0.4rem;
+		height: 100%;
+		padding: 1.4rem 1.5rem;
+		border: 1px solid var(--forge-border);
+		border-radius: var(--forge-radius);
 		background: var(--forge-surface);
+		text-decoration: none;
+		transition: border-color 180ms var(--forge-ease);
 	}
 
-	.limits h3 {
+	.proof a:hover,
+	.proof a:focus-visible {
+		border-color: var(--forge-accent);
+	}
+
+	.fact {
+		color: var(--forge-text);
+		font: 700 clamp(1.6rem, 1.5vw + 1rem, 2.1rem)/1.15 var(--forge-font-mono);
+		letter-spacing: -0.02em;
+	}
+
+	.fact-line {
+		color: var(--forge-text-muted);
+		font-size: 0.95rem;
+	}
+
+	/* Closing call */
+	.closing {
+		margin-top: clamp(4rem, 9vw, 6.5rem);
+		padding: clamp(1.5rem, 5vw, 3rem);
+		border: 1px solid var(--forge-border);
+		border-radius: var(--forge-radius);
+		background: radial-gradient(120% 140% at 0% 0%, var(--forge-accent-soft), var(--forge-surface) 55%);
+	}
+
+	.closing h2 {
 		margin-bottom: 0.5rem;
-		font-size: 1.05rem;
+		font-size: clamp(1.4rem, 1.6vw + 0.9rem, 2rem);
 	}
 
-	.limits ul {
-		margin: 0;
-		padding-left: 1.1em;
+	.closing p {
+		max-width: 40rem;
+		margin-bottom: 1.25rem;
 	}
 
-	.roadmap {
-		max-width: 52rem;
+	.closing :global(strong) {
+		color: var(--forge-text);
+		white-space: nowrap;
 	}
 </style>

@@ -3,14 +3,22 @@
 // links and the three-line disclaimer, since the site shows EU4 interface art. Discord goes
 // through the hub's discord.happydwarf.dev redirect, so a new invite changes no code.
 import logo from '../assets/happy-dwarf.svg?url';
-import { REPO_URL } from '../lib/content';
+import {
+	CHANGELOG_URL,
+	DISCORD_URL,
+	docsUrl,
+	ISSUES_URL,
+	LICENSE_URL,
+	REPO_URL,
+} from '../lib/content';
 
 const links = [
+	{ href: docsUrl(), label: 'Docs' },
+	{ href: CHANGELOG_URL, label: 'Changelog' },
 	{ href: REPO_URL, label: 'Source' },
-	{ href: `${REPO_URL}/blob/main/CHANGELOG.md`, label: 'Changelog' },
-	{ href: `${REPO_URL}/issues`, label: 'Issues' },
-	{ href: 'https://discord.happydwarf.dev/', label: 'Discord' },
-	{ href: `${REPO_URL}/blob/main/LICENSE`, label: 'MIT' },
+	{ href: ISSUES_URL, label: 'Issues' },
+	{ href: DISCORD_URL, label: 'Discord' },
+	{ href: LICENSE_URL, label: 'MIT' },
 ];
 ---
 

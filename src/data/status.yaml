@@ -1,17 +1,14 @@
-# The extension's status for the header badge and each roadmap milestone's state
-# (docs/spec.md, sections 3.1 and 3.5). Hand-edited: change it by a pull request when an Etch
-# release changes them. The version in the badge is not here; the build fetches it, and fails
-# while a milestone the latest release has reached is still `next` (src/lib/content.ts).
+# The extension's status for the header badge and the hero's What's new pill (docs/spec.md,
+# section 3.1). Hand-edited: change it by a pull request when an Etch release changes them. The
+# version in the badge is not here; the build fetches it.
 extension:
   # "Preview" while the extension was marked `preview` on the Marketplace; "Stable" since 1.0.0.
   status: Stable
-  # done, current (the milestone of the latest release) or next.
-  milestones:
-    M0: done
-    M1: done
-    M2: done
-    M3: done
-    M4: done
-    '1.0': done
-    # Added as next once etch's v2 specification was done (etch#156); current since 2.0.0.
-    '2.0': current
+  # What the latest minor release brought. The pill shows only while `version` is the latest
+  # release's major and minor. `target` is the id of the feature section that shows it
+  # (interface-windows, textures-and-meshes, live-game or scripts); while that section is left
+  # out for want of loops, the pill links to the release's notes instead.
+  whatsNew:
+    version: '2.13'
+    line: Meshes, entities and textures in the editor
+    target: textures-and-meshes
