@@ -278,6 +278,13 @@ const pill = await getWhatsNewPill(sections);
 		color: var(--forge-accent);
 	}
 
+	/* On a phone the line wraps, and a dot would start a line: the gap alone separates them. */
+	@media (max-width: 40rem) {
+		.requirements li + li::before {
+			content: none;
+		}
+	}
+
 	.hero :global(.loop) {
 		margin-top: clamp(1.75rem, 4vw, 3rem);
 	}
