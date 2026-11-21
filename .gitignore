@@ -1,5 +1,7 @@
 # build output
 dist/
+# etch checked out at its latest release for the docs (src/lib/etch-source.ts)
+.etch-source/
 # generated types
 .astro/
 

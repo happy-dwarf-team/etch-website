@@ -1,0 +1,165 @@
+---
+// Starlight's PageTitle override: the top of every docs page (docs/spec.md, section 3.4.1). Its
+// group as a breadcrumb, the h1, the sentence from `description` that says what the page is for,
+// "Since <version>" from `since` (a link to that release on the changelog page), and the page's
+// loop when it has a `clip`, with its text description shown under it (section 4.1). A clip the
+// media manifest does not have shows nothing, as on the home page.
+import type { MarkdownHeading } from 'astro';
+import { getImage } from 'astro:assets';
+import { getEntry } from 'astro:content';
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import { releaseId } from '../../lib/changelog';
+import { CHANGELOG_URL, docsUrl, loopText } from '../../lib/content';
+import { loadMedia } from '../../lib/media';
+import Loop from '../Loop.astro';
+import LoopViewer from '../LoopViewer.astro';
+
+const { entry, sidebar } = Astro.locals.starlightRoute;
+const { description, since, clip } = entry.data;
+
+// The sidebar group that holds this page.
+const group = sidebar.find(
+	(item) => item.type === 'group' && item.entries.some((e) => e.type === 'link' && e.isCurrent),
+);
+
+// "Since 2.13.0" links to that release on the changelog page, when the changelog has it (a page
+// from an unreleased checkout may name a version it does not have yet).
+const changelog = await getEntry('docs', 'docs/changelog');
+const releases = changelog?.rendered?.metadata?.headings as MarkdownHeading[] | undefined;
+const sinceId = since && releaseId(since);
+const sinceHref =
+	sinceId && releases?.some(({ slug }) => slug === sinceId)
+		? `${CHANGELOG_URL}#${sinceId}`
+		: undefined;
+
+const loop = clip ? loadMedia()?.loops[clip] : undefined;
+const text = clip && loopText(clip);
+if (loop && !text) throw new Error(`${entry.id}: the clip "${clip}" has no text description in src/lib/content.ts`);
+// The poster at about twice the column's width, as the section players' are; not preloaded.
+const poster = loop && (await getImage({ src: loop.poster, width: 1280, format: 'webp' }));
+---
+
+<div class="page-top">
+	<nav class="breadcrumb" aria-label="Breadcrumb">
+		<ol>
+			<li><a href={docsUrl()}>Docs</a></li>
+			{group && <li>{group.label}</li>}
+		</ol>
+	</nav>
+	<Default />
+	{description && <p class="description">{description}</p>}
+	{
+		since && (
+			<p class="since">
+				{sinceHref ? <a href={sinceHref}>Since {since}</a> : <span>Since {since}</span>}
+			</p>
+		)
+	}
+	{
+		loop && text && poster && (
+			<>
+				<div class="page-loop">
+					<Loop id="page-loop" loop={loop} poster={poster} text={text} repeat describe />
+				</div>
+				<LoopViewer />
+			</>
+		)
+	}
+</div>
+
+<style>
+	.page-top {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.breadcrumb ol {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0 0.5rem;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		color: var(--forge-text-muted);
+		font: 600 0.78rem/1.4 var(--forge-font-mono);
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.breadcrumb li + li::before {
+		content: '/';
+		margin-right: 0.5rem;
+		color: var(--forge-border);
+	}
+
+	.breadcrumb a {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		margin-block: -0.75rem;
+		color: var(--forge-accent);
+		text-decoration: none;
+	}
+
+	.breadcrumb a:hover {
+		color: var(--forge-text);
+		text-decoration: underline;
+	}
+
+	.page-top :global(h1) {
+		margin-top: 0.75rem;
+	}
+
+	.description {
+		margin: 0.75rem 0 0;
+		color: var(--forge-text-muted);
+		font-size: var(--sl-text-lg);
+		line-height: 1.5;
+	}
+
+	.since {
+		margin: 0.75rem 0 0;
+		font: 500 0.8rem/1.4 var(--forge-font-mono);
+	}
+
+	.since a,
+	.since span {
+		display: inline-flex;
+		align-items: center;
+		padding: 0.15rem 0.6rem;
+		border: 1px solid var(--forge-border);
+		border-radius: 999px;
+		color: var(--forge-text-muted);
+		text-decoration: none;
+	}
+
+	.since a {
+		/* A 44 px target around the small pill. */
+		position: relative;
+	}
+
+	.since a::after {
+		content: '';
+		position: absolute;
+		inset: -0.6rem -0.25rem;
+	}
+
+	.since a:hover {
+		border-color: var(--forge-accent);
+		color: var(--forge-text);
+	}
+
+	.page-loop {
+		margin-top: 1.5rem;
+	}
+
+	.page-loop :global(code) {
+		padding: 0.05em 0.35em;
+		border: 1px solid var(--forge-border);
+		border-radius: 0.3em;
+		background: var(--forge-surface-raised);
+		color: var(--forge-text);
+		font-family: var(--forge-font-mono);
+		font-size: 0.88em;
+	}
+</style>

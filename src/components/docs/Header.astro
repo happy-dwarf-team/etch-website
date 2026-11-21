@@ -1,0 +1,11 @@
+---
+// Starlight's Header override (DESIGN.md, "Header and footer"): the site's own header content,
+// with Starlight's search beside the links. Starlight's header bar around it is fixed at the top,
+// and its menu button for the sidebar on phones sits at the bar's right (src/styles/docs.css).
+import Search from '@astrojs/starlight/components/Search.astro';
+import HeaderBar from '../HeaderBar.astro';
+---
+
+<HeaderBar>
+	<Search slot="search" />
+</HeaderBar>
