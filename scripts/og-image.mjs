@@ -22,8 +22,8 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
 	</g>
 	<g font-family="JetBrains Mono, Consolas, DejaVu Sans Mono, monospace">
 		<text x="448" y="300" fill="#e8e6e3" font-size="120" font-weight="800" letter-spacing="5">ETCH</text>
-		<text x="452" y="372" fill="#a8a29e" font-size="34">Interface mod preview</text>
-		<text x="452" y="418" fill="#a8a29e" font-size="34">for VS Code</text>
+		<text x="452" y="372" fill="#a8a29e" font-size="34">EU4 modding</text>
+		<text x="452" y="418" fill="#a8a29e" font-size="34">in VS Code</text>
 		<text x="452" y="500" fill="#4fc9a8" font-size="28">etch.happydwarf.dev</text>
 	</g>
 </svg>`;
