@@ -36,8 +36,11 @@ jobs:
 
       - run: npm ci
 
-      # Type-checks the components and scripts.
+      # Type-checks the components and scripts. Like the build, it checks out etch at its latest
+      # release for the docs (docs/spec.md, section 3.4.1), so it asks the API with the token.
       - run: npm run check
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Repository variable CUSTOM_DOMAIN (etch.happydwarf.dev) switches from the github.io
       # project URL to the custom domain.
