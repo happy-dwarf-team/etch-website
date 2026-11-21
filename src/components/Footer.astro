@@ -1,7 +1,9 @@
 ---
-// The footer on every page, 404 included (docs/spec.md, section 7): the family marker, Etch's
-// links and the three-line disclaimer, since the site shows EU4 interface art. Discord goes
-// through the hub's discord.happydwarf.dev redirect, so a new invite changes no code.
+// The footer on every page, 404 and the docs included (docs/spec.md, section 7): the family
+// marker, Etch's links and the three-line disclaimer, since the site shows EU4 interface art.
+// Discord goes through the hub's discord.happydwarf.dev redirect, so a new invite changes no
+// code. In the docs it follows Starlight's own footer (Edit this page, previous and next) in the
+// page's column, which gives it its width (src/components/docs/Footer.astro).
 import logo from '../assets/happy-dwarf.svg?url';
 import {
 	CHANGELOG_URL,
@@ -20,9 +22,16 @@ const links = [
 	{ href: DISCORD_URL, label: 'Discord' },
 	{ href: LICENSE_URL, label: 'Licence (MIT)' },
 ];
+
+interface Props {
+	/** In a docs page's column, under Starlight's footer. */
+	docs?: boolean;
+}
+
+const { docs = false } = Astro.props;
 ---
 
-<footer class="site-footer">
+<footer class:list={['site-footer', { docs }]}>
 	<div class="wrap">
 		<a class="family" href="https://happydwarf.dev/">
 			<img class="logo" src={logo} alt="" width="40" height="40" />
@@ -51,6 +60,15 @@ const links = [
 	.site-footer {
 		margin-top: 4rem;
 		border-top: 1px solid var(--forge-border);
+	}
+
+	.site-footer.docs {
+		margin-top: 1.5rem;
+	}
+
+	.site-footer p,
+	.site-footer ul {
+		margin: 0;
 	}
 
 	.wrap {
