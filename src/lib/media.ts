@@ -1,9 +1,16 @@
-// Loads the media manifest for the pages (docs/spec.md, sections 4.3 and 5). The manifest is
-// optional until the first media refresh: without it loadMedia() returns undefined and every
-// loop renders its unavailable state. A manifest that fails the schema or names a missing poster
-// fails the build.
+// Loads the media manifest for the pages (docs/spec.md, sections 4.4 and 5). The manifest is
+// optional until the first media refresh: without it loadMedia() returns undefined and the demo
+// loop renders its unavailable state. A clip the manifest lacks is missing from `loops`, and the
+// home page leaves out its feature (section 3.2). A manifest that fails the schema or names a
+// missing poster fails the build.
 import type { ImageMetadata } from 'astro';
-import { CLIP_IDS, parseMediaManifest, type ClipId, type MediaManifest } from './media-manifest';
+import {
+	CLIP_IDS,
+	parseMediaManifest,
+	type Chapter,
+	type ClipId,
+	type ManifestLoop,
+} from './media-manifest';
 
 const manifests = import.meta.glob('/src/data/media.json', { eager: true, import: 'default' });
 const images = import.meta.glob<ImageMetadata>('/src/assets/media/*.png', {
@@ -11,11 +18,15 @@ const images = import.meta.glob<ImageMetadata>('/src/assets/media/*.png', {
 	import: 'default',
 });
 
-export type Loop = Omit<MediaManifest['loops']['hero'], 'poster'> & { poster: ImageMetadata };
+export type Loop = Omit<ManifestLoop, 'poster'> & {
+	poster: ImageMetadata;
+	/** The demo loop's chapters, `hero` only (section 4.2). */
+	chapters?: Chapter[];
+};
 export interface Media {
 	// The Etch version the set was captured for.
 	etch: string;
-	loops: Record<ClipId, Loop>;
+	loops: Partial<Record<ClipId, Loop>>;
 }
 
 function image(file: string): ImageMetadata {
@@ -30,11 +41,10 @@ export function loadMedia(): Media | undefined {
 	const json = manifests['/src/data/media.json'];
 	if (json === undefined) return undefined;
 	const manifest = parseMediaManifest(json);
-	const loops = Object.fromEntries(
-		CLIP_IDS.map((id) => {
-			const loop = manifest.loops[id];
-			return [id, { ...loop, poster: image(loop.poster) }];
-		}),
-	) as Record<ClipId, Loop>;
+	const loops: Media['loops'] = {};
+	for (const id of CLIP_IDS) {
+		const loop = manifest.loops[id];
+		if (loop) loops[id] = { ...loop, poster: image(loop.poster) };
+	}
 	return { etch: manifest.etch, loops };
 }

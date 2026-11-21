@@ -1,7 +1,8 @@
 ---
-// The 404 page (docs/spec.md, section 3.6): the same header and footer as /, an h1 and a link
-// back to /.
+// The 404 page (docs/spec.md, section 3.6): the same header and footer as /, an h1 and links
+// back to / and to the docs.
 import Base from '../layouts/Base.astro';
+import { docsUrl } from '../lib/content';
 import { url } from '../lib/url';
 ---
 
@@ -10,7 +11,10 @@ import { url } from '../lib/url';
 		<p class="eyebrow">404</p>
 		<h1>Page not found</h1>
 		<p class="muted">There is no page at this address.</p>
-		<a class="button primary" href={url('/')}>Back to the Etch home page</a>
+		<div class="buttons">
+			<a class="button primary" href={url('/')}>Back to the Etch home page</a>
+			<a class="button" href={docsUrl()}>Read the docs</a>
+		</div>
 	</section>
 </Base>
 
@@ -26,5 +30,11 @@ import { url } from '../lib/url';
 
 	p.muted {
 		margin-bottom: 1.5rem;
+	}
+
+	.buttons {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.625rem;
 	}
 </style>

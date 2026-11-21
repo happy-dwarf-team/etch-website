@@ -1,0 +1,264 @@
+---
+// A loop (docs/spec.md, section 4; DESIGN.md, "Loop"): a 16:9 figure with the silent video, the
+// Enlarge and Pause/Play buttons at its top right and its text description, visually hidden on
+// the home page and tied to the video with aria-describedby. The demo loop and each section
+// player's stage use it; the demo loop also shows its chapters under it when the manifest has
+// them. The loop controller (src/scripts/loop-controller.ts) plays it only when it may, and
+// Enlarge (or a click on the video) shows it large in the loop viewer (LoopViewer.astro). Without
+// a loop the figure shows its unavailable state; without JavaScript the poster stays and no
+// button shows. The demo loop's poster is preloaded in index.astro's head.
+import type { GetImageResult } from 'astro';
+import EtchMark from '../assets/etch-mark.svg';
+import { loopLead, loopName, type DemoChapter, type LoopText } from '../lib/content';
+import type { Loop } from '../lib/media';
+
+interface Props {
+	/** The figure's id, which feature buttons name; the description's is `<id>-description`. */
+	id: string;
+	loop?: Loop;
+	/** The poster as rendered by getImage(). */
+	poster?: GetImageResult;
+	/** The loop's title (the lead adds its length), its text description and its poster's alt. */
+	text: LoopText;
+	/** Whether the video repeats: the demo loop does; a section player's stage moves on instead. */
+	repeat: boolean;
+	/** The demo loop's chapters, with their labels (section 4.2). */
+	chapters?: DemoChapter[];
+}
+
+const { id, loop, poster, text, repeat, chapters } = Astro.props;
+const name = loopName(text);
+---
+
+<figure class="loop" id={id} data-loop data-state={loop ? 'poster' : 'unavailable'}>
+	<div class="media-box">
+		{
+			loop && poster ? (
+				<video
+					muted
+					loop={repeat}
+					playsinline
+					preload="none"
+					poster={poster.src}
+					width={loop.width}
+					height={loop.height}
+					aria-label={text.posterAlt}
+					aria-describedby={`${id}-description`}
+				>
+					{loop.sources.map(({ src, type }) => (
+						<source src={src} type={type} />
+					))}
+				</video>
+			) : (
+				<div class="media-unavailable">
+					<EtchMark aria-hidden="true" focusable="false" />
+					<p>Video not published yet</p>
+				</div>
+			)
+		}
+		{
+			loop && (
+				<div class="controls">
+					<button type="button" class="media-control enlarge" data-enlarge hidden>
+						<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+							<circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8" />
+							<path d="M10.3 10.3 14 14M5 7h4M7 5v4" stroke="currentColor" stroke-width="1.8" />
+						</svg>
+						<span class="word">Enlarge</span>
+						<span class="sr-only" data-name>
+							{' '}
+							{name}
+						</span>
+					</button>
+					<button type="button" class="media-control toggle" data-toggle hidden>
+						<svg class="icon-play" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="M4 2.5v11l9-5.5z" />
+						</svg>
+						<svg class="icon-pause" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="M3.5 2.5h3.2v11H3.5zM9.3 2.5h3.2v11H9.3z" />
+						</svg>
+						<span class="label">Play</span>
+						<span class="sr-only" data-name>
+							{' '}
+							{name}
+						</span>
+					</button>
+				</div>
+			)
+		}
+	</div>
+	{
+		loop && chapters && (
+			<ol
+				class="chapters"
+				aria-label="Chapters of the demo loop"
+				style={`--chapters: ${String(chapters.length)}`}
+				data-chapters
+				data-duration={loop.duration}
+				hidden
+			>
+				{chapters.map(({ label, start }, i) => (
+					<li>
+						<button type="button" data-start={start} aria-current={i === 0 ? 'true' : undefined}>
+							<span class="bar" aria-hidden="true">
+								<span class="fill" />
+							</span>
+							<span>
+								<span class="n" aria-hidden="true">
+									{String(i + 1).padStart(2, '0')}
+								</span>
+								<span class="label">{label}</span>
+							</span>
+						</button>
+					</li>
+				))}
+			</ol>
+		)
+	}
+	<figcaption class="sr-only" id={`${id}-description`} data-description>
+		<strong>{loopLead(text, loop)}</strong>{' '}
+		<Fragment set:html={text.descriptionHtml} />
+	</figcaption>
+</figure>
+
+<style>
+	.media-box {
+		box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.8);
+	}
+
+	video {
+		cursor: zoom-in;
+	}
+
+	/* At the top right: the loops' own captions sit in a band at the bottom. */
+	.controls {
+		position: absolute;
+		top: 0.625rem;
+		right: 0.625rem;
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	.media-control[hidden],
+	.chapters[hidden] {
+		display: none;
+	}
+
+	.icon-pause,
+	[data-playing] .icon-play {
+		display: none;
+	}
+
+	[data-playing] .icon-pause {
+		display: block;
+	}
+
+	/* Below 720 px the Enlarge chip shows only its icon; its name stays for screen readers. */
+	@media (max-width: 719.98px) {
+		.enlarge {
+			padding: 0;
+		}
+
+		.enlarge .word {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip: rect(0 0 0 0);
+			white-space: nowrap;
+		}
+	}
+
+	/* The demo loop's chapters (DESIGN.md, "Demo loop's chapters"): five in one row from 720 px;
+	   below it the playing chapter's label alone, the others with their number and bar. */
+	.chapters {
+		display: grid;
+		grid-template-columns: repeat(var(--chapters), minmax(0, 1fr));
+		gap: 0.5rem;
+		margin: 0.75rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.chapters button {
+		display: grid;
+		gap: 0.4rem;
+		align-content: start;
+		width: 100%;
+		min-height: 44px;
+		padding: 0.35rem 0.1rem;
+		border: 0;
+		border-radius: 0.4rem;
+		background: none;
+		color: var(--forge-text-muted);
+		font-size: 0.85rem;
+		line-height: 1.3;
+		text-align: left;
+		cursor: pointer;
+		transition: color 160ms var(--forge-ease);
+	}
+
+	.chapters button:hover,
+	.chapters [aria-current='true'] {
+		color: var(--forge-text);
+	}
+
+	.chapters .bar {
+		display: block;
+		height: 2px;
+		overflow: hidden;
+		background: var(--forge-border);
+	}
+
+	.chapters .fill {
+		display: block;
+		height: 100%;
+		background: var(--forge-accent);
+		transform: scaleX(0);
+		transform-origin: left;
+	}
+
+	.chapters .n {
+		margin-right: 0.4rem;
+		color: var(--forge-text-muted);
+		font: 600 0.75rem var(--forge-font-mono);
+	}
+
+	.chapters [aria-current='true'] .n {
+		color: var(--forge-accent);
+	}
+
+	@media (max-width: 719.98px) {
+		.chapters {
+			display: flex;
+		}
+
+		.chapters li {
+			flex: none;
+			min-width: 44px;
+		}
+
+		.chapters li:has([aria-current='true']) {
+			flex: 1 1 0;
+			min-width: 0;
+		}
+
+		/* Room for a label on two lines, so the row keeps its height from chapter to chapter. */
+		.chapters button {
+			min-height: 3.6rem;
+		}
+
+		.chapters button:not([aria-current='true']) .label {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+			clip: rect(0 0 0 0);
+			white-space: nowrap;
+		}
+	}
+</style>
+
+<script>
+	import '../scripts/loop-controller';
+</script>

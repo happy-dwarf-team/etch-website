@@ -1,8 +1,8 @@
 ---
-// The loop viewer (docs/spec.md, section 4.1; DESIGN.md, "Loop viewer"): one native <dialog>
+// The loop viewer (docs/spec.md, section 4.3; DESIGN.md, "Loop viewer"): one native <dialog>
 // that shows a loop large, with the video's own controls and its text description. The loop
-// controller in DemoLoop.astro fills and opens it; Esc, Close or a click outside it closes it and
-// returns the focus.
+// controller (src/scripts/loop-controller.ts) fills and opens it; Esc, Close or a click outside
+// it closes it and returns the focus.
 ---
 
 <dialog class="loop-viewer" aria-labelledby="loop-viewer-caption" data-loop-viewer>
