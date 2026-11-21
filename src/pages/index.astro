@@ -38,7 +38,7 @@ const poster = hero && (await getImage({ src: hero.poster, width: 1280, format: 
 const version = await getLatestVersion();
 ---
 
-<Base title="Preview Europa Universalis IV interface mods in VS Code">
+<Base title="See your Europa Universalis IV mod in VS Code">
 	{
 		poster && (
 			<link slot="head" rel="preload" as="image" href={poster.src} fetchpriority="high" />

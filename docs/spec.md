@@ -597,9 +597,9 @@ spec section 5.
 - Docs pages: their front matter's `title`, e.g. `Mesh preview | Etch`; the changelog
   `Changelog | Etch`. Their meta description is the page's `description`.
 - `404`: `Page not found | Etch`.
-- Meta description of `/` (draft, also `og:description` and used by 404): "A free VS Code
-  extension for Europa Universalis IV mods: windows drawn as you type, meshes and textures, and
-  the game beside the editor."
+- Meta description of `/` (also `og:description` and used by 404): "A free VS Code extension
+  for EU4 mods: see your interface windows as you type, look at 3D models and textures, and try
+  your mod in the running game." (150 characters; the title spells out the game's name.)
 
 ### 6.2 Social preview image and favicons
 
@@ -608,7 +608,7 @@ spec section 5.
   favicon tile but in `--forge-surface` `#1f2024` (a `#16171a` tile would not show on the
   background), "ETCH" in mono, two lines "EU4 modding / in VS Code" in `--forge-text-muted`
   (until the redesign "Interface mod preview / for VS Code"), `etch.happydwarf.dev` in verdigris,
-  an 8 px verdigris bar along the bottom. `og:image:alt`: "Etch, EU4 modding in VS Code". **No
+  an 8 px verdigris bar along the bottom. `og:image:alt`: "Etch logo with the text: EU4 modding in VS Code". **No
   game art** (not even a screenshot: a preview image travels without the disclaimer), no
   version, no status. Docs pages share it.
 - `favicon.svg`, `favicon.ico` (32 × 32) and `apple-touch-icon.png` (180 × 180, opaque) in
