@@ -57,7 +57,7 @@ const pill = await getWhatsNewPill(sections);
 			}
 			<p class="eyebrow">{HERO.eyebrow}</p>
 			<h1 id="hero-title">
-				{HERO.title.before}<em>{HERO.title.em}</em>{HERO.title.after}
+				{HERO.title}
 			</h1>
 			<p class="lead">{HERO.lead}</p>
 			<div class="buttons">
@@ -221,11 +221,6 @@ const pill = await getWhatsNewPill(sections);
 		max-width: 20ch;
 		margin: 0 auto 1rem;
 		font-size: clamp(1.75rem, 3.6vw + 0.9rem, 3.5rem);
-	}
-
-	h1 em {
-		color: var(--forge-accent-strong);
-		font-style: normal;
 	}
 
 	.lead {

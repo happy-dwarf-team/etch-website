@@ -30,7 +30,7 @@ export const CHANGELOG_URL = `${REPO_URL}/blob/main/CHANGELOG.md`;
 // The hero (section 3.1). The h1's middle part is set off in the accent.
 export const HERO = {
 	eyebrow: 'Europa Universalis IV modding · VS Code',
-	title: { before: 'See your mod ', em: 'as the game draws it', after: ', while you write it.' },
+	title: 'See your mod as the game draws it, while you write it.',
 	lead: "Etch draws your interface windows as you type, opens the textures, meshes and animations VS Code can't, checks your scripts the way the game reads them, and runs the game beside the editor to reload each file you save.",
 	requirements: ['Windows x64', 'VS Code 1.100+', 'EU4 1.37.5', 'Free, MIT', 'No telemetry'],
 };
@@ -388,8 +388,8 @@ export function shownSections(loops: Media['loops'] | undefined): ShownSection[]
 // The proof band (section 3.3): each fact links to the docs page with its source and conditions.
 export const PROOF = [
 	{
-		fact: '6 resolutions',
-		line: 'Measured against the game widget by widget, on vanilla and Proper 2K UI Enhanced.',
+		fact: '7 resolutions',
+		line: 'from 1280×720 to 3440×1440, compared with the game on vanilla, Anbennar and Proper 2K UI Enhanced.',
 		href: docsUrl('about/accuracy'),
 	},
 	{

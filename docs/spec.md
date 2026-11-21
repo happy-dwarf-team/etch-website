@@ -285,7 +285,7 @@ and writes"). Drafts:
 
 | Fact         | Line                                                                                         | Source, on the linked page                                                                            |
 | ------------ | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| 6 resolutions | Measured against the game widget by widget, on vanilla and Proper 2K UI Enhanced.           | Etch's precision corpus (M2) and `docs/coverage.md`                                                   |
+| 7 resolutions | from 1280×720 to 3440×1440, compared with the game on vanilla, Anbennar and Proper 2K UI Enhanced. | Etch's precision corpus (the README; `docs/spec/v2.md`, section 10) and `docs/coverage.md`           |
 | 10–13 ms     | to redraw the province view after an edit, median.                                           | the newest `provinceview` rows of `etch`'s `docs/budgets.md`, vanilla and Anbennar, with their date and machine |
 | 0 game files | in the extension. Etch draws with your own copy of the game and sends nothing anywhere.     | the extension README and the docs page "What Etch reads and writes"                                  |
 
