@@ -34,3 +34,7 @@
 
 `npm run dev` starts the dev server on http://localhost:4321. Astro docs:
 https://docs.astro.build.
+
+The docs are built from `etch` (docs/spec.md, section 3.4.1): `dev`, `check` and `build` check
+out its latest release into the git-ignored `.etch-source/`, and fail when that release has no
+`docs/user/`. Set `ETCH_SOURCE` to a local `etch` checkout to build the docs from it instead.
