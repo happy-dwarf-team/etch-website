@@ -1,7 +1,7 @@
 # Etch website
 
-The website of Etch at `etch.happydwarf.dev`: a landing page with a demo loop, the preview's
-features, the live game, install and the roadmap. Terms about Etch itself are in
+The website of Etch at `etch.happydwarf.dev`: a home page that shows each feature in a short
+loop, and the user documentation with the changelog. Terms about Etch itself are in
 [`etch`'s GLOSSARY.md](https://github.com/happy-dwarf-team/etch/blob/main/GLOSSARY.md); terms
 shared by the team's sites are in
 [`happydwarf-website`'s GLOSSARY.md](https://github.com/happy-dwarf-team/happydwarf-website/blob/main/GLOSSARY.md).
@@ -17,30 +17,65 @@ _Avoid_: release (release-please's word), go-live
 `Etch`, the name after `|` in page titles and in `og:site_name`.
 _Avoid_: brand name
 
+**Home page**:
+The page at `/` that shows what Etch does: the hero, the install band, the areas, the feature
+sections and the proof band.
+_Avoid_: landing page, front page
+
+**What's new pill**:
+The link above the hero's heading that names what the latest minor release brought.
+_Avoid_: banner, announcement
+
 **Install band**:
 The one-line section with the install command, its Copy button and the first step.
 _Avoid_: install section, quick start
 
-**Feature tour**:
-The numbered feature rows, each a short text beside its feature's loop: six of the offline
-preview, then three of the live game and two of your scripts.
-_Avoid_: gallery, feature grid
+**Area**:
+One of the four kinds of work Etch helps with (interface windows, textures and meshes, the live
+game, scripts), each with its own feature section.
+_Avoid_: category, pillar
 
-**Roadmap**:
-The vertical timeline M0 → 1.0.0 from `etch`'s v1 specification, then 2.0.0 from its v2
-specification.
-_Avoid_: timeline (for the content), plan
+**Feature section**:
+The part of the home page for one area: its heading and its section player.
+_Avoid_: feature tour (the alternating rows before the 2026-11 redesign), feature grid
+
+**Section player**:
+A feature section's numbered list of features beside one stage that plays the selected
+feature's loop and moves on to the next.
+_Avoid_: tabs, carousel, slider
+
+**Proof band**:
+The three facts in large type, each linking to the docs page that gives its source.
+_Avoid_: stats, social proof
+
+**Docs**:
+The user documentation under `/docs/`: how to use every feature and setting, in plain language,
+built from the pages in `etch` at the latest release.
+_Avoid_: manual, wiki, README (which became a short overview)
+
+**Changelog page**:
+The docs page with the notes of every Etch release, built from `etch`'s `CHANGELOG.md`.
+_Avoid_: release notes page, what's new (for the page)
+
+**Plain-language review**:
+A reading of new or changed text for users by someone briefed as a modder who is not a
+programmer, listing every sentence they could not follow or act on.
+_Avoid_: proofreading, copy edit
 
 ## Media
 
 **Demo loop**:
-The hero's short silent video of Etch at work, a trailer of three feature loops, with a poster, a
-Pause/Play button and a text description.
-_Avoid_: hero video, GIF
+The hero's silent video of Etch at work in chapters, from opening a mod in VS Code to picking a
+widget in the live game, with a poster, a Pause/Play button and a text description.
+_Avoid_: hero video, trailer, GIF
+
+**Chapter**:
+One named part of the demo loop, with its own button under the loop that jumps to it.
+_Avoid_: segment, step
 
 **Feature loop**:
-One feature's short silent video in the tour, with its poster, Pause/Play button and text
-description, as the demo loop's.
+One feature's short silent video, played by its section player and on its docs page, with its
+poster, Pause/Play button and text description, as the demo loop's.
 _Avoid_: screenshot, GIF
 
 **Poster**:
@@ -64,9 +99,9 @@ learns media bucket keys from.
 _Avoid_: media index, media list
 
 **Clip**:
-One named loop (`hero`, `preview`, `views`, `data`, `zoom`, `outline`, `problems`, `reload`,
-`pick`, `snapshot`) that the media script makes; its id appears in the bucket key, the file name
-and the manifest. Until 2.0.0's media refresh the ids named scenes, most of them stills.
+One named loop (`hero`, `preview`, `mesh`, `pick`, …; the full list is in the specification)
+that the media script makes; its id appears in the bucket key, the file name and the manifest.
+Until 2.0.0's media refresh the ids named scenes, most of them stills.
 _Avoid_: scene, shot
 
 **Media refresh**:
@@ -76,7 +111,8 @@ _Avoid_: media update, re-record
 
 **Demo mod**:
 The workspace of Etch's media: our own files, drawn with the game's art; since 2.0.0 the
-clips edit its throwaway override of the base game's `provinceview.gui`.
+clips edit its throwaway override of the base game's `provinceview.gui`, and its scripts and
+models file serve the scripts' and hovers' clips.
 _Avoid_: sample mod, test mod, fixture
 
 **Takedown**:
