@@ -5,8 +5,10 @@
 // markup (`code`, `strong`, links) and are rendered with set:html.
 import { getEntry } from 'astro:content';
 import type { Media, Loop } from './media';
+import { releaseId } from './changelog';
 import type { ClipId } from './media-manifest';
 import { ETCH_REPO, getLatestVersion } from './release';
+import { url } from './url';
 
 export const REPO_URL = `https://github.com/${ETCH_REPO}`;
 export const ISSUES_URL = `${REPO_URL}/issues`;
@@ -18,14 +20,14 @@ export const DISCORD_URL = 'https://discord.happydwarf.dev/';
 const ANVIL_URL = 'https://anvil.happydwarf.dev/';
 export const INSTALL_COMMAND = 'code --install-extension happy-dwarf-team.etch';
 
-// The docs and the changelog are not on the site yet (spec sections 3.4 and 3.5): until the docs
-// item (R3, section 10.1) builds them under /docs/, these return their files in etch on GitHub,
-// and R3 switches them to url('/docs/<page>/') and url('/docs/changelog/').
-/** A docs page by its path under etch's docs/user/ without `.md`; the docs' index without one. */
-export function docsUrl(page = 'README'): string {
-	return `${REPO_URL}/blob/main/docs/user/${page}.md`;
+// The docs and the changelog under /docs/ (spec sections 3.4 and 3.5). The docs' first page, the
+// first of docs/user/README.md's index, is where the Docs links go; /docs/ itself leads there.
+const FIRST_DOCS_PAGE = 'getting-started/install';
+/** A docs page by its path under etch's docs/user/ without `.md`; the first page without one. */
+export function docsUrl(page = FIRST_DOCS_PAGE): string {
+	return url(`docs/${page}/`);
 }
-export const CHANGELOG_URL = `${REPO_URL}/blob/main/CHANGELOG.md`;
+export const CHANGELOG_URL = url('docs/changelog/');
 
 // The hero (section 3.1). The h1's middle part is set off in the accent.
 export const HERO = {
@@ -369,6 +371,22 @@ const SECTIONS: FeatureSection[] = [
 	},
 ];
 
+// The `zoom` loop is on the docs page "Zoom and resolution" only (section 3.2.1). Its text
+// describes the loop published now, Etch 2.13.0's set.
+const ZOOM_LOOP: LoopText = {
+	title: 'Zoom',
+	descriptionHtml:
+		"The pointer rests just above the province view's tabs. Ctrl+mouse wheel zooms the preview in two whole steps, 200 % and 300 %, around the pointer, game pixels sharp; a click on the zoom level fits it again.",
+	posterAlt: "The preview's zoom level, Fit · 100 %, beside the top of Etch's preview of the province view.",
+};
+
+/** What a docs page's loop is called and says (section 4.1), by the page's `clip`. */
+export function loopText(clip: ClipId): LoopText | undefined {
+	if (clip === 'hero') return DEMO_LOOP;
+	if (clip === 'zoom') return ZOOM_LOOP;
+	return SECTIONS.flatMap(({ features }) => features).find((feature) => feature.clip === clip);
+}
+
 type ShownFeature = Feature & { loop: Loop };
 export type ShownSection = Omit<FeatureSection, 'features'> & { features: ShownFeature[] };
 
@@ -433,7 +451,7 @@ interface WhatsNewPill {
 
 // The What's new pill (section 3.1), shown only while its version is the latest release's major
 // and minor, and hidden when the release could not be fetched. It links to its target section,
-// or to the release's notes while that section is left out of the page.
+// or to the release's entry on the changelog page while that section is left out of the page.
 export async function getWhatsNewPill(sections: ShownSection[]): Promise<WhatsNewPill | undefined> {
 	const { whatsNew } = await getStatus();
 	const latest = await getLatestVersion();
@@ -443,7 +461,7 @@ export async function getWhatsNewPill(sections: ShownSection[]): Promise<WhatsNe
 	return {
 		version: whatsNew.version,
 		line: whatsNew.line,
-		href: shown ? `#${whatsNew.target}` : `${REPO_URL}/releases/tag/v${whatsNew.version}.0`,
+		href: shown ? `#${whatsNew.target}` : `${CHANGELOG_URL}#${releaseId(latest)}`,
 		target: shown ? whatsNew.target : undefined,
 	};
 }

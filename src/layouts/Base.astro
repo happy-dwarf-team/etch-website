@@ -1,7 +1,9 @@
 ---
-// The document shell of every page: family and site styles, the head tags, the header and the
-// footer (docs/spec.md, sections 3 and 7). A page adds its own head tags in the "head" slot.
+// The document shell of the home page and 404: family and site styles, the head tags, the header
+// and the footer (docs/spec.md, sections 3 and 7). A page adds its own head tags in the "head"
+// slot. The docs have Starlight's shell with the same header and footer (src/components/docs/).
 import '../styles/forge-family.css';
+import '../styles/common.css';
 import '../styles/site.css';
 import Footer from '../components/Footer.astro';
 import Head from '../components/Head.astro';
