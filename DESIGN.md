@@ -23,7 +23,8 @@ and its `src/styles/forge-family.css`
 ### Site accent: verdigris
 
 The patina of acid-etched copper. Defined in this site's own stylesheet under the family's
-names; contrast computed with the WCAG formula:
+names; contrast computed with the WCAG formula (and on the live pages in Chrome, spec section
+10.2):
 
 | Token                   | Value     | Contrast                                          |
 | ----------------------- | --------- | ------------------------------------------------- |
