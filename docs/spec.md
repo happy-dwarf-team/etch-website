@@ -1034,21 +1034,50 @@ exist: a feature without its clip is left out (section 3.2).
   change in the same task as R2.
 - Every PR of R1–R3 that adds or changes text for users has the plain-language review of section
   3.4.3 in its Evidence.
+- All six are done: the live site has the redesigned home page, the docs and the changelog
+  from `etch`'s release tag, and Etch 2.14.0's set of loops (R6, etch-website#48 and #49).
+
+### 10.2 Checked on the live site
+
+On 2026-11-22, `https://etch.happydwarf.dev/` with Etch 2.14.0's set, in Chrome Headless Shell
+(the one Remotion uses in `etch`) driven by Playwright. Each run had a fresh browser with the
+cache off. Desktop was 1920 × 1080 at Lighthouse's desktop network (40 ms, 10 Mbps). Phone was
+375 × 812 at 2× with Lighthouse's mobile network (150 ms, 1.6 Mbps) and CPU 4× slower.
+
+- **LCP, desktop:** the demo loop's poster (WebP, 103 KB), at 616, 624 and 788 ms in three
+  runs, and 652 ms with reduced motion.
+- **LCP, phone:** the hero's lead paragraph, at 996, 1,244 and 1,448 ms, and 1,176 ms with reduced
+  motion. The poster is below the first screen there.
+- **Weight before any loop plays:** 367 KiB:
+  - HTML 13 KiB, CSS 7 KiB, JavaScript 4 KiB, fonts 85 KiB;
+  - images 259 KiB: the demo loop's poster and the four section players' first posters.
+
+  That is all a phone downloads until the visitor scrolls to a loop, and all any visitor gets
+  with reduced motion.
+- **Weight with the demo loop playing:** desktop starts it at once and downloads its whole
+  32.6 s WebM (2,960 KiB) within 10 s, 3,327 KiB in all. A phone starts it when the visitor
+  scrolls to it; at 1.6 Mbps it was at 29.6 s of the loop 30 s later. Each feature loop is 0.2–0.9 MB
+  (`src/data/media.json`).
+- **Phones, 375 × 812 and 360 × 800:**
+  - **First screen:** the install button is in it, at 570–618 px. The demo loop starts just under
+    it, at 818 and 817 px. There is no horizontal scroll.
+  - **Demo loop:** it plays once in view. Its third chapter's button seeks to 12.03 s, plays on and
+    becomes `aria-current`.
+  - **Section player:** the Textures and meshes player plays its first loop (`mesh`) once in view.
+    A click on Entities swaps the stage to `entity` and plays it.
+- **Text contrast,** computed from the browser's colours for every visible text over a plain
+  background, on `/` and `/docs/getting-started/install/`. The site is dark only; a light
+  colour scheme in the browser gave the same colours.
+  - **Home page:** the lowest is 6.45:1, the muted grey; nothing is under 4.5:1. 137 texts were
+    checked, and the 5 over an image or a gradient were left out.
+  - **Docs page:** also 6.45:1 at the lowest, over 136 texts.
+- **The new clips' storyboards:** Etch 2.14.0's capture took them all:
+  - `run` shows the province's development rise in the paused game;
+  - the Mesh and Texture Previews set the paint marker (`etch` `docs/media.md`).
 
 ## 11. Not verified
 
-- The poster as LCP, and the page's weight with the loops (each loads only when it plays).
-  (Encode sizes were measured on the first media refresh, Etch 0.2.0: the hero loop is 9.4 s,
-  311 KB WebM and 273 KB MP4.)
 - Headless or locked-screen capture, Windows display scaling other than 100 %.
-- All copy is a draft; verdigris contrast is computed, not measured in a browser.
+- Real phones and real networks: the measurements in section 10.2 are emulated.
+- Contrast over the loops' captions and the posters, and in a browser other than Chrome.
 - Our reading of the Paradox User Agreement has not been confirmed by Paradox or a lawyer.
-- The redesign: the layout and the section player were tried in a local prototype with the
-  2026-11-18 set's loops, at 1440, 980, 375 and 360 px; nothing of it is built yet. Starlight's
-  theming with this site's own header and footer was tried in a local build of R3 at 1920, 375
-  and 360 px, with the docs from a local `etch` checkout. A sparse checkout of `etch` at the
-  release tag was tried locally, not in the `deploy` workflow, and the size of the 35 s demo loop
-  is not tried. The new clips'
-  storyboards (section 8.5) are not tried in Etch: whether the game's province view shows a
-  development change from **Run Selection** while paused, and whether the Mesh and Texture
-  Previews already set a paint marker.
