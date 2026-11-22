@@ -211,8 +211,8 @@ no clip in the manifest is left out of the page and of the areas, so the redesig
 ship before every new clip exists and never shows an empty stage.
 
 Texts follow the extension README and the docs (section 3.4) and say nothing beyond them. Each
-loop opens and closes on the same shot, which is its poster; the poster's alt says what that shot
-shows. What each clip shows, shot by shot, is in section 8.5.
+loop opens and closes on the same shot, which is its poster (the demo loop's poster is another
+shot, section 4.1); the poster's alt says what that shot shows. What each clip shows, shot by shot, is in section 8.5.
 
 #### 3.2.1 Interface windows
 
@@ -225,7 +225,7 @@ what you type before you save. The game doesn't need to run." The list on the le
 | 01  | Preview as you type  | Change a number in a `.gui` and the window redraws before you save. The preview also follows your edits to the mod's `.gfx` and localisation files.                                                    | `preview`  | The code beside the preview's trade section. The trade node button's x position, 251, is retyped as 3, 30 and 300, unsaved, and the button with its outline jumps to each position at once. An undo returns it to 251.                                                                                                                                         |
 | 02  | Views of a window    | See the province view and other windows Etch knows as the game shows them in one situation: your own province or a foreign one, one side panel open. Switch in **View ▾**, or keep your own with **Save as view…**.      | `views`    | **View ▾** beside Etch's preview of the province view. The menu lists the window's views; **Foreign province** is chosen and the window is drawn as a foreign province's, with a red banner, the owner's shield and Diplomacy. Then **Own province** is chosen again.                                                                                    |
 | 03  | Sample data          | Names, development and the other texts the game fills in show sample data. Choose it in **Data ▾**: from a save, from the running game (a live snapshot), or made-up text of the length you choose.                             | `data`     | **Data ▾** beside the province view's header, with sample data from a save of Russia in 1719. The menu lists where the sample data comes from, a higher source winning over a lower one; **Province…** picks Bali from the save, and the header redraws with its names, area, region, culture, religion and development. Then Kaluga is picked again.                                                       |
-| 04  | Widget Outline       | The **Widget Outline** in the Explorer lists the window's widgets. Point at one in the preview for its path, kind and size; click it to jump to its line. In the outline, hide a widget or pick which tab or panel shows.   | `outline`  | The Widget Outline beside Etch's preview of the province view. The eye on the buildings panel hides it by hand: the panel disappears and the view's label counts one change by hand. A radio picks another of the window's alternatives. **Type Sample Text…** on the province's name puts a long name in the header. A click on a widget in the preview selects its line in `provinceview.gui`. |
+| 04  | Widget Outline       | The **Widget Outline** in the Explorer lists the window's widgets. Point at one in the preview for its path, kind and size; click it to jump to its line. In the outline, hide a widget or pick which tab or panel shows.   | `outline`  | The Widget Outline beside Etch's preview of the province view. **Hide by Hand**, the eye on the province window's row, hides that part of the window, and **View ▾** counts one change by hand. **Choose by Hand**, a circle, picks which side panel shows, and the institutions panel appears. A click on the province's name in the preview selects its row in the outline and its line in `provinceview.gui`. **Type Sample Text…**, the pencil on that row, puts a long name in the header. |
 | 05  | Problems as you type | Misspell a sprite's name and the Problems panel names it at once, while the rest of the window keeps drawing. Missing fonts and textures and duplicate names show up the same way.                  | `problems` | `provinceview.gui` above the Problems panel, the preview's buildings panel beside them. Two letters of a sprite name are swapped; Problems reports the missing sprite at once, and the panel's background is gone while the rest of the window still draws. An undo fixes it.                                                                         |
 
 (The `zoom` loop leaves the home page for the docs page "Zoom and resolution". Until the
@@ -242,8 +242,8 @@ from 980 px.
 | #   | Feature          | Text (draft)                                                                                                                                                                                                       | Loop      | Text description (draft)                                                                                                                                                                                                                                                            |
 | --- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 01  | Mesh preview     | Open a `.mesh` and turn it in your hand, with its normal and specular maps under the game's light. Give it a country's colours or flag, and play the `.anim` files beside it.                                     | `mesh`    | A ship's `.mesh` open in the Etch Mesh Preview, its shapes, vertices, triangles and bones in the bar above it. A drag turns the ship; **Wire** shows its triangles and goes off again. A country's tag typed in **Flag** puts that country's flag on the ship. Its idle animation is picked and **Play** rocks it. **Reset view** frames it again. |
-| 02  | Entities         | Click **Preview entity** above an `entity` in an `.asset` file and Etch builds the unit as the game does: attachments on their bones, playing its `idle`, `walk` and other states.                                | `entity`  | A unit's `entity` in an `.asset` file, **Preview entity** above it. The preview builds the unit from its model with its attachments on their bones. The state list goes from `idle` to `walk` and the attachments move with their bones. The bar's first line, hovered, lists the attachments and their bones. |
-| 03  | Map trees        | Etch draws a map tree as the game does, with your map's tint and season colours. Set **Date** and **Snow**, or type a province ID in **Place** to see the tree as it looks there.                                                      | `trees`   | A map tree's mesh in the Etch Mesh Preview. **Date** is moved through the year and the tree's season colour follows it; **Snow** goes from 0 to 1. A province ID typed in **Place** stands the tree there, and **Ground** and **North** follow the map. |
+| 02  | Entities         | Click **Preview entity** above an `entity` in an `.asset` file and Etch builds the unit as the game does: attachments on their bones, playing its `idle`, `walk` and other states.                                | `entity`  | A unit's `entity` in an `.asset` file, **Preview entity** above it. The preview builds the unit from its model, its halberd on the right hand's bone, playing `idle`. The bar's first line names the model and its attachment. The state list in the bar goes from **State: idle** to **State: walk**, and the halberd moves with the hand. |
+| 03  | Map trees        | Etch draws a map tree as the game does, with your map's tint and season colours. Set **Date** and **Snow**, or type a province ID in **Place** to see the tree as it looks there.                                                      | `trees`   | A map tree's mesh in the Etch Mesh Preview. **North** set to 1, which stands for the far north of the map, gives the trees their season colour, and **Date** moved from spring to autumn turns them from green to brown. **Snow** goes from 0 to 1. Province 1, Stockholm, typed in **Place** stands the trees there and sets **Ground** and **North** from the map. |
 | 04  | Textures         | `.dds` and `.tga` files open in a viewer with their format and mip levels. Look at the alpha alone or read the colour under the mouse; a new export shows up at once.                                              | `texture` | A `.dds` texture in the Etch Texture Preview, its size, format and mip levels in the bar. **A** shows the alpha alone in grey, then **RGBA** again; **Mip** steps down the chain; the pointer rests on the image and the line at the bottom gives that pixel's colour.                       |
 | 05  | Hovers and links | Hover a sprite's name in a `.gui` to see it, and press **F12** to reach its `.gfx`. Hover a mesh path for a picture of the model. In `.gfx` and `.asset` files, **Ctrl+click** a texture, mesh or animation path to open it.                        | `hovers`  | A sprite's name hovered in `provinceview.gui` shows the sprite, its frames and the `.gfx` file that defines it; **F12** opens that file at the sprite. A mesh path hovered in a `.gfx` file shows a picture of the model with its counts; a **Ctrl+click** on a texture path opens the texture. |
 
@@ -259,7 +259,7 @@ into the game's own windows." The list on the left from 980 px.
 | 01  | Reload on save | Click **Live game** in the preview to start it. Save a file and the game reloads that window in place, with its real data. Some, such as `.gfx` files, need a restart: click **Restart now**.                        | `reload`   | The trade node button's line in `provinceview.gui` beside the trade section of the live game's province view. One keystroke changes its x position from 251 to 151, and a save reloads the window in the game: the button moves left. An undo and a save move it back.                                                                     |
 | 02  | Pick mode      | Press **Ctrl+Shift+E** in the game and point at a widget: Etch outlines it with its name, kind, size and file. Click it, and VS Code opens its definition.                                          | `pick`     | **Ctrl+Shift+E** turns on pick mode in the game. The pointer hovers the owner's shield, the trade post button and the trade node button in the province view, and pick mode outlines each with its name, kind, size and file. A click on the trade node button opens its definition in VS Code, and the game does not take the click. |
 | 03  | Live snapshot  | A pick also takes from the game the window's texts and which of its parts are shown, and the preview uses them in place of sample data.                                                               | `snapshot` | The military and trade rows of Etch's preview beside the same rows of the live game. Most of the preview's values are generated (12.3); a pick in the game takes a live snapshot, and the preview redraws with the game's own manpower, supply limit, sailors, trade value and goods produced.                              |
-| 04  | Run selection  | Select an effect and right-click to run it in your country or the province you have open, or check whether a trigger is true. The game's errors show in the Problems panel; your saves stay untouched.  | `run`      | An effect selected in the event file of Etch's demo mod, the live game's province view beside it. **Etch: Run Selection in the Province on Screen** raises the province's development in the game. **Etch: Check Selection as Trigger in the Live Game** gives its answer beside the selected trigger. A misspelt effect is run, and the game's error appears in the Problems panel, on the selection. |
+| 04  | Run selection  | Select an effect and right-click to run it in your country or the province you have open, or check whether a trigger is true. The game's errors show in the Problems panel; your saves stay untouched.  | `run`      | An effect selected in the event file of Etch's demo mod, the live game's province view beside it. **Etch: Run Selection in the Province on Screen** raises the province's development in the game. **Etch: Check Selection as Trigger in the Live Game** checks a trigger in the province and shows the game's answer in a notification: the trigger is true. A misspelt effect is run, and the game's error appears in the Problems panel, on the selection. Undoing the misspelling clears the error. |
 
 Under the player, one line (draft): "The live game never writes to your game folder, your EU4
 profile (the folder, usually in Documents, where EU4 keeps settings, saves and mods) or your
@@ -445,18 +445,24 @@ the same rules:
   docs page it is shown under the loop. (Until the redesign it was a visible `figcaption` under
   every loop.) The feature loops' descriptions are in section 3.2; the demo loop's, a draft:
 
-  > **Demo loop, 35 s, silent.** VS Code with the demo mod's folder open. The province view's
-  > file is opened and Etch's preview appears beside it; the trade node button's x position is retyped
+  > **Demo loop, 33 s, silent.** VS Code with the demo mod's folder open. `provinceview.gui`
+  > opens, and Etch's preview appears beside it. The trade node button's x position is retyped,
   > and the button moves at every keystroke. A ship's mesh opens in Etch's Mesh Preview, which
-  > turns it and gives it a country's flag. Beside the live game, a save reloads the
-  > province view and the button moves. Pick mode outlines the trade node button with its name,
-  > kind, size and file, and a click on it opens its definition in VS Code.
+  > turns it, shows its triangles, gives it a country's flag and plays its idle animation.
+  > Beside the running game, saving the file reloads the province view in the game, and the
+  > button moves. In pick mode, where you point at the game's interface to find it in your
+  > files, the trade node button is outlined with its name, kind, size and file; a click on it
+  > opens its lines in `provinceview.gui`.
 
   (Until the redesign the demo loop was a 12 s trailer of three feature loops.)
 
-- **Poster `alt`** of the demo loop: "VS Code with the demo mod's folder in the Explorer and
-  provinceview.gui open in the editor." Every poster is its loop's first frame, so starting
-  playback does not jump.
+- **Poster** of the demo loop: the last shot of its first chapter, half a second before the
+  second, the preview open beside the code. It is the page's promise in one picture, and a visitor
+  with reduced motion or Save-Data sees it alone; the loop's first frame, VS Code before a file is
+  open, says little by itself. Starting playback cuts from the poster to that first frame, as the
+  loop cuts between its chapters. Its `alt`: "provinceview.gui in VS Code beside Etch's preview of
+  the province view, with the caption 'Open Preview: the window as the game draws it'." Every other
+  poster is its loop's first frame, so starting it does not jump.
 
 ### 4.2 The demo loop's chapters
 
@@ -889,7 +895,7 @@ From [#8](https://github.com/happy-dwarf-team/.github/issues/8) and
 - The redesign's demo loop of about 35 s would be about 10 MB WebM at that rate. Its review
   decides whether it keeps CRF 34 or takes a higher CRF of its own; it loads only once it is
   half in view and motion is allowed, after the poster.
-- **Posters** are the cuts' first frames, 1920 × 1080 PNG.
+- **Posters** are the cuts' first frames (the demo loop's: section 4.1), 1920 × 1080 PNG.
 
 ### 8.7 Paint marker
 
