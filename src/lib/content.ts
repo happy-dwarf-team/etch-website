@@ -52,15 +52,14 @@ export interface LoopText {
 	posterAlt: string;
 }
 
-// The hero's demo loop (section 4.1). These describe the loop published now, Etch 2.13.0's set:
-// a 12 s trailer of three feature loops, without chapters. The media refresh that publishes the
-// chaptered demo loop (R6, section 10.1) replaces the description and the alt with section 4.1's.
+// The hero's demo loop (section 4.1), as published in Etch 2.14.0's set: five chapters. Its
+// poster is the first chapter's last shot, not its first frame.
 export const DEMO_LOOP: LoopText = {
 	title: 'Demo loop',
 	descriptionHtml:
-		"Three moments from the loops below. In VS Code, the trade node button's x position in an unsaved <code>provinceview.gui</code> is retyped digit by digit, and Etch's preview moves the button at every keystroke. Beside the live game, a save reloads the province view in the game and the button moves. In the game, pick mode outlines the trade node button with its name, kind, size and file, and a click on it opens its definition in VS Code.",
+		"VS Code with the demo mod's folder open. <code>provinceview.gui</code> opens, and Etch's preview appears beside it. The trade node button's x position is retyped, and the button moves at every keystroke. A ship's mesh opens in Etch's Mesh Preview, which turns it, shows its triangles, gives it a country's flag and plays its idle animation. Beside the running game, saving the file reloads the province view in the game, and the button moves. In pick mode, where you point at the game's interface to find it in your files, the trade node button is outlined with its name, kind, size and file; a click on it opens its lines in <code>provinceview.gui</code>.",
 	posterAlt:
-		"provinceview.gui with the trade node button's position selected, beside the trade section of Etch's preview of the province view.",
+		"provinceview.gui in VS Code beside Etch's preview of the province view, with the caption 'Open Preview: the window as the game draws it'.",
 };
 
 // The demo loop's chapter labels (section 4.2); the ids and start times come from the manifest.
@@ -133,13 +132,8 @@ interface FeatureSection {
 // The four feature sections (section 3.2), each feature's short text from its "Text (draft)"
 // column. Every poster is its loop's first frame, the shot it also ends on (section 4.1).
 //
-// Text descriptions and posters' alts describe the loops as published now, Etch 2.13.0's set,
-// written frame by frame. `outline` is still the loop from before the redesign (hovers and a
-// click to the definition, no hiding by hand): the media refresh that publishes its re-shot loop
-// (R6, section 10.1) replaces its description with section 3.2.1's and its alt. The clips not in
-// that set yet (`mesh`, `entity`, `trees`, `texture`, `hovers`, `run`, `encoding`) carry the
-// spec's draft descriptions and draft alts of their storyboards' first shots (section 8.5); they
-// render only once a set has the clip, and that refresh checks them against its loops.
+// Text descriptions and posters' alts describe the loops as published now, Etch 2.14.0's set,
+// checked frame by frame against its loops. A media refresh checks them again.
 const SECTIONS: FeatureSection[] = [
 	{
 		id: 'interface-windows',
@@ -189,10 +183,10 @@ const SECTIONS: FeatureSection[] = [
 				title: 'Widget Outline',
 				textHtml:
 					"The <strong>Widget Outline</strong> in the Explorer lists the window's widgets. Point at one in the preview for its path, kind and size; click it to jump to its line. In the outline, hide a widget or pick which tab or panel shows.",
-				// The loop of Etch 2.13.0's set, from before the redesign (see above).
 				descriptionHtml:
-					"The pointer hovers a text, a button and an icon in Etch's preview, each outlined with a tooltip giving its path, kind, position and size. A click on the icon selects its definition in <code>provinceview.gui</code> and its row in the Widget Outline, both highlighted; <strong>Alt+Left Arrow</strong> returns the cursor where it was.",
-				posterAlt: "Etch's preview of the province view close up, its demographics.",
+					"The Widget Outline beside Etch's preview of the province view. <strong>Hide by Hand</strong>, the eye on the province window's row, hides that part of the window, and <strong>View ▾</strong> counts one change by hand. <strong>Choose by Hand</strong>, a circle, picks which side panel shows, and the institutions panel appears. A click on the province's name in the preview selects its row in the outline and its line in <code>provinceview.gui</code>. <strong>Type Sample Text…</strong>, the pencil on that row, puts a long name in the header.",
+				posterAlt:
+					"The Widget Outline in the Explorer beside the upper half of Etch's preview of the province view.",
 			},
 			{
 				clip: 'problems',
@@ -234,7 +228,7 @@ const SECTIONS: FeatureSection[] = [
 				textHtml:
 					'Click <strong>Preview entity</strong> above an <code>entity</code> in an <code>.asset</code> file and Etch builds the unit as the game does: attachments on their bones, playing its <code>idle</code>, <code>walk</code> and other states.',
 				descriptionHtml:
-					"A unit's <code>entity</code> in an <code>.asset</code> file, <strong>Preview entity</strong> above it. The preview builds the unit from its model with its attachments on their bones. The state list goes from <code>idle</code> to <code>walk</code> and the attachments move with their bones. The bar's first line, hovered, lists the attachments and their bones.",
+					"A unit's <code>entity</code> in an <code>.asset</code> file, <strong>Preview entity</strong> above it. The preview builds the unit from its model, its halberd on the right hand's bone, playing <code>idle</code>. The bar's first line names the model and its attachment. The state list in the bar goes from <strong>State: idle</strong> to <strong>State: walk</strong>, and the halberd moves with the hand.",
 				posterAlt: "A unit's entity in an .asset file, with Preview entity above it.",
 			},
 			{
@@ -243,8 +237,9 @@ const SECTIONS: FeatureSection[] = [
 				textHtml:
 					"Etch draws a map tree as the game does, with your map's tint and season colours. Set <strong>Date</strong> and <strong>Snow</strong>, or type a province ID in <strong>Place</strong> to see the tree as it looks there.",
 				descriptionHtml:
-					"A map tree's mesh in the Etch Mesh Preview. <strong>Date</strong> is moved through the year and the tree's season colour follows it; <strong>Snow</strong> goes from 0 to 1. A province ID typed in <strong>Place</strong> stands the tree there, and <strong>Ground</strong> and <strong>North</strong> follow the map.",
-				posterAlt: "A map tree in Etch's Mesh Preview, the bar's tree controls above it.",
+					"A map tree's mesh in the Etch Mesh Preview. <strong>North</strong> set to 1, which stands for the far north of the map, gives the trees their season colour, and <strong>Date</strong> moved from spring to autumn turns them from green to brown. <strong>Snow</strong> goes from 0 to 1. Province 1, Stockholm, typed in <strong>Place</strong> stands the trees there and sets <strong>Ground</strong> and <strong>North</strong> from the map.",
+				posterAlt:
+					"Map trees in Etch's Mesh Preview, the bar above them with the mesh's shapes, vertices and textures.",
 			},
 			{
 				clip: 'texture',
@@ -315,7 +310,7 @@ const SECTIONS: FeatureSection[] = [
 				textHtml:
 					"Select an effect and right-click to run it in your country or the province you have open, or check whether a trigger is true. The game's errors show in the Problems panel; your saves stay untouched.",
 				descriptionHtml:
-					"An effect selected in the event file of Etch's demo mod, the live game's province view beside it. <strong>Etch: Run Selection in the Province on Screen</strong> raises the province's development in the game. <strong>Etch: Check Selection as Trigger in the Live Game</strong> gives its answer beside the selected trigger. A misspelt effect is run, and the game's error appears in the Problems panel, on the selection.",
+					"An effect selected in the event file of Etch's demo mod, the live game's province view beside it. <strong>Etch: Run Selection in the Province on Screen</strong> raises the province's development in the game. <strong>Etch: Check Selection as Trigger in the Live Game</strong> checks a trigger in the province and shows the game's answer in a notification: the trigger is true. A misspelt effect is run, and the game's error appears in the Problems panel, on the selection. Undoing the misspelling clears the error.",
 				posterAlt:
 					"The demo mod's event file beside the live game's province view with the province's development.",
 			},
@@ -372,7 +367,7 @@ const SECTIONS: FeatureSection[] = [
 ];
 
 // The `zoom` loop is on the docs page "Zoom and resolution" only (section 3.2.1). Its text
-// describes the loop published now, Etch 2.13.0's set.
+// describes the loop published now, Etch 2.14.0's set.
 const ZOOM_LOOP: LoopText = {
 	title: 'Zoom',
 	descriptionHtml:
