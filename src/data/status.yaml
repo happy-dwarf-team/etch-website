@@ -9,6 +9,6 @@ extension:
   # (interface-windows, textures-and-meshes, live-game or scripts); while that section is left
   # out for want of loops, the pill links to the release's notes instead.
   whatsNew:
-    version: '2.13'
-    line: Meshes, entities and textures in the editor
-    target: textures-and-meshes
+    version: '2.14'
+    line: Autocomplete, sprite thumbnails and sprite renaming across your mod
+    target: interface-windows
