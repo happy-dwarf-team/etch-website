@@ -226,7 +226,7 @@ const SECTIONS: FeatureSection[] = [
 				clip: 'entity',
 				title: 'Entities',
 				textHtml:
-					'Click <strong>Preview entity</strong> above an <code>entity</code> in an <code>.asset</code> file and Etch builds the unit as the game does: attachments on their bones, playing its <code>idle</code>, <code>walk</code> and other states.',
+					"Click <strong>Preview entity</strong> above an <code>entity</code> in an <code>.asset</code> file and Etch builds the unit as the game does: attachments on their bones, playing its <code>idle</code>, <code>walk</code> and other states, with its particle effects, such as a cannon's smoke.",
 				descriptionHtml:
 					"A unit's <code>entity</code> in an <code>.asset</code> file, <strong>Preview entity</strong> above it. The preview builds the unit from its model, its halberd on the right hand's bone, playing <code>idle</code>. The bar's first line names the model and its attachment. The state list in the bar goes from <strong>State: idle</strong> to <strong>State: walk</strong>, and the halberd moves with the hand.",
 				posterAlt: "A unit's entity in an .asset file, with Preview entity above it.",
