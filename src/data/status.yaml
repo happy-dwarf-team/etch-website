@@ -10,5 +10,5 @@ extension:
   # out for want of loops, the pill links to the release's notes instead.
   whatsNew:
     version: '2.15'
-    line: Particle effects in the entity preview, and the DLCs' sprites in hovers and previews
+    line: Particle effects such as smoke in the entity preview, and the DLCs' pictures in hovers and previews
     target: textures-and-meshes
